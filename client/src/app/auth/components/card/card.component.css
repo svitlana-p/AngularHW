@@ -1,0 +1,46 @@
+.card {
+    position: relative;
+    top: 10vh;
+    margin: 0 auto;
+    width: 450px;
+    box-shadow: 5px 2px 8px 6px rgba(0, 0, 0, 0.241);
+}
+.card-title {
+    display: inline-block;
+    margin: 10px 20px;
+    font-size: 24px;
+    color: rgb(117, 116, 116);
+}
+.input-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px;
+    
+}
+.error {
+    margin: 2px;
+    color: red;
+    font-size: 12px;
+}
+.form-input {
+    padding: 10px 40px;
+    border-radius: 3px;
+}
+.btn {
+    margin: 20px;
+    padding: 10px 25px;
+    color: white;
+    background-color: rgba(0, 128, 0, 0.688);
+    border: none;
+    border-radius: 3px;
+}
+.btn:hover {
+    cursor: pointer;
+    color: rgb(181, 181, 181);
+    background-color: rgb(24, 135, 24);
+}
+.btn:disabled {
+    color: black;
+    background-color: gray;
+}

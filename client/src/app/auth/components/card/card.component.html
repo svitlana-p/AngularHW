@@ -1,0 +1,42 @@
+<form 
+    class="card"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+>
+    <div class="card-content">
+        <span class="card-title">{{header}}</span>
+        <div class="input-field">
+            <input 
+            formControlName="username"
+            class="form-input" 
+            id="username" 
+            type="text" 
+            placeholder="Username">
+        </div>
+        <div *ngIf="email" class="input-field" >
+            <input 
+            formControlName="email"
+            class="form-input" 
+            id="email" 
+            type="email" 
+            placeholder="Email">           
+        </div>
+        <div class="input-field">
+            <input 
+            formControlName="password"
+            class="form-input" 
+            id="password" 
+            type="password" 
+            placeholder="Password">
+        </div>
+    </div>
+    <div class="card-action">
+        <button 
+            type="submit"
+            class="btn"
+            [disabled]="form.invalid || form.disabled"
+            >
+            {{buttonName}}
+        </button>
+    </div>
+</form>

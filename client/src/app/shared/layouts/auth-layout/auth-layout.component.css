@@ -1,0 +1,33 @@
+.nav-wrapper {
+    background-color: gray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    color: rgba(255, 255, 255, 0.805);
+    text-shadow: 3px 1px 5px black;
+}
+.title-logo {
+    position: relative;
+    left: 30px;
+    font-size: 32px;     
+}
+.nav-container {
+    display: flex;
+    justify-content: space-around;
+}
+.nav-list {
+    display: inline-block;
+    margin: 0 20px;
+    padding: 3px 5px;
+    list-style: none;
+}
+.text {
+    text-decoration: none;
+    color: black; 
+}
+.text:hover {
+    color: rgb(137, 5, 5);
+    cursor: pointer;
+}
+
