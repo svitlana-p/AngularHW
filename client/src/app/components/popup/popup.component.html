@@ -1,0 +1,12 @@
+<span 
+  (click)="popupService.close()"
+  class="popup popup-area"></span>
+    <div class="popup-body">
+        <div class="popup-content">
+            <span 
+            (click)="popupService.close()"
+            class="popup-close">x</span>
+            <div class="popup-title">{{title}}</div>
+            <ng-content></ng-content>
+        </div>
+    </div>

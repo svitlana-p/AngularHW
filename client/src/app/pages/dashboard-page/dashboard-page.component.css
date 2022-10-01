@@ -1,0 +1,116 @@
+.page-header {
+    height: 50px;
+    margin-bottom: 20px;
+    background-color: rgb(206, 205, 205);
+}
+.toolbar-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 30px;
+}
+.logo-name {
+    font-size: 32px;
+}
+.logo-name:hover {
+    color: rgb(137, 5, 5);
+}
+.tool-btn {
+    margin: 0 10px;
+    padding: 8px 25px;
+    border: none;
+    border-radius: 3px;
+    font-weight: 600;
+    background-color: rgba(128, 128, 128, 0.253);
+    
+}
+.tool-btn:hover {
+    color: rgb(137, 5, 5);
+    box-shadow: 1px 2px 2px  gray;
+}
+.page-container {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+.page-container:first-child {
+    align-items: center;
+}
+
+.item-title {
+    font-size: 30px;
+    margin:5px;
+    color: #000;
+    text-decoration: none;
+}
+.popup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 200px;
+    background-color: gray;
+    border-radius: 10px;
+    margin: 70px 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+.boards-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.board-item {
+    width: 300px;
+    height: 200px;  
+    margin: 20px;
+    list-style: none;
+    background-color: rgb(206, 205, 205);
+    position: relative;
+}
+.text {
+    display: block;
+    padding: 20px;
+}
+.board-name {
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 24px;
+    color: rgb(137, 5, 5);
+}
+.board-item:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+}
+.popup {    
+    width: 100%;
+    height: 100%;    
+    top: 0;
+    left: 0;
+}
+.popup-all {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.cont {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 12px; 
+    color: rgba(255, 255, 255, 0.549);
+}
+.cont:hover{
+    color: #000;
+    transform: scale(1.03);
+}
+.delete {    
+    bottom: 10px;        
+    background-color: rgba(137, 5, 5, 0.607);
+}
+.edit {    
+    top: 10px;   
+    background-color: rgba(5, 137, 75, 0.607);
+}

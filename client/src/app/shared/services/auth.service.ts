@@ -16,15 +16,14 @@ export class AuthService {
     return this.http.post<User>('http://localhost:8080/api/auth/register', user)
     
   }
-
-
+  
   login(user: User): Observable<{token:string}> {
     return this.http.post('http://localhost:8080/api/auth/login', user)
     .pipe(
       // @ts-ignore
       tap(
         ({token}) => {
-          console.log(token)
+          //console.log(token)
            localStorage.setItem('auth-token',token)
           this.setToken(token)
         }

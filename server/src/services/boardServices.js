@@ -1,6 +1,7 @@
+
 const { Board } = require('../models/Boards');
 
-const createBoard = (req, res, next) => {
+const createBoard = async (req, res, next) => {
     const { name, description } = req.body;
     const userId = req.user.userId;
     if (!name) next({ message: "Please, enter board name", status: 404 });
@@ -11,40 +12,42 @@ const createBoard = (req, res, next) => {
       description,
       userId
     });
-    board.save().then(() => {
-      res.json({
-        message: "Success",
+    await board.save().then(() => {
+      res.json(
         board
-      });
+      );
     });
   };
 
-  const getBoards = (req, res) => {
-    return Board.find({ userId: req.user.userId }, "-__v").then((boards) => {
-      res.json({
+  const getBoards = async (req, res) => {
+    return await Board.find({ userId: req.user.userId }, "-__v").then((boards) => {
+      res.json(
         boards,
-      });
+      );
     });
   };
 
   const editBoard = async (req, res) => {
     const { name } = req.body;
     const board = await Board.findByIdAndUpdate(
-      { _id: req.params.id, userId: req.user.userId },
+      { _id: req.params.id },
       { $set: { name } }
     );
   
-    return board.save().then(() => res.json({ 
-        message: "Success",
-        board 
-    }));
+    await board.save();
+    return await Board.findById({ _id: req.params.id }).then((board)=>res.json(board));
+
   };
 
   const deleteBoard = async (req, res) => {
-    return await Board.findByIdAndDelete({
-      _id: req.params.id,
-      userId: req.user.userId,
-    }).then(() => res.json({ message: "Success" }));
+     await Board.findByIdAndDelete({
+      _id: req.params.id
+    })
+    return await Board.find({ userId: req.user.userId }, "-__v").then((boards) => {
+        res.json(
+        boards,
+      );
+    });
   };
   
   module.exports = {

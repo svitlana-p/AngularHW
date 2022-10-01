@@ -1,0 +1,31 @@
+.popup-area {
+    position: absolute;
+}
+.popup-body {
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 10px;    
+}
+.popup-content {
+    background-color: white;
+    border-radius: 8px;
+    max-width: 800px;
+    padding: 30px;
+    position: relative;
+}
+.popup-close {   
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 25px;
+    cursor: pointer;
+ }
+.popup-title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 40px;
+    color: rgb(137, 5, 5);
+    margin-bottom: 25px;
+}

@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { from, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -42,14 +42,14 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.form.disable()
+    // this.form.disable()
     if(this.buttonName === 'Log In') {
     this.aSub = this.auth.login(this.form.value).subscribe(
-        () => this.router.navigate(['/overview']),
-        error=>{
-          console.warn(error)
-          this.form.enable()
-        }
+        () => this.router.navigate(['/dashboard']),
+        // error=>{
+        //   console.warn(error)
+          // this.form.enable()
+        // }
       )
     }
     if(this.buttonName === 'Sign Up') {
@@ -61,10 +61,10 @@ export class CardComponent implements OnInit, OnDestroy {
             }
           })
         },
-        error=>{
-          console.warn(error)
-          this.form.enable()
-        }
+        // error=>{
+        //   console.warn(error)
+        //   this.form.enable()
+        // }
       )
     }
   }

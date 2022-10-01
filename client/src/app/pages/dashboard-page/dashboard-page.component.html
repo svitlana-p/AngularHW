@@ -1,0 +1,61 @@
+<header class="page-header">
+</header>
+<div class="toolbar-container">
+    <div class="logo-name">
+        Dashboard
+    </div>
+    <div class="toolbar">
+        <input 
+        class="tool-btn" 
+        placeholder="Filter"
+        type="text"
+        [(ngModel)]="term">
+        <button class="tool-btn">Sort by Dropdown</button>
+        <button class="tool-btn">ASC</button>
+        <button class="tool-btn">DESC</button>
+    </div>
+</div>
+<div class="page-container">  
+  <div 
+    (click)="popupService.open()"
+    (click)="choosePopupAdd()"
+    class="popup-container">
+    <p class="item-title"> + </p>
+    <p>Add new</p>
+  </div>
+  <ul class="boards-container">
+    <li *ngFor="let board of dashboardServise.boardList | filterBoard: term" 
+    
+    class="board-item"
+    >
+      <span 
+      class="delete cont"
+      (click)="delete(board)">Delete</span>
+      <span class="text board-name"
+      routerLink="/board"
+      >{{board.name}}</span>
+      <span class="text board-desc">{{board.description}}</span>
+      <span class="text board-date">Creation date: {{board.createdAt.slice(0,10)}}</span>
+      <span
+      (click)="popupService.open()" 
+      (click)="choosePopupEdit(board)"
+      class="edit cont"      
+      >Edit</span>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="popupService.isVisible$ | async" class="popup popup-all">
+  <app-popup *ngIf="popupButton" 
+  title="Edit board"
+ >
+    <app-edit-board
+    [board]="editboard"
+    ></app-edit-board>
+  </app-popup>
+  <app-popup *ngIf="!popupButton" 
+  title="Add board"
+ >
+    <app-add-board></app-add-board>
+  </app-popup>
+</div>

@@ -1,0 +1,13 @@
+<form class="popup-form" [formGroup]="form" (ngSubmit)="edit(board)">
+    <input 
+    class="popup-form-input" 
+    type="text" 
+    placeholder="Board Name"
+    formControlName="name"
+    appFocus>
+    <p class="error-message"
+    *ngIf="name.touched && name.errors?.required">Please, enter board name</p>
+    
+    <button class="popup-btn" type="submit"
+    >Save</button>
+</form>
