@@ -9,5 +9,6 @@
     *ngIf="name.touched && name.errors?.required">Please, enter board name</p>
     
     <button class="popup-btn" type="submit"
+    [disabled]="form.invalid"
     >Save</button>
 </form>

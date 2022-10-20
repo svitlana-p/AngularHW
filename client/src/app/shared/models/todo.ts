@@ -1,8 +1,11 @@
-export interface IBoard {
+export interface ITodo {
     name: string,
-    description: string,
     userId: string,
+    boardId: string,
     _id: string,
+    created: boolean,
+    inProgress: boolean,
+    completed: boolean,
     createdAt: string,
     updatedAt: string,
     __v: number

@@ -3,7 +3,6 @@ const router = express.Router();
 const { 
     createTodo,
     getTodos,
-    getTodo,
     updateTodo,
     checkTodo,
     deleteTodo 
@@ -12,8 +11,6 @@ const {
 router.post("/:id", createTodo);
 
 router.get("/:id", getTodos);
-
-router.get("/:id/todo/:id", getTodo);
 
 router.patch("/:id/todo/:id", updateTodo);
 

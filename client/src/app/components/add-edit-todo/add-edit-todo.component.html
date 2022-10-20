@@ -1,0 +1,27 @@
+
+<div *ngIf="isAdd" >
+   <form  class="popup-form" [formGroup]="form" (ngSubmit)= "submit()" >
+    <input 
+    class="popup-form-input" 
+    type="text" 
+    placeholder="Todo Name"
+    formControlName="name"
+    appFocus>
+    <p class="error-message"
+    *ngIf="name.touched && name.errors?.required">Please, enter todo name</p>
+    <button class="popup-btn" type="submit" [disabled]="form.invalid">Save</button>
+</form> 
+</div>
+<div *ngIf="!isAdd" >
+    <form class="popup-form" [formGroup]="form" (ngSubmit)= "edit(todo)" >
+        <input 
+        class="popup-form-input" 
+        type="text" 
+        placeholder="Todo Name"
+        formControlName="name"
+        appFocus>
+        <p class="error-message"
+        *ngIf="name.touched && name.errors?.required">Please, enter todo name</p>
+        <button class="popup-btn" type="submit" [disabled]="form.invalid">Save</button>
+    </form>
+</div>

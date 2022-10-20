@@ -30,7 +30,6 @@ export class AddBoardComponent implements OnInit {
   ngOnInit(): void {
   }
   submit(){
-    console.log(this.form.value)
     this.dashboardService.create({
       name: this.form.value.name as string,
       description: this.form.value.description as string,

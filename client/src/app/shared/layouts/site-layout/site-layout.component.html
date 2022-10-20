@@ -1,20 +1,9 @@
-<!-- <header class="page-header">
-</header>
-<div class="toolbar-container">
-    <div class="logo-name">
-        Dashboard
-    </div>
-    <div class="toolbar">
-        <input 
-        class="tool-btn" 
-        placeholder="Filter"
-        type="text">
-        [(ngModel)]="term">
-        <button class="tool-btn">Sort by Dropdown</button>
-        <button class="tool-btn">ASC</button>
-        <button class="tool-btn">DESC</button>
-    </div>
-</div> -->
+
 <main>
     <router-outlet></router-outlet>
 </main>
+<button 
+class="logout"
+(click)="logout()">
+    Log Out
+</button>

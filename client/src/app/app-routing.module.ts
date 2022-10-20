@@ -7,6 +7,7 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { AuthGuard } from './shared/classes/authguard';
 import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
 import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
+import { BoardResolver } from './shared/services/board.resolver';
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
   {
     path:'', component: SiteLayoutComponent,canActivate: [AuthGuard], children: [
       {path: 'dashboard', component: DashboardPageComponent},
-      {path: 'board', component: BoardPageComponent}
+      {path: 'board/:id', component: BoardPageComponent, resolve: {data: BoardResolver}},
+      {path: '**', redirectTo: '', component: AuthLayoutComponent,  pathMatch: 'full'}
     ]
   }
 ];

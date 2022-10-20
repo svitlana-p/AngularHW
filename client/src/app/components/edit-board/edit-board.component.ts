@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Board } from 'src/app/shared/models/board';
+import { IBoard } from 'src/app/shared/models/board';
 import { DashboardService } from 'src/app/shared/services/dashboard.service';
 import { PopupService } from 'src/app/shared/services/popup.service';
 
@@ -10,7 +10,7 @@ import { PopupService } from 'src/app/shared/services/popup.service';
   styleUrls: ['./edit-board.component.css']
 })
 export class EditBoardComponent implements OnInit {
-  @Input() board!:Board;
+  @Input() board!:IBoard;
   form = new FormGroup({
     name: new FormControl<string>('', [
       Validators.required
@@ -27,7 +27,7 @@ export class EditBoardComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  edit(board:Board){
+  edit(board:IBoard){
     this.dashboardService.edit({
       name: this.form.value.name as string,      
       description: board.description,

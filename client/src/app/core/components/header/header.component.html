@@ -1,0 +1,34 @@
+<header class="page-header">
+    <div class="logo-name"
+        routerLink="/dashboard"
+    >
+        Dashboard
+    </div>
+</header>
+<div class="toolbar-container">
+    <div class="logo-name">
+        {{title | uppercase}} 
+    </div>
+    <div class="toolbar">
+        <input 
+        class="tool-btn" 
+        placeholder="Filter"
+        type="text"
+        [(ngModel)]="filterTerm"
+        (keyup)="onFilter()">
+          <select class="tool-btn" type="text" [(ngModel)]="sortValue">
+            <option value="">Sort by Dropdown</option>
+            <option value="name">Name</option>
+            <option value="createdAt">Date</option>
+        </select>
+        <button class="tool-btn" 
+        (click)="onSortDirection('asc')"
+        (click)="onSort()"
+        >ASC</button>
+        <button class="tool-btn" 
+        (click)="onSortDirection('desc')"
+        (click)="onSort()"
+        >DESC</button>  
+              
+    </div>
+</div>

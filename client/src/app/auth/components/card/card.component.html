@@ -12,14 +12,18 @@
             id="username" 
             type="text" 
             placeholder="Username">
+            <p class="error-message"
+    *ngIf="username.invalid && username.touched">Please, enter user name</p>
         </div>
-        <div *ngIf="email" class="input-field" >
+        <div *ngIf="emailRequired" class="input-field" >
             <input 
             formControlName="email"
             class="form-input" 
             id="email" 
             type="email" 
-            placeholder="Email">           
+            placeholder="Email"> 
+            <p class="error-message"
+    *ngIf="email.errors?.email">Please, enter user email</p>          
         </div>
         <div class="input-field">
             <input 
@@ -27,14 +31,17 @@
             class="form-input" 
             id="password" 
             type="password" 
-            placeholder="Password">
+            placeholder="Password"
+            required minlength="6" >
+            <p class="error-message"
+            *ngIf="password.errors?.['minlength']">Please, enter user password. Min length is 6. Now is {{password.value.length}}</p>
         </div>
     </div>
     <div class="card-action">
         <button 
             type="submit"
             class="btn"
-            [disabled]="form.invalid || form.disabled"
+            [disabled]="form.invalid"
             >
             {{buttonName}}
         </button>

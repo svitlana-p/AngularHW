@@ -1,32 +1,4 @@
-.page-header {
-    height: 50px;
-    margin-bottom: 20px;
-    background-color: rgb(206, 205, 205);
-}
-.toolbar-container {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 30px;
-}
-.logo-name {
-    font-size: 32px;
-}
-.logo-name:hover {
-    color: rgb(137, 5, 5);
-}
-.tool-btn {
-    margin: 0 10px;
-    padding: 8px 25px;
-    border: none;
-    border-radius: 3px;
-    font-weight: 600;
-    background-color: rgba(128, 128, 128, 0.253);
-    
-}
-.tool-btn:hover {
-    color: rgb(137, 5, 5);
-    box-shadow: 1px 2px 2px  gray;
-}
+
 .page-container {
     display: grid;
     grid-template-columns: 1fr 4fr;
@@ -40,6 +12,7 @@
     margin:5px;
     color: #000;
     text-decoration: none;
+    
 }
 .popup-container {
     display: flex;
@@ -65,19 +38,37 @@
     list-style: none;
     background-color: rgb(206, 205, 205);
     position: relative;
+    
 }
 .text {
-    display: block;
-    padding: 20px;
+    display: block;        
 }
 .board-name {
+    padding-top: 20px;
     text-align: center;
     text-transform: capitalize;
     font-size: 24px;
     color: rgb(137, 5, 5);
+    cursor: pointer;
+    position: relative;
+}
+.board-name:hover .details {
+    display: block;
+}
+.details {
+    display: none;
+    position: absolute;
+    left: 50%;  
+    font-size: 10px;
+}
+.board-desc {
+    padding: 20px;
+}
+.board-date {
+    font-size: 16px;
+    padding: 0 20px 20px 20px;
 }
 .board-item:hover {
-    cursor: pointer;
     transform: scale(1.03);
 }
 .popup {    
@@ -101,6 +92,7 @@
     border-radius: 50%;
     font-size: 12px; 
     color: rgba(255, 255, 255, 0.549);
+    cursor: pointer;
 }
 .cont:hover{
     color: #000;

@@ -16,6 +16,11 @@ import { FocusDirective } from './shared/directives/focus.directive';
 import { FilterBoardPipe } from './shared/pipes/filter-board.pipe';
 import { AddBoardComponent } from './components/add-board/add-board.component';
 import { EditBoardComponent } from './components/edit-board/edit-board.component';
+import { GlobalErrorComponent } from './components/global-error/global-error.component';
+import { AddEditTodoComponent } from './components/add-edit-todo/add-todo.component';
+import { HeaderComponent } from './core/components/header/header.component';
+import { SortPipe } from './shared/pipes/sort.pipe';
+
 
 
 @NgModule({
@@ -30,6 +35,10 @@ import { EditBoardComponent } from './components/edit-board/edit-board.component
     FilterBoardPipe,
     AddBoardComponent,
     EditBoardComponent,
+    GlobalErrorComponent,
+    AddEditTodoComponent,
+    HeaderComponent,
+    SortPipe
   ],
   imports: [
     BrowserModule,

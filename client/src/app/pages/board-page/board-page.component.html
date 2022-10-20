@@ -1,1 +1,77 @@
-<p>board-page works!</p>
+<app-header
+[title]="dashboardService.bordName"
+(filterBoards)="onFilter($event)"
+></app-header>
+<div class="container">
+    <div class="todos-container">
+        <h2 class="todo-header">Todo</h2>
+        <div class="todo-body">
+            <div class="todo todo-add-button">
+                <span
+                (click)="popupService.open()"
+                (click)="choosePopupAdd()"
+                >+</span>
+            </div>
+            <ul class="todo-items">
+                <li class="todo todo-item" *ngFor="let todo of todoService.todoList | filterBoard:term">
+                    <span class="todo-text">{{todo.name}}</span>
+                    <span 
+                    class="todo-button edit-button"
+                    (click)="popupService.open()" 
+                    (click)="choosePopupEdit(todo)"
+                    >edit</span>
+                    <span 
+                    class="todo-button del-button"
+                    (click)="delete(todo)"
+                    >x</span>                    
+                </li>
+            </ul>
+        </div>    
+    </div>
+    <div class="todos-container">
+        <h2 class="todo-header">In progress</h2>
+        <div class="todo-body">
+            <div class="todo todo-add-button">
+                <span>+</span>
+            </div>
+            <!-- <ul class="todo-items">
+                <li class="todo todo-item" >
+                    <span class="todo-text"></span>
+                    <span class="todo-button del-button">x</span>
+                    <span class="todo-button edit-button">edit</span>
+                </li>
+            </ul> -->
+        </div>    
+    </div>
+    <div class="todos-container">
+        <h2 class="todo-header">Done</h2>
+        <div class="todo-body">
+            <div class="todo todo-add-button">
+                <span>+</span>
+            </div>
+            <!-- <ul class="todo-items">
+                <li class="todo todo-item" >
+                    <span class="todo-text"></span>
+                    <span class="todo-button del-button">x</span>
+                    <span class="todo-button edit-button">edit</span>
+                </li>
+            </ul> -->
+        </div>    
+    </div>
+</div>
+<div *ngIf="popupService.isVisible$ | async" class="popup popup-all">
+    <app-popup *ngIf="popupButton" 
+    title="Edit todo"
+   >
+      <app-add-todo [isAdd]="false" [todo]="editTodo">  
+      </app-add-todo>     
+      
+    </app-popup>
+
+
+    <app-popup *ngIf="!popupButton" 
+    title="Add todo"
+   >
+      <app-add-todo [isAdd]="true"></app-add-todo>
+    </app-popup>
+</div>

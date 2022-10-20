@@ -1,0 +1,17 @@
+.error-container {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: brown;
+    color: white;
+    position: relative;
+}
+.error-btn {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    color: white;
+    background-color: brown;
+    border: none;
+}

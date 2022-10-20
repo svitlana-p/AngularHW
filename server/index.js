@@ -36,7 +36,7 @@ app.use(cors())
 
 app.use("/api/auth", authRouter);
 app.use("/api/dashboard", authMiddleware, boardsRouter);
-app.use("/api/dashboard/board", authMiddleware, boardRouter);
+app.use("/api/board",authMiddleware, boardRouter);
 
 const start = async () => {
   try {
@@ -52,7 +52,7 @@ start();
 //ERROR HANDLER
 app.use(errorHandler);
 
-function errorHandler(err, req, res) {
-  console.error(err);
-  res.status(500).send({ message: "Server error" });
+function errorHandler(err, req, res, next) {
+  //console.error(err);
+  res.status(400).json({ message: err.message });
 }

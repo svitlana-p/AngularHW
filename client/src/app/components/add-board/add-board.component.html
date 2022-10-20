@@ -11,8 +11,9 @@
     class="popup-form-input" 
     type="text"  
     placeholder="Board description"
-    formControlName="description">
+    formControlName="description"
+    required maxlength="60">
     <p class="error-message"
-    *ngIf="description.touched && description.errors?.required">Please, enter board description</p>
-    <button class="popup-btn" type="submit">Save</button>
+    *ngIf="description.touched && description.errors?.required">Please, enter board description. Max length is 60</p>
+    <button class="popup-btn" type="submit" [disabled]="form.invalid">Save</button>
 </form>
