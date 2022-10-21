@@ -21,6 +21,8 @@ export class BoardPageComponent implements OnInit {
   popupButton!: boolean;
   term = '';
   name!: string;
+  sortValue = '';
+  sortDesc = '';
   
   constructor(public todoService: TodoService,
               public dashboardService: DashboardService,
@@ -41,6 +43,11 @@ export class BoardPageComponent implements OnInit {
   delete(todo:ITodo){
     const boardId:string = this.route.snapshot.params.id;
     this.todoService.delete(boardId, todo).subscribe()
+  }
+
+  onSort(eventData:{sortValue: string, sortDirection: string}){
+    this.sortValue = eventData.sortValue
+    this.sortDesc = eventData.sortDirection
   }
               
   ngOnInit(): void {

@@ -1,6 +1,7 @@
 <app-header
 [title]="dashboardService.bordName"
 (filterBoards)="onFilter($event)"
+(sortBoards)="onSort($event)"
 ></app-header>
 <div class="container">
     <div class="todos-container">
@@ -13,8 +14,9 @@
                 >+</span>
             </div>
             <ul class="todo-items">
-                <li class="todo todo-item" *ngFor="let todo of todoService.todoList | filterBoard:term">
+                <li class="todo todo-item" *ngFor="let todo of todoService.todoList | filterBoard:term | sort:[sortValue, sortDesc]">
                     <span class="todo-text">{{todo.name}}</span>
+                    <span hidden>{{todo.createdAt}}</span>
                     <span 
                     class="todo-button edit-button"
                     (click)="popupService.open()" 

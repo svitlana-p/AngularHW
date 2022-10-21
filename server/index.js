@@ -22,6 +22,7 @@ const { authRouter } = require("./src/routers/authRouter.js");
 const { authMiddleware } = require("./src/middleware/authMiddleware.js");
 const { boardsRouter } = require("./src/routers/boardsRouter.js");
 const { boardRouter } = require("./src/routers/boardRouter.js");
+
 const accessedLog = fs.createWriteStream(
   path.join(__dirname, "requestLogs.log"),
   { flags: "a" }

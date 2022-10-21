@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap, throwError, catchError } from 'rxjs';
+import { Observable, tap, throwError, catchError, retry } from 'rxjs';
 import { User } from '../models/user';
 import { ErrorService } from './error.service';
 
@@ -9,6 +9,7 @@ import { ErrorService } from './error.service';
 })
 export class AuthService {
 
+  
   private token!:string;
 
   constructor(private http: HttpClient,
@@ -26,11 +27,13 @@ export class AuthService {
       // @ts-ignore
       tap(
         // @ts-ignore
-        ({token}) => {
+        ({token, username}) => {
           localStorage.setItem('auth-token',token)
           this.setToken(token)
+          localStorage.setItem('username', username)
         }
       ),
+  
       catchError(this.errorHandler.bind(this)),
     )
   }
@@ -50,7 +53,7 @@ export class AuthService {
     this.setToken('')
     localStorage.clear()
   }
-
+  
   private errorHandler(error: HttpErrorResponse) {
     this.errorService.handle(error.message)
     return throwError(() => error.message)  
