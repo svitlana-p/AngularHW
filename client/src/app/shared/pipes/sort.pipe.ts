@@ -6,6 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SortPipe implements PipeTransform {
 
   transform<T>(value: T[], args: any): T[] {
+    if(value === undefined) {
+      return value
+    }
     const sortField = args[0];
     const sordDirection = args[1];
     let multiplier = 1;

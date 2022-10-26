@@ -21,7 +21,7 @@ const createBoard = async (req, res, next) => {
   }
 };
 
-const getBoards = async (req, res) => {
+const getBoards = async (req, res, next) => {
   try {
     return await Board.find({ userId: req.user.userId }, "-__v").then(
       (boards) => {
@@ -32,7 +32,7 @@ const getBoards = async (req, res) => {
     next(error);
   }
 };
-const getBoard = async (req, res) => {
+const getBoard = async (req, res, next) => {
   try {
     return await Board.find({_id: req.params.id}, "-__v").then(
       (board) => {
@@ -44,7 +44,7 @@ const getBoard = async (req, res) => {
   }
 };
 
-const editBoard = async (req, res) => {
+const editBoard = async (req, res, next) => {
   try {
     const { name } = req.body;
     const board = await Board.findByIdAndUpdate(
@@ -61,7 +61,7 @@ const editBoard = async (req, res) => {
   }
 };
 
-const deleteBoard = async (req, res) => {
+const deleteBoard = async (req, res, next) => {
   try {
     await Board.findByIdAndDelete({
       _id: req.params.id,

@@ -6,15 +6,24 @@
 <div class="container">
     <div class="todos-container">
         <h2 class="todo-header">Todo</h2>
-        <div class="todo-body">
+        <div class="todo-body" cdkDropList 
+        [cdkDropListData]="todoService.todoList"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListConnectedTo]="[secondList, thirdList]"
+        #firstList="cdkDropList">
             <div class="todo todo-add-button">
                 <span
                 (click)="popupService.open()"
                 (click)="choosePopupAdd()"
                 >+</span>
             </div>
-            <ul class="todo-items">
-                <li class="todo todo-item" *ngFor="let todo of todoService.todoList | filterBoard:term | sort:[sortValue, sortDesc]">
+            <ul class="todo-items" >
+                <li 
+                cdkDrag 
+                class="todo todo-item" 
+                *ngFor="let todo of todoService.todoList | filterBoard:term | sort:[sortValue, sortDesc]"
+                
+                >
                     <span class="todo-text">{{todo.name}}</span>
                     <span hidden>{{todo.createdAt}}</span>
                     <span 
@@ -25,39 +34,65 @@
                     <span 
                     class="todo-button del-button"
                     (click)="delete(todo)"
-                    >x</span>                    
+                    >x</span> 
+                                      
                 </li>
             </ul>
         </div>    
     </div>
     <div class="todos-container">
         <h2 class="todo-header">In progress</h2>
-        <div class="todo-body">
+        <div class="todo-body" cdkDropList 
+        [cdkDropListData]="todoService.inProgressList"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListConnectedTo]="[firstList, thirdList]"
+       
+        #secondList="cdkDropList">
             <div class="todo todo-add-button">
                 <span>+</span>
             </div>
-            <!-- <ul class="todo-items">
-                <li class="todo todo-item" >
-                    <span class="todo-text"></span>
-                    <span class="todo-button del-button">x</span>
-                    <span class="todo-button edit-button">edit</span>
+            <ul class="todo-items" >
+                <li cdkDrag class="todo todo-item" *ngFor="let todo of todoService.inProgressList | filterBoard:term | sort:[sortValue, sortDesc]">
+                    <span class="todo-text">{{todo.name}}</span>
+                    <span hidden>{{todo.createdAt}}</span>
+                    <span 
+                    class="todo-button edit-button"
+                    (click)="popupService.open()" 
+                    (click)="choosePopupEdit(todo)"
+                    >edit</span>
+                    <span 
+                    class="todo-button del-button"
+                    (click)="delete(todo)"
+                    >x</span> 
                 </li>
-            </ul> -->
+            </ul>
         </div>    
     </div>
     <div class="todos-container">
         <h2 class="todo-header">Done</h2>
-        <div class="todo-body">
+        <div class="todo-body" cdkDropList 
+        [cdkDropListData]="todoService.doneList"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListConnectedTo]="[firstList, secondList]"
+        #thirdList="cdkDropList">
             <div class="todo todo-add-button">
                 <span>+</span>
             </div>
-            <!-- <ul class="todo-items">
-                <li class="todo todo-item" >
-                    <span class="todo-text"></span>
-                    <span class="todo-button del-button">x</span>
-                    <span class="todo-button edit-button">edit</span>
+            <ul class="todo-items">
+                <li cdkDrag class="todo todo-item" *ngFor="let todo of todoService.doneList | filterBoard:term | sort:[sortValue, sortDesc]">
+                    <span class="todo-text">{{todo.name}}</span>
+                    <span hidden>{{todo.createdAt}}</span>
+                    <span 
+                    class="todo-button edit-button"
+                    (click)="popupService.open()" 
+                    (click)="choosePopupEdit(todo)"
+                    >edit</span>
+                    <span 
+                    class="todo-button del-button"
+                    (click)="delete(todo)"
+                    >x</span> 
                 </li>
-            </ul> -->
+            </ul>
         </div>    
     </div>
 </div>

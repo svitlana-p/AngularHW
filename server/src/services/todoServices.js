@@ -20,7 +20,7 @@ const createTodo = (req, res, next) => {
   }
 };
 
-const getTodos = (req, res) => {
+const getTodos = (req, res, next) => {
   try {
     return Todo.find(
       { userId: req.user.userId, boardId: req.params.id },
@@ -33,7 +33,7 @@ const getTodos = (req, res) => {
   }
 };
 
-const updateTodo = async (req, res) => {
+const updateTodo = async (req, res, next) => {
   try {
     const { name } = req.body;
     const todo = await Todo.findByIdAndUpdate(
@@ -49,27 +49,63 @@ const updateTodo = async (req, res) => {
   }
 };
 
-const checkTodo = async (req, res) => {
+const checkTodo = async (req, res, next) => {
   try {
     const todo = await Todo.findById({
-      _id: req.params.id,
-      userId: req.user.userId,
+      _id: req.params.id
     });
-
-    !todo.inProgress ? (todo.inProgress = true) : (todo.completed = true);
-
-    return todo.save().then(() =>
-      res.json({
-        message: "Success",
-        todo,
-      })
-    );
+    const { action } = req.body;
+    
+    // if (action === 'todo') {
+    //   todo.created = true;
+    //   todo.inProgress = false;
+    //   todo.completed = false;
+    // } else if (action === 'inProgress') {
+      
+    //   todo.created = false;
+    //   todo.inProgress = true;
+    //   todo.completed = false;
+    // } if (action === 'completed') {
+    //   todo.created = false;
+    //   todo.inProgress = false;
+    //   todo.completed = true;
+    // }
+    switch (action) {
+      case 'todo':
+        todo.created = true;
+        todo.inProgress = false;
+        todo.completed = false;
+        break;
+      case 'inProgress':
+        todo.created = false;
+        todo.inProgress = true;
+        todo.completed = false;
+        break;
+      case 'completed':
+        todo.created = false;
+        todo.inProgress = false;
+        todo.completed = true;
+        break;
+      default:
+        todo.created = true;
+        todo.inProgress = false;
+        todo.completed = false;
+        break;
+    }
+await todo.save()
+    return await Todo.findById({
+      _id: req.params.id,
+    }).then((todo) => res.json({
+      todo,
+      action
+    }
+      ));
   } catch (error) {
     next(error);
   }
 };
 
-const deleteTodo = async (req, res) => {
+const deleteTodo = async (req, res, next) => {
   try {
     return await Todo.findByIdAndDelete({
       _id: req.params.id,

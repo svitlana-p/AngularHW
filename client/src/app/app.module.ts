@@ -20,7 +20,7 @@ import { GlobalErrorComponent } from './components/global-error/global-error.com
 import { AddEditTodoComponent } from './components/add-edit-todo/add-todo.component';
 import { HeaderComponent } from './core/components/header/header.component';
 import { SortPipe } from './shared/pipes/sort.pipe';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -46,7 +46,8 @@ import { SortPipe } from './shared/pipes/sort.pipe';
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
-    HttpClientModule
+    HttpClientModule,
+    DragDropModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

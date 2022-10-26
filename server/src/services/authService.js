@@ -42,7 +42,7 @@ const registerUser = async (req, res, next) => {
   }
 };
 
-const loginUser = async (req, res) => {
+const loginUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.body.username });
     if (

@@ -7,6 +7,7 @@ import { IBoard } from 'src/app/shared/models/board';
 import { DashboardService } from 'src/app/shared/services/dashboard.service';
 import { PopupService } from 'src/app/shared/services/popup.service';
 import { TodoService } from 'src/app/shared/services/todo.service';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-board-page',
@@ -23,7 +24,6 @@ export class BoardPageComponent implements OnInit {
   name!: string;
   sortValue = '';
   sortDesc = '';
-  
   constructor(public todoService: TodoService,
               public dashboardService: DashboardService,
               private route: ActivatedRoute,
@@ -49,16 +49,25 @@ export class BoardPageComponent implements OnInit {
     this.sortValue = eventData.sortValue
     this.sortDesc = eventData.sortDirection
   }
+  
+  drop(event: CdkDragDrop<ITodo[]>) {
+    const todo = event.previousContainer.data[event.previousIndex]
+    const boardId:string = this.route.snapshot.params.id;
+    this.todoService.drop(event, boardId, todo)
+  }
               
   ngOnInit(): void {
     const boardId:string = this.route.snapshot.params.id;
     this.boardSubscription = this.dashboardService.getOne(boardId).subscribe()
-    this.listSubscription = this.todoService.getAll(boardId).subscribe()
+    //this.listSubscription = this.todoService.getAll(boardId).subscribe()
     
   }
 
   ngOnDestroy():void {
     this.dashboardService.bordName = '';
+    this.todoService.todoList = [];
+    this.todoService.inProgressList = [];
+    this.todoService.doneList = [];
     if( this.boardSubscription) this.boardSubscription.unsubscribe();
     if( this.listSubscription) this.listSubscription.unsubscribe();
   }
