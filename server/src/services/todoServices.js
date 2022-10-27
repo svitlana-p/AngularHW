@@ -56,20 +56,6 @@ const checkTodo = async (req, res, next) => {
     });
     const { action } = req.body;
     
-    // if (action === 'todo') {
-    //   todo.created = true;
-    //   todo.inProgress = false;
-    //   todo.completed = false;
-    // } else if (action === 'inProgress') {
-      
-    //   todo.created = false;
-    //   todo.inProgress = true;
-    //   todo.completed = false;
-    // } if (action === 'completed') {
-    //   todo.created = false;
-    //   todo.inProgress = false;
-    //   todo.completed = true;
-    // }
     switch (action) {
       case 'todo':
         todo.created = true;
@@ -86,6 +72,9 @@ const checkTodo = async (req, res, next) => {
         todo.inProgress = false;
         todo.completed = true;
         break;
+      case 'archive':
+        todo.archive = !todo.archive;
+        break;
       default:
         todo.created = true;
         todo.inProgress = false;
@@ -95,10 +84,8 @@ const checkTodo = async (req, res, next) => {
 await todo.save()
     return await Todo.findById({
       _id: req.params.id,
-    }).then((todo) => res.json({
-      todo,
-      action
-    }
+    }).then((todo) => res.json(
+      todo
       ));
   } catch (error) {
     next(error);

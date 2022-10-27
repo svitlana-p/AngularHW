@@ -6,6 +6,7 @@ export interface ITodo {
     created: boolean,
     inProgress: boolean,
     completed: boolean,
+    archive: boolean,
     createdAt: string,
     updatedAt: string,
     __v: number

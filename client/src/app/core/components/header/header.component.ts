@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   @Output() filterBoards = new EventEmitter<{ filterTerm: string}>()
   @Output() sortBoards = new EventEmitter<{ sortValue: string, sortDirection: string}>()
   
-  constructor(private auth: AuthService) { }
+  constructor() { }
  
   onFilter(){
     this.filterBoards.emit({filterTerm: this.filterTerm})

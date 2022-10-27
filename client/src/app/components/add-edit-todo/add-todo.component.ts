@@ -18,53 +18,54 @@ export class AddEditTodoComponent implements OnInit {
   form = new FormGroup({
     name: new FormControl<string>('', [
       Validators.required
-    ]) 
+    ])
   })
 
   get name() {
     return this.form.controls.name as FormControl
   }
   constructor(public popupService: PopupService,
-              public todoService: TodoService,
-              public route: ActivatedRoute        
-    ) {  
-     }
-  boardId: string =  this.route.snapshot.params.id;
-  ngOnInit(): void {}
-    submit(){
-      
-      this.todoService.create(this.boardId, {
-        name: this.form.value.name as string,
-        userId: '',
-        boardId: '',
-        _id: '',
-        created: true,
-        inProgress: false,
-        completed: false,
-        createdAt: '',
-        updatedAt: '',
-        __v: NaN
-      }).subscribe(()=>{
-        this.popupService.close()
-      })
-    }
-  edit(todo:ITodo){
+    public todoService: TodoService,
+    public route: ActivatedRoute
+  ) {
+  }
+  boardId: string = this.route.snapshot.params.id;
+  ngOnInit(): void { }
+  submit() {
+    this.todoService.create(this.boardId, {
+      name: this.form.value.name as string,
+      userId: '',
+      boardId: '',
+      _id: '',
+      created: true,
+      inProgress: false,
+      completed: false,
+      archive: false,
+      createdAt: '',
+      updatedAt: '',
+      __v: NaN
+    }).subscribe(() => {
+      this.popupService.close()
+    })
+  }
+  edit(todo: ITodo) {
     this.todoService.edit(this.boardId, {
-      name: this.form.value.name as string,      
+      name: this.form.value.name as string,
       userId: todo.userId,
       boardId: todo.boardId,
       _id: todo._id,
       created: todo.created,
       inProgress: todo.inProgress,
       completed: todo.completed,
+      archive: todo.archive,
       createdAt: todo.createdAt,
       updatedAt: todo.updatedAt,
       __v: todo.__v
-      
-    }).subscribe(()=>{
+
+    }).subscribe(() => {
       this.popupService.close()
     })
   }
-  
+
 
 }

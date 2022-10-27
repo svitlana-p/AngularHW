@@ -35,13 +35,26 @@
     list-style: none;  
     position: relative;
 }
+.todo-item:active {
+    transform: scale(1.01);
+}
 .todo-text {
     display: inline-block;
     background-color: rgb(141, 141, 141);
     padding: 15px;
     width: 300px;
     text-transform: capitalize;
-    
+    cursor: pointer;
+    position: relative;
+}
+.todo-text:hover .details {
+    display: block;
+}
+.details {
+    display: none;
+    position: absolute;
+    color: rgba(137, 5, 5, 0.607);     
+    font-size: 10px;
 }
 .todo-button {
     position: absolute;    
@@ -67,6 +80,9 @@
     top: 23px;
     background-color: rgba(5, 137, 75, 0.607);
 }
+.archive {
+    text-decoration: line-through;
+}
 .popup {    
     width: 100%;
     height: 100%;    
@@ -76,4 +92,8 @@
 .popup-all {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.8);
+}
+.color-piker {
+    text-align: center;
+    font-size: 12px;
 }

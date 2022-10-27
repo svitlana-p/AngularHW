@@ -10,18 +10,16 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit, OnDestroy {
-  @Input() header!:string;
-  @Input() buttonName!:string;
+  @Input() header!: string;
+  @Input() buttonName!: string;
   @Input() emailRequired!: boolean;
 
   form!: FormGroup;
-  aSub!: Subscription;
-
-  
+  authSubscription!: Subscription;
 
   constructor(private auth: AuthService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -30,7 +28,7 @@ export class CardComponent implements OnInit, OnDestroy {
       password: new FormControl<string>('', [Validators.required, Validators.minLength(6)])
     });
     this.route.queryParams.subscribe((params: Params) => {
-      if(params['registered']) {
+      if (params['registered']) {
         alert('You are successfully registered! Please, login!')
       } else if (params['accessDenied']) {
         alert('Please sign in or sign up!')
@@ -47,37 +45,26 @@ export class CardComponent implements OnInit, OnDestroy {
     return this.form.controls.password as FormControl
   }
   ngOnDestroy(): void {
-    if (this.aSub) {
-      this.aSub.unsubscribe()
-    }    
+    if (this.authSubscription) this.authSubscription.unsubscribe()
   }
- 
+
 
   onSubmit() {
-    // this.form.disable()
-    if(this.buttonName === 'Log In') {
-    this.aSub = this.auth.login(this.form.value).subscribe(
-        () => this.router.navigate(['/dashboard']),
-        // error=>{
-        //   console.warn(error)
-         
-        //   this.form.enable()
-        // }
+
+    if (this.buttonName === 'Log In') {
+      this.authSubscription = this.auth.login(this.form.value).subscribe(
+        () => this.router.navigate(['/dashboard'])
       )
     }
-    if(this.buttonName === 'Sign Up') {
-      this.aSub = this.auth.register(this.form.value).subscribe(
-        () => { 
+    if (this.buttonName === 'Sign Up') {
+      this.authSubscription = this.auth.register(this.form.value).subscribe(
+        () => {
           this.router.navigate(['/login'], {
             queryParams: {
               registered: true
             }
           })
-        },
-        // error=>{
-        //   console.warn(error)
-        //   this.form.enable()
-        // }
+        }
       )
     }
   }

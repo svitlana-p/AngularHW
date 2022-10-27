@@ -14,7 +14,7 @@
 .logo-name {
     font-size: 32px;
     margin-left: 30px;
-    /* text-transform: capitalize; */
+    min-height: 50px;
 }
 .user-name {
     margin: 0 10px;

@@ -1,5 +1,5 @@
 
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IBoard } from 'src/app/shared/models/board';
 
@@ -11,11 +11,12 @@ import { PopupService } from 'src/app/shared/services/popup.service';
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.css']
 })
-export class DashboardPageComponent implements OnInit {
+export class DashboardPageComponent implements OnInit, OnDestroy {
   term = '';
   editboard!: IBoard;
   popupButton!: boolean;
   dashboardSubscription!: Subscription;
+  delBordSub!: Subscription;
   sortValue = '';
   sortDesc = '';
 
@@ -31,7 +32,7 @@ export class DashboardPageComponent implements OnInit {
     this.popupButton = false;
   }
   delete(board: IBoard): void{
-    this.dashboardServise.delete(board).subscribe()
+  this.delBordSub = this.dashboardServise.delete(board).subscribe()
   }
   onFilter(eventData: {filterTerm: string}){
     this.term = eventData.filterTerm
@@ -44,8 +45,9 @@ export class DashboardPageComponent implements OnInit {
     this.dashboardSubscription = this.dashboardServise.getAll().subscribe()
   }
   
-  ngOnDestroy() {
-    if (this.dashboardSubscription) this.dashboardSubscription.unsubscribe()
+  ngOnDestroy(): void {
+    if (this.dashboardSubscription) this.dashboardSubscription.unsubscribe();
+    if (this.delBordSub) this.delBordSub.unsubscribe();
   }
   
 }
