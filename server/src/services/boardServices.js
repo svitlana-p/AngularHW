@@ -60,6 +60,24 @@ const editBoard = async (req, res, next) => {
     next(error);
   }
 };
+const updateBoard = async (req, res, next) => {
+  try {
+    const {colorValue, color} = req.body;
+    //console.log(colorValue)
+    const board = await Board.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: { 
+        [color] : colorValue
+      } }
+    );
+    await board.save();
+    return await Board.findById({ _id: req.params.id }).then((board) =>
+      res.json(board)
+    );
+  } catch (error) {
+    next(error);
+  }
+}
 
 const deleteBoard = async (req, res, next) => {
   try {
@@ -82,4 +100,5 @@ module.exports = {
   getBoard,
   editBoard,
   deleteBoard,
+  updateBoard
 };

@@ -3,7 +3,9 @@
 <div class="container">
   <div class="todos-container">
     <h2 class="todo-header">Todo</h2>
-    <div class="todo-body firstList" cdkDropList [cdkDropListData]="todoService.todoList"
+    <div class="todo-body firstList" 
+    [ngStyle]="{'background-color':firstColor}"
+    cdkDropList [cdkDropListData]="todoService.todoList"
       (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[secondList, thirdList]" #firstList="cdkDropList">
       <div class="todo todo-add-button">
         <span (click)="popupService.open()" (click)="choosePopupAdd()">+</span>
@@ -20,15 +22,16 @@
           
         </li>
       </ul>
-      <div class="color-piker">
-         Choose column color <input type="color" >
-      </div>
-     
+      <div class="color-piker">        
+         Choose column color <input type="color" id="firstColor" [(ngModel)]="firstColor" (change)="setColor(firstColor, $event)">
+      </div>     
     </div>
   </div>
   <div class="todos-container">
     <h2 class="todo-header">In progress</h2>
-    <div class="todo-body secondList" cdkDropList [cdkDropListData]="todoService.inProgressList"
+    <div class="todo-body secondList"
+    [ngStyle]="{'background-color':secondColor}"
+     cdkDropList [cdkDropListData]="todoService.inProgressList"
       (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[firstList, thirdList]" #secondList="cdkDropList">
       <div class="todo todo-add-button">
         <span>+</span>
@@ -44,11 +47,16 @@
           <span class="todo-button del-button" (click)="delete(todo)">x</span>
         </li>
       </ul>
+      <div class="color-piker">        
+        Choose column color <input type="color" id="secondColor" [(ngModel)]="secondColor" (change)="setColor(secondColor, $event)">
+     </div>
     </div>
   </div>
   <div class="todos-container">
     <h2 class="todo-header">Done</h2>
-    <div class="todo-body thirdList" cdkDropList [cdkDropListData]="todoService.doneList"
+    <div class="todo-body thirdList" 
+    [ngStyle]="{'background-color': thirdColor}"
+    cdkDropList [cdkDropListData]="todoService.doneList"
       (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[firstList, secondList]" #thirdList="cdkDropList">
       <div class="todo todo-add-button">
         <span>+</span>
@@ -64,6 +72,9 @@
           <span class="todo-button del-button" (click)="delete(todo)">x</span>
         </li>
       </ul>
+      <div class="color-piker">        
+        Choose column color <input type="color" id="thirdColor" [(ngModel)]="thirdColor" (change)="setColor(thirdColor, $event)">
+     </div>
     </div>
   </div>
 </div>

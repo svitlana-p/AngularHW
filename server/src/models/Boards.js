@@ -13,7 +13,19 @@ const boardSchema = mongoose.Schema(
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-    }
+    },
+    firstColor: {
+      type: String,
+      default: '',
+    },
+    secondColor: {
+      type: String,
+      default: '',
+    },
+    thirdColor: {
+      type: String,
+      default: '',
+    },
   },  
   { timestamps: true }
 );

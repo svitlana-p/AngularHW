@@ -35,8 +35,10 @@ export class EditBoardComponent implements OnInit {
       userId: board.userId,
       createdAt: board.createdAt,
       updatedAt: board.updatedAt,
-      __v: board.__v
-      
+      __v: board.__v,
+      firstColor: '',
+      secondColor: '',
+      thirdColor: ''      
     }).subscribe(()=>{
       this.popupService.close()
     })

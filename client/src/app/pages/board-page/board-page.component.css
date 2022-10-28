@@ -13,7 +13,7 @@
 .todo-body {
     background-color: rgb(206, 205, 205);
     min-height: 50vh;
-
+    position: relative;
 }
 .todo-add-button {
     text-align: center;
@@ -37,6 +37,9 @@
 }
 .todo-item:active {
     transform: scale(1.01);
+}
+.todo-item:last-child {
+    margin-bottom: 5vw;
 }
 .todo-text {
     display: inline-block;
@@ -96,4 +99,7 @@
 .color-piker {
     text-align: center;
     font-size: 12px;
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
 }

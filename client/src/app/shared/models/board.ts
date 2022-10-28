@@ -5,5 +5,8 @@ export interface IBoard {
     _id: string,
     createdAt: string,
     updatedAt: string,
-    __v: number
+    __v: number,
+    firstColor: string,
+    secondColor: string,
+    thirdColor: string
 }

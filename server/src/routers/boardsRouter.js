@@ -6,6 +6,7 @@ const {
   getBoard,
   editBoard,
   deleteBoard,
+  updateBoard
 } = require("../services/boardServices");
 
 router.post("/", createBoard);
@@ -15,6 +16,8 @@ router.get("/",getBoards);
 router.get("/:id",getBoard);
 
 router.patch("/:id", editBoard);
+
+router.put("/:id", updateBoard);
 
 router.delete("/:id", deleteBoard);
 

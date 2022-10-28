@@ -33,6 +33,18 @@ export class DashboardService {
         catchError(this.errorHandler.bind(this))
       )
   }
+  update(boardId:string, color:string, colorValue:string):Observable<IBoard> {
+    return this.http.put<IBoard>(`${this.url}/${boardId}`, {
+      color,
+      colorValue
+    }).pipe(
+      // tap(board => {
+      //   console.log(board)
+      //  this.boardList.map(el => el._id !== board._id ? el : board);
+      // }),
+      catchError(this.errorHandler.bind(this))
+    )
+  }
   create(board: IBoard): Observable<IBoard> {
     return this.http.post<IBoard>(this.url, board)
       .pipe(

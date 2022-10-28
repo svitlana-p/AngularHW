@@ -37,6 +37,9 @@ export class AddBoardComponent implements OnInit {
       _id: '',
       createdAt: '',
       updatedAt: '',
+      firstColor: '',
+      secondColor: '',
+      thirdColor: '',
       __v: 0
     }).subscribe(()=>{
       this.popupService.close()

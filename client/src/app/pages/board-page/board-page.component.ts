@@ -24,6 +24,11 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   name!: string;
   sortValue = '';
   sortDesc = '';
+  firstColor!: string;
+  secondColor!: string;
+  thirdColor!: string;
+  
+  
   constructor(public todoService: TodoService,
     public dashboardService: DashboardService,
     private route: ActivatedRoute,
@@ -59,9 +64,22 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     const boardId: string = this.route.snapshot.params.id;
     this.archiveSubscription = this.todoService.changeStatus(boardId, todo, 'archive').subscribe()
   }
+ setColor(color: string, event: Event) {
+  //@ts-ignore
+  const element = event.target.id
+  const boardId: string = this.route.snapshot.params.id;
+  this.dashboardService.update(boardId, element, color).subscribe()
+  
+
+ }
+
   ngOnInit(): void {
     const boardId: string = this.route.snapshot.params.id;
-    this.boardSubscription = this.dashboardService.getOne(boardId).subscribe()
+    this.boardSubscription = this.dashboardService.getOne(boardId).subscribe((board)=>{
+      this.firstColor = board[0].firstColor,
+      this.secondColor = board[0].secondColor,
+      this.thirdColor = board[0].thirdColor
+    });    
 
   }
 
