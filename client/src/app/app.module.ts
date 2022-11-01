@@ -21,6 +21,8 @@ import { AddEditTodoComponent } from './components/add-edit-todo/add-todo.compon
 import { HeaderComponent } from './core/components/header/header.component';
 import { SortPipe } from './shared/pipes/sort.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CommentModalComponent } from './components/comment-modal/comment-modal.component';
+
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     GlobalErrorComponent,
     AddEditTodoComponent,
     HeaderComponent,
-    SortPipe
+    SortPipe,
+    CommentModalComponent,
+
   ],
   imports: [
     BrowserModule,

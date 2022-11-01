@@ -2,6 +2,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
+import { IComment } from '../models/comment';
 import { ITodo } from '../models/todo';
 import { ErrorService } from './error.service';
 
@@ -16,6 +17,7 @@ export class TodoService {
   todoList: ITodo[] = [];
   inProgressList: ITodo[] = [];
   doneList: ITodo[] = [];
+  commentList: IComment[] = [];
 
   url: string = 'http://localhost:8080/api/board';
 
@@ -89,7 +91,30 @@ export class TodoService {
         })
       )
   }
-
+  postComments(boardId: string, todoId:string, title:string): Observable<IComment> {
+    return this.http.post<IComment>(`${this.url}/${boardId}/todo/${todoId}/comments`, {title, todoId})
+    .pipe(
+      tap((comment: IComment) => {
+        this.commentList = this.commentList.map(el => el._id !== comment._id ? el : comment);        
+      })
+    )    
+  }
+  getComments(boardId: string, todoId:string): Observable<IComment[]> {
+    return this.http.get<IComment[]>(`${this.url}/${boardId}/todo/${todoId}/comments`)
+    .pipe(
+      tap((comments: IComment[]) => {
+        this.commentList = comments;        
+      })
+    )    
+  }
+  deleteComments(boardId: string, todoId:string, comment:IComment): Observable<IComment> {
+    return this.http.delete<IComment>(`${this.url}/${boardId}/todo/${todoId}/comments/${comment._id}`)
+    .pipe(
+      tap((comment: IComment) => {
+        this.commentList = this.commentList.map(el => el._id !== comment._id ? el : comment);        
+      })
+    )    
+  }
 
   drop(event: CdkDragDrop<ITodo[]>, boardId: string, todo: ITodo) {
     const className = event.container.element.nativeElement.className;

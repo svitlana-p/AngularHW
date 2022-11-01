@@ -29,7 +29,7 @@ const todoSchema = mongoose.Schema(
     archive: {
       type: Boolean,
       default: false,
-    },
+    }
   },
   { timestamps: true }
 );

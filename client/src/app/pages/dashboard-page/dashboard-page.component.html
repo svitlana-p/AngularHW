@@ -7,12 +7,12 @@
   <ul class="boards-container">
     <li *ngFor="let board of dashboardServise.boardList | sort:[sortValue, sortDesc] | filterBoard: term "
       class="board-item">
-      <span class="delete cont" (click)="delete(board)">Delete</span>
+      <span class="delete cont" (click)="delete(board)">❌</span>
       <span class="text board-name" [routerLink]="['/board', board._id]">{{board.name}}<span class="details">Board
           details</span></span>
       <span class="text board-desc">{{board.description}}</span>
       <span class="text board-date">Creation date: {{board.createdAt | date: 'medium': 'GMT+3'}}</span>
-      <span (click)="popupService.open()" (click)="choosePopupEdit(board)" class="edit cont">Edit</span>
+      <span (click)="popupService.open()" (click)="choosePopupEdit(board)" class="edit cont">📝</span>
     </li>
   </ul>
 </div>

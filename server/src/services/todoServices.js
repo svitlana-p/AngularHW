@@ -1,4 +1,5 @@
 const { Todo } = require("../models/Todo.js");
+const { Comment } = require("../models/Comment.js");
 
 const createTodo = (req, res, next) => {
   try {
@@ -101,6 +102,47 @@ const deleteTodo = async (req, res, next) => {
     next(error);
   }
 };
+const getTodoComments = async(req, res, next) => {
+  try {
+    const todoId = req.params.id;
+    return Comment.find(
+      { todoId: todoId },
+    ).then((comments) => {
+      res.json(comments);
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+const postTodoComments = async( req, res, next) => {
+  try {
+    const { title, todoId } = req.body;
+  
+    if (!title) next({ message: "Please, enter text", status: 404 });
+    if (!todoId) next({ message: "Please, enter todoId", status: 404 });
+    const comment = new Comment({
+      title,
+      todoId,
+    });
+    comment.save().then(() => {
+      res.json(comment);
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+const deleteTodoComments = async( req, res, next) => {  
+  try {
+    return await Comment.findByIdAndDelete(
+      { _id:req.params.id }
+    ).then((comment) => {
+      res.json(comment);
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 
 module.exports = {
   createTodo,
@@ -108,4 +150,7 @@ module.exports = {
   updateTodo,
   checkTodo,
   deleteTodo,
+  getTodoComments,
+  postTodoComments,
+  deleteTodoComments
 };

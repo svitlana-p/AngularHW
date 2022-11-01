@@ -11,15 +11,17 @@
         <span (click)="popupService.open()" (click)="choosePopupAdd()">+</span>
       </div>
       <ul class="todo-items">
-        <li (click)="archive(todo)" cdkDrag class="todo todo-item"
+        <li  cdkDrag class="todo todo-item"
           *ngFor="let todo of todoService.todoList | filterBoard:term | sort:[sortValue, sortDesc]">
-          <span [ngClass]="todo.archive ? 'todo-text archive' : 'todo-text'">{{todo.name}} <span class="details">Click
+          <span (click)="archive(todo)" [ngClass]="todo.archive ? 'todo-text archive' : 'todo-text'">{{todo.name}} 
+            <span class="details">Click
               to archive the task</span> </span>
+              
           <span hidden>{{todo.createdAt}}</span>
           <span class="todo-button edit-button" (click)="popupService.open()"
-            (click)="choosePopupEdit(todo)">edit</span>
-          <span class="todo-button del-button" (click)="delete(todo)">x</span>
-          
+            (click)="choosePopupEdit(todo)">📝</span>
+          <span class="todo-button del-button" (click)="delete(todo)">❌</span>  
+          <span class="todo-button todo-popup" (click)="openComments(todo)" (click)="popupService.open()">📄</span>        
         </li>
       </ul>
       <div class="color-piker">        
@@ -28,7 +30,8 @@
     </div>
   </div>
   <div class="todos-container">
-    <h2 class="todo-header">In progress</h2>
+    <h2 class="todo-header"    
+    >In progress</h2>
     <div class="todo-body secondList"
     [ngStyle]="{'background-color':secondColor}"
      cdkDropList [cdkDropListData]="todoService.inProgressList"
@@ -37,15 +40,21 @@
         <span>+</span>
       </div>
       <ul class="todo-items">
-        <li (click)="archive(todo)" cdkDrag class="todo todo-item"
+        <li  cdkDrag class="todo todo-item" 
           *ngFor="let todo of todoService.inProgressList | filterBoard:term | sort:[sortValue, sortDesc]">
-          <span [ngClass]="todo.archive ? 'todo-text archive' : 'todo-text'">{{todo.name}} <span class="details">Click
-              to archive the task</span> </span>
-          <span hidden>{{todo.createdAt}}</span>
+          <span 
+          (click)="archive(todo)" 
+          
+          [ngClass]="todo.archive ? 'todo-text archive' : 'todo-text'">
+          {{todo.name}} <span class="details">Click to archive the task</span> 
+        </span>
+          <span hidden>{{todo.createdAt}}</span>                    
           <span class="todo-button edit-button" (click)="popupService.open()"
-            (click)="choosePopupEdit(todo)">edit</span>
-          <span class="todo-button del-button" (click)="delete(todo)">x</span>
+            (click)="choosePopupEdit(todo)">📝</span>
+          <span class="todo-button del-button" (click)="delete(todo)">❌</span>   
+          <span class="todo-button todo-popup" (click)="openComments(todo)" (click)="popupService.open()">📄</span>        
         </li>
+        
       </ul>
       <div class="color-piker">        
         Choose column color <input type="color" id="secondColor" [(ngModel)]="secondColor" (change)="setColor(secondColor, $event)">
@@ -62,15 +71,17 @@
         <span>+</span>
       </div>
       <ul class="todo-items">
-        <li (click)="archive(todo)" cdkDrag class="todo todo-item"
+        <li  cdkDrag class="todo todo-item"
           *ngFor="let todo of todoService.doneList | filterBoard:term | sort:[sortValue, sortDesc]">
-          <span [ngClass]="todo.archive ? 'todo-text archive' : 'todo-text'">{{todo.name}} <span class="details">Click
-              to archive the task</span> </span>
+          <span (click)="archive(todo)" [ngClass]="todo.archive ? 'todo-text archive' : 'todo-text'">{{todo.name}} <span class="details">Click
+              to archive the task</span> </span>              
           <span hidden>{{todo.createdAt}}</span>
           <span class="todo-button edit-button" (click)="popupService.open()"
-            (click)="choosePopupEdit(todo)">edit</span>
-          <span class="todo-button del-button" (click)="delete(todo)">x</span>
+            (click)="choosePopupEdit(todo)">📝</span>
+          <span class="todo-button del-button" (click)="delete(todo)">❌</span>
+          <span class="todo-button todo-popup" (click)="openComments(todo)" (click)="popupService.open()">📄</span>  
         </li>
+        
       </ul>
       <div class="color-piker">        
         Choose column color <input type="color" id="thirdColor" [(ngModel)]="thirdColor" (change)="setColor(thirdColor, $event)">
@@ -79,14 +90,19 @@
   </div>
 </div>
 <div *ngIf="popupService.isVisible$ | async" class="popup popup-all">
-  <app-popup *ngIf="popupButton" title="Edit todo">
+
+  <app-popup *ngIf="popupButton === 'comment'" title="Comments">
+    <app-comment-modal [todo]="todo"></app-comment-modal>
+  </app-popup>
+
+  <app-popup *ngIf="popupButton === 'edit'" title="Edit todo">
     <app-add-todo [isAdd]="false" [todo]="editTodo">
     </app-add-todo>
-
   </app-popup>
 
-
-  <app-popup *ngIf="!popupButton" title="Add todo">
+  <app-popup *ngIf="popupButton === 'add' " title="Add todo">
     <app-add-todo [isAdd]="true"></app-add-todo>
   </app-popup>
+
+  
 </div>

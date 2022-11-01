@@ -19,7 +19,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   archiveSubscription!: Subscription;
   delListSubscription!: Subscription;
   editTodo!: ITodo;
-  popupButton!: boolean;
+  popupButton!: string;
   term = '';
   name!: string;
   sortValue = '';
@@ -27,19 +27,18 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   firstColor!: string;
   secondColor!: string;
   thirdColor!: string;
-  
-  
+  todo!: ITodo;
   constructor(public todoService: TodoService,
     public dashboardService: DashboardService,
     private route: ActivatedRoute,
     public popupService: PopupService,) { }
 
   choosePopupEdit(todo: ITodo): void {
-    this.popupButton = true;
+    this.popupButton = 'edit';
     this.editTodo = todo;
   }
   choosePopupAdd(): void {
-    this.popupButton = false;
+    this.popupButton = 'add';
   }
   onFilter(eventData: { filterTerm: string }) {
     this.term = eventData.filterTerm
@@ -64,11 +63,15 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     const boardId: string = this.route.snapshot.params.id;
     this.archiveSubscription = this.todoService.changeStatus(boardId, todo, 'archive').subscribe()
   }
+  openComments(todo:ITodo) {
+    this.popupButton = 'comment';
+    this.todo = todo;
+  }
  setColor(color: string, event: Event) {
   //@ts-ignore
   const element = event.target.id
   const boardId: string = this.route.snapshot.params.id;
-  this.dashboardService.update(boardId, element, color).subscribe()
+  this.dashboardService.update(boardId, element, color).subscribe();
   
 
  }
