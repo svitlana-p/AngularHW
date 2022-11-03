@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { IBoard } from 'src/app/shared/models/board';
 import { DashboardService } from 'src/app/shared/services/dashboard.service';
 import { PopupService } from 'src/app/shared/services/popup.service';
@@ -7,10 +8,12 @@ import { PopupService } from 'src/app/shared/services/popup.service';
 @Component({
   selector: 'app-edit-board',
   templateUrl: './edit-board.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./edit-board.component.css']
 })
-export class EditBoardComponent implements OnInit {
+export class EditBoardComponent implements OnDestroy {
   @Input() board!:IBoard;
+  editSubscritpion!: Subscription;
   form = new FormGroup({
     name: new FormControl<string>('', [
       Validators.required
@@ -25,10 +28,9 @@ export class EditBoardComponent implements OnInit {
               public dashboardService: DashboardService
     ) { }
 
-  ngOnInit(): void {
-  }
+ 
   edit(board:IBoard){
-    this.dashboardService.edit({
+    this.editSubscritpion = this.dashboardService.edit({
       name: this.form.value.name as string,      
       description: board.description,
       _id: board._id,
@@ -42,5 +44,9 @@ export class EditBoardComponent implements OnInit {
     }).subscribe(()=>{
       this.popupService.close()
     })
+  }
+
+  ngOnDestroy(): void {
+    if(this.editSubscritpion) this.editSubscritpion.unsubscribe()
   }
 }

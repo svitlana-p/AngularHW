@@ -1,7 +1,7 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { IComment } from '../models/comment';
 import { ITodo } from '../models/todo';
 import { ErrorService } from './error.service';
@@ -18,7 +18,7 @@ export class TodoService {
   inProgressList: ITodo[] = [];
   doneList: ITodo[] = [];
   commentList: IComment[] = [];
-
+  
   url: string = 'http://localhost:8080/api/board';
 
   getAll(boardId: string): Observable<ITodo[]> {

@@ -1,0 +1,10 @@
+<span (click)="archive(todo)" [ngClass]="todo.archive ? 'todo-text archive' : 'todo-text'">{{todo.name}}
+  <span class="details">Click
+    to archive the task</span> </span>
+
+<span hidden>{{todo.createdAt}}</span>
+<span class="todo-button edit-button" (click)="choosePopupEdit(todo) " (click)="popupService.open()">📝</span>
+<span class="todo-button del-button" (click)="delete(todo)">❌</span>
+<span class="todo-button todo-popup" (click)="openComments(todo)" (click)="popupService.open()">📄</span>
+
+

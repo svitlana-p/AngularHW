@@ -1,94 +1,67 @@
 <app-header [title]="dashboardService.bordName" (filterBoards)="onFilter($event)" (sortBoards)="onSort($event)">
 </app-header>
+
 <div class="container">
   <div class="todos-container">
     <h2 class="todo-header">Todo</h2>
-    <div class="todo-body firstList" 
-    [ngStyle]="{'background-color':firstColor}"
-    cdkDropList [cdkDropListData]="todoService.todoList"
-      (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[secondList, thirdList]" #firstList="cdkDropList">
+    <div class="todo-body firstList" [ngStyle]="{'background-color':firstColor}" cdkDropList
+      [cdkDropListData]="todoService.todoList" (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="[secondList, thirdList]" #firstList="cdkDropList">
       <div class="todo todo-add-button">
         <span (click)="popupService.open()" (click)="choosePopupAdd()">+</span>
       </div>
       <ul class="todo-items">
-        <li  cdkDrag class="todo todo-item"
+        <li cdkDrag class="todo todo-item"
           *ngFor="let todo of todoService.todoList | filterBoard:term | sort:[sortValue, sortDesc]">
-          <span (click)="archive(todo)" [ngClass]="todo.archive ? 'todo-text archive' : 'todo-text'">{{todo.name}} 
-            <span class="details">Click
-              to archive the task</span> </span>
-              
-          <span hidden>{{todo.createdAt}}</span>
-          <span class="todo-button edit-button" (click)="popupService.open()"
-            (click)="choosePopupEdit(todo)">📝</span>
-          <span class="todo-button del-button" (click)="delete(todo)">❌</span>  
-          <span class="todo-button todo-popup" (click)="openComments(todo)" (click)="popupService.open()">📄</span>        
+          <app-todos-container [todo]="todo" (popupButtonSelected)="onEdit($event)"
+            (commentsSelected)="onComments($event)"></app-todos-container>
         </li>
       </ul>
-      <div class="color-piker">        
-         Choose column color <input type="color" id="firstColor" [(ngModel)]="firstColor" (change)="setColor(firstColor, $event)">
-      </div>     
+      <app-color-piker [id]="'firstColor'" (chooseColor)="onColorSelect($event)"></app-color-piker>
     </div>
   </div>
   <div class="todos-container">
-    <h2 class="todo-header"    
-    >In progress</h2>
-    <div class="todo-body secondList"
-    [ngStyle]="{'background-color':secondColor}"
-     cdkDropList [cdkDropListData]="todoService.inProgressList"
-      (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[firstList, thirdList]" #secondList="cdkDropList">
+    <h2 class="todo-header">In progress</h2>
+    <div class="todo-body secondList" [ngStyle]="{'background-color':secondColor}" cdkDropList
+      [cdkDropListData]="todoService.inProgressList" (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="[firstList, thirdList]" #secondList="cdkDropList">
       <div class="todo todo-add-button">
         <span>+</span>
       </div>
       <ul class="todo-items">
-        <li  cdkDrag class="todo todo-item" 
+        <li cdkDrag class="todo todo-item"
           *ngFor="let todo of todoService.inProgressList | filterBoard:term | sort:[sortValue, sortDesc]">
-          <span 
-          (click)="archive(todo)" 
-          
-          [ngClass]="todo.archive ? 'todo-text archive' : 'todo-text'">
-          {{todo.name}} <span class="details">Click to archive the task</span> 
-        </span>
-          <span hidden>{{todo.createdAt}}</span>                    
-          <span class="todo-button edit-button" (click)="popupService.open()"
-            (click)="choosePopupEdit(todo)">📝</span>
-          <span class="todo-button del-button" (click)="delete(todo)">❌</span>   
-          <span class="todo-button todo-popup" (click)="openComments(todo)" (click)="popupService.open()">📄</span>        
+          <app-todos-container [todo]="todo" (popupButtonSelected)="onEdit($event)"
+            (commentsSelected)="onComments($event)"></app-todos-container>
         </li>
-        
+
       </ul>
-      <div class="color-piker">        
-        Choose column color <input type="color" id="secondColor" [(ngModel)]="secondColor" (change)="setColor(secondColor, $event)">
-     </div>
+      <app-color-piker [id]="'secondColor'" (chooseColor)="onColorSelect($event)"></app-color-piker>
     </div>
   </div>
   <div class="todos-container">
     <h2 class="todo-header">Done</h2>
-    <div class="todo-body thirdList" 
-    [ngStyle]="{'background-color': thirdColor}"
-    cdkDropList [cdkDropListData]="todoService.doneList"
-      (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[firstList, secondList]" #thirdList="cdkDropList">
+    <div class="todo-body thirdList" [ngStyle]="{'background-color': thirdColor}" cdkDropList
+      [cdkDropListData]="todoService.doneList" (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="[firstList, secondList]" #thirdList="cdkDropList">
       <div class="todo todo-add-button">
         <span>+</span>
       </div>
       <ul class="todo-items">
-        <li  cdkDrag class="todo todo-item"
+        <li cdkDrag class="todo todo-item"
           *ngFor="let todo of todoService.doneList | filterBoard:term | sort:[sortValue, sortDesc]">
-          <span (click)="archive(todo)" [ngClass]="todo.archive ? 'todo-text archive' : 'todo-text'">{{todo.name}} <span class="details">Click
-              to archive the task</span> </span>              
-          <span hidden>{{todo.createdAt}}</span>
-          <span class="todo-button edit-button" (click)="popupService.open()"
-            (click)="choosePopupEdit(todo)">📝</span>
-          <span class="todo-button del-button" (click)="delete(todo)">❌</span>
-          <span class="todo-button todo-popup" (click)="openComments(todo)" (click)="popupService.open()">📄</span>  
+
+          <app-todos-container [todo]="todo" (popupButtonSelected)="onEdit($event)"
+            (commentsSelected)="onComments($event)"></app-todos-container>
         </li>
-        
+
       </ul>
-      <div class="color-piker">        
-        Choose column color <input type="color" id="thirdColor" [(ngModel)]="thirdColor" (change)="setColor(thirdColor, $event)">
-     </div>
+      <app-color-piker [id]="'thirdColor'" (chooseColor)="onColorSelect($event)"></app-color-piker>
     </div>
   </div>
 </div>
+
+
 <div *ngIf="popupService.isVisible$ | async" class="popup popup-all">
 
   <app-popup *ngIf="popupButton === 'comment'" title="Comments">
@@ -104,5 +77,4 @@
     <app-add-todo [isAdd]="true"></app-add-todo>
   </app-popup>
 
-  
 </div>

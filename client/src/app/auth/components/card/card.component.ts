@@ -44,10 +44,6 @@ export class CardComponent implements OnInit, OnDestroy {
   get password() {
     return this.form.controls.password as FormControl
   }
-  ngOnDestroy(): void {
-    if (this.authSubscription) this.authSubscription.unsubscribe()
-  }
-
 
   onSubmit() {
 
@@ -67,6 +63,10 @@ export class CardComponent implements OnInit, OnDestroy {
         }
       )
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.authSubscription) this.authSubscription.unsubscribe()
   }
 
 }

@@ -44,7 +44,7 @@
     display: block;        
 }
 .board-name {
-    padding-top: 20px;
+    padding: 20px 40px 0 20px;
     text-align: center;
     text-transform: capitalize;
     font-size: 24px;

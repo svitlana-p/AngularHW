@@ -1,16 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { PopupService } from 'src/app/shared/services/popup.service';
 
 @Component({
   selector: 'app-popup',
   templateUrl: './popup.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./popup.component.css']
 })
-export class PopupComponent implements OnInit {
+export class PopupComponent {
 @Input() title!: string;
  constructor(public popupService: PopupService){}
 
- ngOnInit(): void {
-   
- }
 }

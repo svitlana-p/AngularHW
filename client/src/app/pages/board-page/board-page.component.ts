@@ -33,56 +33,50 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public popupService: PopupService,) { }
 
-  choosePopupEdit(todo: ITodo): void {
-    this.popupButton = 'edit';
-    this.editTodo = todo;
-  }
+  
   choosePopupAdd(): void {
     this.popupButton = 'add';
   }
   onFilter(eventData: { filterTerm: string }) {
     this.term = eventData.filterTerm
   }
-
-  delete(todo: ITodo) {
-    const boardId: string = this.route.snapshot.params.id;
-    this.delListSubscription = this.todoService.delete(boardId, todo).subscribe()
-  }
-
   onSort(eventData: { sortValue: string, sortDirection: string }) {
     this.sortValue = eventData.sortValue
     this.sortDesc = eventData.sortDirection
   }
-
+  onEdit(eventData: {popupButton:string, selectedTodo:ITodo}){
+    this.popupButton = eventData.popupButton
+    this.editTodo = eventData.selectedTodo
+  }
+  onComments(eventData: {popupButton:string, selectedTodo:ITodo}){
+    this.popupButton = eventData.popupButton
+    this.todo = eventData.selectedTodo
+  }
+  onColorSelect(eventData: { color: string, element: string }) {
+    if (eventData.element === 'firstColor') this.firstColor = eventData.color;
+    if (eventData.element === 'secondColor') this.secondColor = eventData.color;
+    if (eventData.element === 'thirdColor') this.thirdColor = eventData.color;
+  }
+ 
   drop(event: CdkDragDrop<ITodo[]>) {
     const todo: ITodo = event.previousContainer.data[event.previousIndex]
     const boardId: string = this.route.snapshot.params.id;
     this.todoService.drop(event, boardId, todo)
   }
+
+ 
   archive(todo: ITodo) {
     const boardId: string = this.route.snapshot.params.id;
     this.archiveSubscription = this.todoService.changeStatus(boardId, todo, 'archive').subscribe()
   }
-  openComments(todo:ITodo) {
-    this.popupButton = 'comment';
-    this.todo = todo;
-  }
- setColor(color: string, event: Event) {
-  //@ts-ignore
-  const element = event.target.id
-  const boardId: string = this.route.snapshot.params.id;
-  this.dashboardService.update(boardId, element, color).subscribe();
-  
-
- }
-
+ 
   ngOnInit(): void {
     const boardId: string = this.route.snapshot.params.id;
-    this.boardSubscription = this.dashboardService.getOne(boardId).subscribe((board)=>{
+    this.boardSubscription = this.dashboardService.getOne(boardId).subscribe((board) => {
       this.firstColor = board[0].firstColor,
       this.secondColor = board[0].secondColor,
       this.thirdColor = board[0].thirdColor
-    });    
+    });
 
   }
 
