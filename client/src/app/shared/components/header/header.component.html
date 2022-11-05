@@ -10,9 +10,12 @@
 </header>
 <div class="toolbar-container">
     <div class="logo-name">
-        {{title | titlecase}} 
+        {{title | titlecase}}         
     </div>
-    <div class="toolbar">
+    <div *ngIf="dellBtn">
+        <button class="tool-btn" (click)="onDelete()">Delete board</button>
+    </div>
+    <div class="toolbar">        
         <input 
         class="tool-btn" 
         placeholder="Filter"

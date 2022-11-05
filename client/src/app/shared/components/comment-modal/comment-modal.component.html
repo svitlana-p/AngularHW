@@ -1,4 +1,5 @@
-<div class="comments" *ngFor="let comment of todoService.commentList">
+<div class="comment-count">Comments in the task: <span class="comment-color">{{todoService.commentList.length}} </span> </div>
+<div class="comments" *ngFor="let comment of todoService.commentList ">  
   <span class="commment-text">{{comment.title}}</span>
   <div>
     <span class="comment-date">{{comment.createdAt | date}}</span>

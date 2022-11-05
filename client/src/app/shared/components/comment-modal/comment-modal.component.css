@@ -33,6 +33,13 @@
 .comment-date {
     margin-right: 10px;
 }
+.comment-count {
+    margin: 10px;
+}
+.comment-color {
+    font-weight: 500;
+    color: rgb(137, 5, 5);
+}
 .comment-button:hover {
     cursor:pointer;
 }

@@ -1,19 +1,21 @@
 const { Todo } = require("../models/Todo.js");
 const { Comment } = require("../models/Comment.js");
 
-const createTodo = (req, res, next) => {
+const createTodo = async (req, res, next) => {
   try {
     const { name } = req.body;
     const userId = req.user.userId;
     const boardId = req.params.id;
     if (!name) next({ message: "Please, enter text", status: 404 });
+    if (!userId) next({ message: "Please, enter text", status: 404 });
+    if (!boardId) next({ message: "Please, enter text", status: 404 });
 
     const todo = new Todo({
       name,
       userId,
       boardId,
     });
-    todo.save().then(() => {
+    await todo.save().then(() => {
       res.json(todo);
     });
   } catch (error) {
@@ -21,14 +23,15 @@ const createTodo = (req, res, next) => {
   }
 };
 
-const getTodos = (req, res, next) => {
+const getTodos = async (req, res, next) => {
   try {
-    return Todo.find(
-      { userId: req.user.userId, boardId: req.params.id },
-      "-__v"
-    ).then((todos) => {
-      res.json(todos);
-    });
+    const userId = req.user.userId;
+    const boardId = req.params.id;
+    return await Todo.find({ userId: userId, boardId: boardId }, "-__v").then(
+      (todos) => {
+        res.json(todos);
+      }
+    );
   } catch (error) {
     next(error);
   }
@@ -53,27 +56,27 @@ const updateTodo = async (req, res, next) => {
 const checkTodo = async (req, res, next) => {
   try {
     const todo = await Todo.findById({
-      _id: req.params.id
+      _id: req.params.id,
     });
     const { action } = req.body;
-    
+
     switch (action) {
-      case 'todo':
+      case "todo":
         todo.created = true;
         todo.inProgress = false;
         todo.completed = false;
         break;
-      case 'inProgress':
+      case "inProgress":
         todo.created = false;
         todo.inProgress = true;
         todo.completed = false;
         break;
-      case 'completed':
+      case "completed":
         todo.created = false;
         todo.inProgress = false;
         todo.completed = true;
         break;
-      case 'archive':
+      case "archive":
         todo.archive = !todo.archive;
         break;
       default:
@@ -82,12 +85,10 @@ const checkTodo = async (req, res, next) => {
         todo.completed = false;
         break;
     }
-await todo.save()
+    await todo.save();
     return await Todo.findById({
       _id: req.params.id,
-    }).then((todo) => res.json(
-      todo
-      ));
+    }).then((todo) => res.json(todo));
   } catch (error) {
     next(error);
   }
@@ -102,22 +103,20 @@ const deleteTodo = async (req, res, next) => {
     next(error);
   }
 };
-const getTodoComments = async(req, res, next) => {
+const getTodoComments = async (req, res, next) => {
   try {
     const todoId = req.params.id;
-    return Comment.find(
-      { todoId: todoId },
-    ).then((comments) => {
+    return Comment.find({ todoId: todoId }).then((comments) => {
       res.json(comments);
     });
   } catch (error) {
     next(error);
   }
-}
-const postTodoComments = async( req, res, next) => {
+};
+const postTodoComments = async (req, res, next) => {
   try {
     const { title, todoId } = req.body;
-  
+
     if (!title) next({ message: "Please, enter text", status: 404 });
     if (!todoId) next({ message: "Please, enter todoId", status: 404 });
     const comment = new Comment({
@@ -130,19 +129,19 @@ const postTodoComments = async( req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
+};
 
-const deleteTodoComments = async( req, res, next) => {  
+const deleteTodoComments = async (req, res, next) => {
   try {
-    return await Comment.findByIdAndDelete(
-      { _id:req.params.id }
-    ).then((comment) => {
-      res.json(comment);
-    });
+    return await Comment.findByIdAndDelete({ _id: req.params.id }).then(
+      (comment) => {
+        res.json(comment);
+      }
+    );
   } catch (error) {
     next(error);
   }
-}
+};
 
 module.exports = {
   createTodo,
@@ -152,5 +151,5 @@ module.exports = {
   deleteTodo,
   getTodoComments,
   postTodoComments,
-  deleteTodoComments
+  deleteTodoComments,
 };

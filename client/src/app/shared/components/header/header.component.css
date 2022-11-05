@@ -9,12 +9,15 @@
 .toolbar-container {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
     margin: 0 30px;
 }
 .logo-name {
     font-size: 32px;
     margin-left: 30px;
     min-height: 50px;
+    min-width: 3vw;
 }
 .user-name {
     margin: 0 10px;
@@ -25,7 +28,7 @@
     cursor: pointer;
 }
 .tool-btn {
-    margin: 0 10px;
+    margin: 5px 10px;
     padding: 8px 25px;
     border: none;
     border-radius: 3px;

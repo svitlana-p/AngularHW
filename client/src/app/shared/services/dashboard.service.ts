@@ -66,8 +66,8 @@ export class DashboardService {
       )
   }
 
-  delete(board: IBoard): Observable<IBoard[]> {
-    return this.http.delete<IBoard[]>(`${this.url}/${board._id}`, {
+  delete(boardId: string): Observable<IBoard[]> {
+    return this.http.delete<IBoard[]>(`${this.url}/${boardId}`, {
       params: new HttpParams({
         fromString: 'userId = board.userId'
       })

@@ -1,4 +1,5 @@
-<app-header [title]="dashboardService.bordName" (filterBoards)="onFilter($event)" (sortBoards)="onSort($event)">
+<app-header [title]="dashboardService.bordName" (filterBoards)="onFilter($event)" (sortBoards)="onSort($event)"
+  [dellBtn]="true">
 </app-header>
 
 <div class="container">
@@ -62,7 +63,7 @@
 </div>
 
 
-<div *ngIf="popupService.isVisible$ | async" class="popup popup-all">
+<div *ngIf="popupService.isVisible$ | async" class="popup popup-all" >
 
   <app-popup *ngIf="popupButton === 'comment'" title="Comments">
     <app-comment-modal [todo]="todo"></app-comment-modal>

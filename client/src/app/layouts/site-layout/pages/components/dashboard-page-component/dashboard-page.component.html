@@ -17,7 +17,7 @@
   </ul>
 </div>
 
-<div *ngIf="popupService.isVisible$ | async" class="popup popup-all">
+<div *ngIf="popupService.isVisible$ | async" class="popup popup-all" >
   <app-popup *ngIf="popupButton" title="Edit board">
     <app-edit-board [board]="editboard"></app-edit-board>
   </app-popup>

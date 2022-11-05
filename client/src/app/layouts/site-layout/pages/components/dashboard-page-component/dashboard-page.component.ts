@@ -32,7 +32,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.popupButton = false;
   }
   delete(board: IBoard): void{
-  this.delBordSub = this.dashboardServise.delete(board).subscribe()
+  this.delBordSub = this.dashboardServise.delete(board._id).subscribe()
   }
   onFilter(eventData: {filterTerm: string}){
     this.term = eventData.filterTerm
