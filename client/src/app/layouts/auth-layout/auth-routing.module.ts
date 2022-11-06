@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from 'src/app/layouts/auth-layout/pages/components/login/login.component';
-import { RegisterComponent } from 'src/app/layouts/auth-layout/pages/components/register/register.component';
+import { LoginComponent } from 'src/app/layouts/auth-layout/pages/components/login-component/login.component';
+import { RegisterComponent } from 'src/app/layouts/auth-layout/pages/components/register-component/register.component';
 import { AuthLayoutComponent } from './pages/components/auth-layout-component/auth-layout.component';
 
 

@@ -15,7 +15,7 @@ export class DashboardService {
 
   boardList!: IBoard[];
   bordName!: string;
-  url: string = 'http://localhost:8080/api/dashboard';
+  url: string = 'https://polar-thicket-64635.herokuapp.com/api/dashboard';
 
   getAll(): Observable<IBoard[]> {
     return this.http.get<IBoard[]>(this.url)

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap, throwError, catchError, retry } from 'rxjs';
+import { Observable, tap, throwError, catchError } from 'rxjs';
 import { User } from '../models/user';
 import { ErrorService } from './error.service';
 
@@ -16,13 +16,13 @@ export class AuthService {
     private errorService: ErrorService) { }
 
   register(user: User): Observable<User> {
-    return this.http.post<User>('http://localhost:8080/api/auth/register', user)
+    return this.http.post<User>('https://polar-thicket-64635.herokuapp.com/api/auth/register', user)
     .pipe(catchError(this.errorHandler.bind(this)))
     
   }
   
   login(user: User): Observable<{token:string}> {
-    return this.http.post('http://localhost:8080/api/auth/login', user)
+    return this.http.post('https://polar-thicket-64635.herokuapp.com/api/auth/login', user)
     .pipe(      
       // @ts-ignore
       tap(

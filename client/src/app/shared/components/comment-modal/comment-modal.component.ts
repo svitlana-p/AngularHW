@@ -38,6 +38,7 @@ export class CommentModalComponent implements OnInit, OnDestroy {
     this.delCommentSub = this.todoService.deleteComments(this.boardId, this.todo._id, comment).subscribe(() => this.popupService.close());
   }
   ngOnDestroy(): void {
+    this.todoService.commentList = [];
     if (this.getCommentSub) this.getCommentSub.unsubscribe();
     if (this.postCommentSub) this.postCommentSub.unsubscribe();
     if (this.delCommentSub) this.delCommentSub.unsubscribe();

@@ -1,7 +1,7 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY, Observable, tap, throwError } from 'rxjs';
 import { IComment } from '../models/comment';
 import { ITodo } from '../models/todo';
 import { ErrorService } from './error.service';
@@ -19,7 +19,7 @@ export class TodoService {
   doneList: ITodo[] = [];
   commentList: IComment[] = [];
   
-  url: string = 'http://localhost:8080/api/board';
+  url: string = 'https://polar-thicket-64635.herokuapp.com/api/board';
 
   getAll(boardId: string): Observable<ITodo[]> {
     return this.http.get<ITodo[]>(`${this.url}/${boardId}`)
@@ -92,6 +92,7 @@ export class TodoService {
       )
   }
   postComments(boardId: string, todoId:string, title:string): Observable<IComment> {
+    if (!title) return EMPTY;
     return this.http.post<IComment>(`${this.url}/${boardId}/todo/${todoId}/comments`, {title, todoId})
     .pipe(
       tap((comment: IComment) => {
