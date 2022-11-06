@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { IComment } from 'src/app/shared/models/comment';
 
 import { ITodo } from 'src/app/shared/models/todo';
@@ -19,6 +19,7 @@ export class CommentModalComponent implements OnInit, OnDestroy {
   getCommentSub!: Subscription;
   postCommentSub!: Subscription;
   delCommentSub!: Subscription;
+
   boardId: string = this.route.snapshot.params.id;
 
 
@@ -32,11 +33,12 @@ export class CommentModalComponent implements OnInit, OnDestroy {
     this.getCommentSub = this.todoService.getComments(this.boardId, this.todo._id).subscribe();
   }
   submit() {
-    this.postCommentSub = this.todoService.postComments(this.boardId, this.todo._id, this.form.value.title).subscribe(() => this.popupService.close());
+    this.postCommentSub = this.todoService.postComments(this.boardId, this.todo._id, this.form.value.title).subscribe(()=>{this.form.reset() });
   }
   deleteComment(comment: IComment) {
-    this.delCommentSub = this.todoService.deleteComments(this.boardId, this.todo._id, comment).subscribe(() => this.popupService.close());
+    this.delCommentSub = this.todoService.deleteComments(this.boardId, this.todo._id, comment).subscribe();
   }
+ 
   ngOnDestroy(): void {
     this.todoService.commentList = [];
     if (this.getCommentSub) this.getCommentSub.unsubscribe();
@@ -44,4 +46,4 @@ export class CommentModalComponent implements OnInit, OnDestroy {
     if (this.delCommentSub) this.delCommentSub.unsubscribe();
   }
 
-}
+}//() => this.popupService.close()

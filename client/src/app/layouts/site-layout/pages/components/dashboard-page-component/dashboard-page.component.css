@@ -81,25 +81,26 @@
     position: fixed;
     background-color: rgba(0, 0, 0, 0.8);
 }
-.cont {
+.btn {
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
-    right: 5px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    right: 15px;
     font-size: 18px; 
+    border: none;
+}
+.btn-img {
+    width: 20px;
+    height: 20px;
+}
+.btn:hover{
+    transform: scale(1.05);
     cursor: pointer;
 }
-.cont:hover{
-    color: #000;
-    transform: scale(1.05);
-}
 .delete {    
-    bottom: 10px;   
+    bottom: 15px;   
 }
 .edit {    
-    top: 10px;   
+    top: 15px;   
 }

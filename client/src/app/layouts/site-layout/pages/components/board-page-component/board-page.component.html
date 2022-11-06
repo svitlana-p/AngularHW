@@ -70,12 +70,12 @@
   </app-popup>
 
   <app-popup *ngIf="popupButton === 'edit'" title="Edit todo">
-    <app-add-todo [isAdd]="false" [todo]="editTodo">
-    </app-add-todo>
+    <app-add-edit-todo [isAdd]="false" [todo]="editTodo">
+    </app-add-edit-todo>
   </app-popup>
 
   <app-popup *ngIf="popupButton === 'add' " title="Add todo">
-    <app-add-todo [isAdd]="true"></app-add-todo>
+    <app-add-edit-todo [isAdd]="true"></app-add-edit-todo>
   </app-popup>
 
 </div>

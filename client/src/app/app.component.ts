@@ -9,7 +9,7 @@ import { AuthService } from './shared/services/auth.service';
 export class AppComponent implements OnInit{
   constructor(private auth: AuthService) {
   }
-
+  title=''
   ngOnInit(): void {
     const potentialToken = localStorage.getItem('auth-token');
     if(potentialToken !== null){

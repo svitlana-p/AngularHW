@@ -95,8 +95,8 @@ export class TodoService {
     if (!title) return EMPTY;
     return this.http.post<IComment>(`${this.url}/${boardId}/todo/${todoId}/comments`, {title, todoId})
     .pipe(
-      tap((comment: IComment) => {
-        this.commentList = this.commentList.map(el => el._id !== comment._id ? el : comment);        
+      tap((comment: IComment) => { 
+        this.commentList.push(comment)  
       })
     )    
   }
@@ -111,8 +111,8 @@ export class TodoService {
   deleteComments(boardId: string, todoId:string, comment:IComment): Observable<IComment> {
     return this.http.delete<IComment>(`${this.url}/${boardId}/todo/${todoId}/comments/${comment._id}`)
     .pipe(
-      tap((comment: IComment) => {
-        this.commentList = this.commentList.map(el => el._id !== comment._id ? el : comment);        
+      tap((comment: IComment) => { 
+        this.commentList = this.commentList.filter(el => el._id !== comment._id)  
       })
     )    
   }

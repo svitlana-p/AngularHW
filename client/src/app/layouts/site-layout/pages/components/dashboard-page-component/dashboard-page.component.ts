@@ -46,6 +46,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
   
   ngOnDestroy(): void {
+    this.dashboardServise.boardList = [];
     if (this.dashboardSubscription) this.dashboardSubscription.unsubscribe();
     if (this.delBordSub) this.delBordSub.unsubscribe();
   }

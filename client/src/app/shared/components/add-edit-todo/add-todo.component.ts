@@ -8,7 +8,7 @@ import { PopupService } from 'src/app/shared/services/popup.service';
 import { TodoService } from 'src/app/shared/services/todo.service';
 
 @Component({
-  selector: 'app-add-todo',
+  selector: 'app-add-edit-todo',
   templateUrl: './add-edit-todo.component.html',
   styleUrls: ['./add-edit-todo.component.css']
 })

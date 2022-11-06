@@ -8,7 +8,10 @@
     cursor: pointer;
     position: relative;
 }
-
+.btn-img {
+    width: 20px;
+    height: 20px;
+}
 .todo-text:hover .details {
     display: block;
 }
@@ -43,13 +46,20 @@
 }
 
 .edit-button {
-    right: 70px;
+    right: 75px;
 }
 
 .todo-popup {
-    right: 30px;
+    right: 25px;
 }
 
-.archive {
-    text-decoration: line-through;
+.archived {
+    position: absolute;    
+    left: 20px;
+    top: 0;
+    font-size: 12px;
+    background-color:  rgba(137, 5, 5, 0.271);
+    border: 1px solid rgba(128, 128, 128, 0.389);
+    border-bottom: none;
+    padding: 2px;
 }
