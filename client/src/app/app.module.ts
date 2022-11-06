@@ -4,20 +4,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptop } from './shared/classes/tokenInterceptor';
-import { GlobalErrorComponent } from './shared/components/global-error/global-error.component';
-
+import { GlobalErrorModule } from './shared/components/global-error/global-error.module';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    GlobalErrorComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    GlobalErrorModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

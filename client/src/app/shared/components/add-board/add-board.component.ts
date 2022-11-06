@@ -30,6 +30,7 @@ export class AddBoardComponent implements OnDestroy {
               public dashboardService: DashboardService
     ) { }
   submit(){
+    this.form.disable()
   this.bordSubscritpion = this.dashboardService.create({
       name: this.form.value.name as string,
       description: this.form.value.description as string,

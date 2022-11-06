@@ -8,8 +8,8 @@
     <div class="todo-body firstList" [ngStyle]="{'background-color':firstColor}" cdkDropList
       [cdkDropListData]="todoService.todoList" (cdkDropListDropped)="drop($event)"
       [cdkDropListConnectedTo]="[secondList, thirdList]" #firstList="cdkDropList">
-      <div class="todo todo-add-button">
-        <span (click)="popupService.open()" (click)="choosePopupAdd()">+</span>
+      <div class="todo todo-add-button" (click)="popupService.open()" (click)="choosePopupAdd()">
+        <span>+</span>
       </div>
       <ul class="todo-items">
         <li cdkDrag class="todo todo-item"
@@ -27,7 +27,7 @@
       [cdkDropListData]="todoService.inProgressList" (cdkDropListDropped)="drop($event)"
       [cdkDropListConnectedTo]="[firstList, thirdList]" #secondList="cdkDropList">
       <div class="todo todo-add-button">
-        <span>+</span>
+        <span> ↓ </span>
       </div>
       <ul class="todo-items">
         <li cdkDrag class="todo todo-item"
@@ -46,7 +46,7 @@
       [cdkDropListData]="todoService.doneList" (cdkDropListDropped)="drop($event)"
       [cdkDropListConnectedTo]="[firstList, secondList]" #thirdList="cdkDropList">
       <div class="todo todo-add-button">
-        <span>+</span>
+        <span> ↓ </span>
       </div>
       <ul class="todo-items">
         <li cdkDrag class="todo todo-item"

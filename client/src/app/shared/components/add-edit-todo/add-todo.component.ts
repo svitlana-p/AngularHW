@@ -34,6 +34,7 @@ export class AddEditTodoComponent implements OnDestroy {
   boardId: string = this.route.snapshot.params.id;
   
   submit() {
+    this.form.disable()
     this.todoService.create(this.boardId, {
       name: this.form.value.name as string,
       userId: '',
@@ -51,6 +52,7 @@ export class AddEditTodoComponent implements OnDestroy {
     })
   }
   edit(todo: ITodo) {
+    this.form.disable()
     this.todoService.edit(this.boardId, {
       name: this.form.value.name as string,
       userId: todo.userId,
