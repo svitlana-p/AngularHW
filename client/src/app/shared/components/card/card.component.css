@@ -2,7 +2,7 @@
     position: relative;
     top: 10vh;
     margin: 0 auto;
-    width: 450px;
+    width: 80%;
     box-shadow: 5px 2px 8px 6px rgba(0, 0, 0, 0.241);
 }
 .card-title {
@@ -48,4 +48,20 @@
 .btn:disabled {
     color: black;
     background-color: gray;
+}
+
+@media (min-width:600px) {
+    .card {
+        width: 70%;
+    }
+}
+@media (min-width:800px) {
+    .card {
+        width: 50%;
+    }
+}
+@media (min-width:1200px) {
+    .card {
+        width: 35%;
+    }
 }
