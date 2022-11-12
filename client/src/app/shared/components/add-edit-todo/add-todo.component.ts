@@ -3,9 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { ITodo } from 'src/app/shared/models/todo';
-import { PopupService } from 'src/app/shared/services/popup.service';
-import { TodoService } from 'src/app/shared/services/todo.service';
+import { ITodo } from 'src/app/models/todo';
+import { PopupService } from 'src/app/services/popup.service';
+import { SpinnerService } from 'src/app/services/spinner.service';
+import { TodoService } from 'src/app/services/todo.service';
 
 @Component({
   selector: 'app-add-edit-todo',
@@ -28,12 +29,14 @@ export class AddEditTodoComponent implements OnDestroy {
   }
   constructor(public popupService: PopupService,
     public todoService: TodoService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public spinnerService: SpinnerService
   ) {
   }
   boardId: string = this.route.snapshot.params.id;
   
   submit() {
+    this.spinnerService.open()
     this.form.disable()
     this.todoService.create(this.boardId, {
       name: this.form.value.name as string,
@@ -48,10 +51,12 @@ export class AddEditTodoComponent implements OnDestroy {
       updatedAt: '',
       __v: NaN
     }).subscribe(() => {
+      this.spinnerService.close()
       this.popupService.close()
     })
   }
   edit(todo: ITodo) {
+    this.spinnerService.open()
     this.form.disable()
     this.todoService.edit(this.boardId, {
       name: this.form.value.name as string,
@@ -67,6 +72,7 @@ export class AddEditTodoComponent implements OnDestroy {
       __v: todo.__v
 
     }).subscribe(() => {
+      this.spinnerService.close()
       this.popupService.close()
     })
   }

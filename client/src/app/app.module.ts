@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptop } from './shared/classes/tokenInterceptor';
-import { GlobalErrorModule } from './shared/components/global-error/global-error.module';
+import { TokenInterceptop } from './interceptors/tokenInterceptor';
+import { CoreModule } from './core/components/core.module';
 
 
 
@@ -16,7 +16,7 @@ import { GlobalErrorModule } from './shared/components/global-error/global-error
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    GlobalErrorModule
+    CoreModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -1,0 +1,29 @@
+<app-toolbar (filterBoards)="onFilter($event)" (sortBoards)="onSort($event)"></app-toolbar>
+<div class="page-container">
+  <div (click)="popupService.open()" (click)="choosePopupAdd()" class="popup-container">
+    <p class="item-title"> + </p>
+    <p>Add new</p>
+  </div>
+  <ul class="boards-container">
+    <li *ngFor="let board of dashboardServise.boardList | sort:[sortValue, sortDesc] | filterBoard: term "
+      class="board-item">
+
+      <app-board [board]="board" (popupButtonSelected)="onEdit($event)"></app-board>
+
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="popupService.isVisible$ | async" class="popup popup-all">
+  <app-popup *ngIf="popupButton === 'edit'" title="Edit board">
+    <app-add-edit-board [board]="editboard"></app-add-edit-board>
+  </app-popup>
+  <app-popup *ngIf="popupButton === 'add'" title="Add board">
+    <app-add-edit-board [isAdd]="true"></app-add-edit-board>
+  </app-popup>
+</div>
+<div *ngIf="!popupButton || popupButton === 'delete'">
+  <div *ngIf="spinnerService.isVisible$ |async ">
+    <app-spinner></app-spinner>
+  </div>
+</div>

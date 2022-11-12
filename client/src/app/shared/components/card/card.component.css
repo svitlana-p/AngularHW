@@ -23,14 +23,19 @@
     font-size: 12px;
     color: red;
 }
-/* .error {
-    margin: 2px;
-    color: red;
-    font-size: 12px;
-} */
+input {
+    outline:none;
+}
 .form-input {
     padding: 10px 40px;
+    border: 1px solid rgba(128, 128, 128, 0.171);
     border-radius: 3px;
+}
+.green {
+    border-color: green;
+}
+.red {
+    border-color: red;
 }
 .btn {
     margin: 20px;

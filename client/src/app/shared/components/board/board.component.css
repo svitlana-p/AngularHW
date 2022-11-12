@@ -1,0 +1,66 @@
+
+.text {
+    display: block;        
+}
+.board-name {
+    padding: 20px 40px 0 20px;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 24px;
+    color: rgb(137, 5, 5);
+    cursor: pointer;
+    position: relative;
+}
+.board-name:hover .details {
+    display: block;
+}
+.details {
+    display: none;
+    position: absolute;
+    left: 50%;  
+    font-size: 10px;
+}
+.board-desc {
+    padding: 20px;
+}
+.board-date {
+    font-size: 16px;
+    padding: 0 20px 20px 20px;
+}
+.board-item:hover {
+    transform: scale(1.03);
+}
+.popup {    
+    width: 100%;
+    height: 100%;    
+    top: 0;
+    left: 0;
+}
+.popup-all {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.btn {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 15px;
+    font-size: 18px; 
+    border: none;
+}
+.btn-img {
+    width: 20px;
+    height: 20px;
+}
+.btn:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+.delete {    
+    bottom: 15px;   
+}
+.edit {    
+    top: 15px;   
+}
+

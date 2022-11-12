@@ -1,14 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { IBoard } from '../models/board';
+import { IBoard } from 'src/app/models/board';
 
 @Pipe({
   name: 'filterBoard'
 })
 export class FilterBoardPipe implements PipeTransform {
 
-  transform<T>(boardList: T[], search:string): T[]{
+  transform(boardList: IBoard[], search:string): IBoard[]{
     if(search.length === 0) return boardList
-    //@ts-ignore
     return boardList.filter(el => el.name.toLowerCase().includes(search.toLowerCase()))
   }
 

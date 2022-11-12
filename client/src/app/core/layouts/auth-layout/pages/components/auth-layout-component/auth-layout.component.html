@@ -1,0 +1,26 @@
+<nav class="navigation">
+    <div class="nav-wrapper">
+        <a 
+            routerLink="/"
+            class="title-logo text">
+            Angular Application
+        </a>
+        <ul class="nav-container">
+            <li class="nav-list"><a 
+                class="nav-link text login"
+                routerLink="login"
+                >
+                Sign In
+            </a></li>
+            <li class="nav-list"><a 
+                class="nav-link text register"
+                routerLink="register"
+                >
+                Sign Up
+            </a></li>            
+        </ul>
+    </div>
+</nav>
+<div class="auth-block">
+    <router-outlet></router-outlet>
+</div>

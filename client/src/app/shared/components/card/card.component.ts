@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription, } from 'rxjs';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-card',
@@ -14,7 +14,6 @@ export class CardComponent implements OnInit, OnDestroy {
   @Input() buttonName!: string;
   @Input() emailRequired!: boolean;
 
-  form!: FormGroup;
   authSubscription!: Subscription;
 
   constructor(private auth: AuthService,
@@ -22,11 +21,7 @@ export class CardComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      username: new FormControl<string>('', [Validators.required]),
-      email: new FormControl<string>('', [Validators.email]),
-      password: new FormControl<string>('', [Validators.required, Validators.minLength(6)])
-    });
+
     this.route.queryParams.subscribe((params: Params) => {
       if (params['registered']) {
         alert('You are successfully registered! Please, login!')
@@ -35,6 +30,12 @@ export class CardComponent implements OnInit, OnDestroy {
       }
     })
   }
+  form = new FormGroup({
+    username: new FormControl<string>('', [Validators.required]),
+    email: new FormControl<string>('', [Validators.email, Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")]),
+    password: new FormControl<string>('', [Validators.required, Validators.minLength(6)])
+  });
+
   get username() {
     return this.form.controls.username as FormControl
   }
@@ -46,15 +47,25 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-
     if (this.buttonName === 'Log In') {
-      this.authSubscription = this.auth.login(this.form.value).subscribe(
+      const user = {
+        username: this.form.value.username as string,
+        email: '',
+        password: this.form.value.password as string
+      }
+      this.authSubscription = this.auth.login(user).subscribe(
         () => this.router.navigate(['/dashboard'])
       )
     }
     if (this.buttonName === 'Sign Up') {
-      this.authSubscription = this.auth.register(this.form.value).subscribe(
+      const user = {
+        username: this.form.value.username as string,
+        email: this.form.value.email as string,
+        password: this.form.value.password as string
+      }
+      this.authSubscription = this.auth.register(user).subscribe(
         () => {
+          alert('You are successfully registered! Please, login!')
           this.router.navigate(['/login'], {
             queryParams: {
               registered: true
