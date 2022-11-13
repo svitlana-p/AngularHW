@@ -11,10 +11,10 @@ describe('GlobalErrorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GlobalErrorComponent ],
+      declarations: [GlobalErrorComponent],
       providers: [ErrorService]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(GlobalErrorComponent);
     errorService = TestBed.inject(ErrorService)
@@ -26,7 +26,7 @@ describe('GlobalErrorComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should called clear method of service', ()=> {
+  it('should called clear method of service', () => {
     const spy = spyOn(errorService, 'clear').and.callThrough();
 
     component.clear()

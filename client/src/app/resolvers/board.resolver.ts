@@ -4,7 +4,7 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { catchError, EMPTY, Observable} from 'rxjs';
+import { catchError, EMPTY, Observable } from 'rxjs';
 import { ITodo } from '../models/todo';
 import { TodoService } from '../services/todo.service';
 
@@ -12,14 +12,14 @@ import { TodoService } from '../services/todo.service';
   providedIn: 'root'
 })
 export class BoardResolver implements Resolve<ITodo[]> {
-  constructor(private todoService: TodoService, private router: Router) {}
+  constructor(private todoService: TodoService, private router: Router) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ITodo[]> {
     return this.todoService.getAll(route.params?.['id']).pipe(
-      catchError(()=>{
+      catchError(() => {
         this.router.navigate(['dashboard']);
         return EMPTY;
       })
     )
   }
-  
+
 }

@@ -3,34 +3,41 @@
     flex-direction: column;
     margin: 0 40px;
 }
+
 .popup-form-input {
     margin: 10px 0;
     padding: 10px 15px;
     border: 1px solid rgba(128, 128, 128, 0.275);
     border-radius: 5px;
 }
+
 .popup-btn {
     margin: 0 10px;
     padding: 10px 15px;
     border: none;
     border-radius: 3px;
-    font-weight: 600;    
+    font-weight: 600;
 }
+
 input {
-    outline:none;
+    outline: none;
 }
+
 .popup-btn:hover {
     color: rgb(137, 5, 5);
-    box-shadow: 1px 2px 2px  gray;
+    box-shadow: 1px 2px 2px gray;
 }
-.error-message {    
-    margin:0 0 4px 0;
+
+.error-message {
+    margin: 0 0 4px 0;
     font-size: 12px;
     color: red;
 }
+
 .red {
     border-color: red;
 }
+
 .green {
     border-color: green;
 }

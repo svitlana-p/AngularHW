@@ -69,8 +69,8 @@ describe('dashboard service', () => {
         });
         expect(httpClientSpy.put.calls.count()).toBe(1);
     })
-    it('should create a board', (done: DoneFn) => {     
-        const board = boardMock[1];   
+    it('should create a board', (done: DoneFn) => {
+        const board = boardMock[1];
         httpClientSpy.post.and.returnValue(of(boardMock[1]));
 
         service.create(board).subscribe({
@@ -81,7 +81,7 @@ describe('dashboard service', () => {
             },
             error: done.fail
         });
-       expect(httpClientSpy.post.calls.count()).toBe(1);
+        expect(httpClientSpy.post.calls.count()).toBe(1);
     })
 
     it('should edit user and be truthy', (done: DoneFn) => {
@@ -99,7 +99,7 @@ describe('dashboard service', () => {
         expect(httpClientSpy.patch.calls.count()).toBe(1);
     });
 
-    it ('shoult delete user and be truthy', (done: DoneFn)=> {
+    it('shoult delete user and be truthy', (done: DoneFn) => {
         const boardId = boardMock[0]._id;
         httpClientSpy.delete.and.returnValue(of(boardMock[0]));
 

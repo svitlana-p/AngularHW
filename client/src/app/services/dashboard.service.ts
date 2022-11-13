@@ -24,7 +24,7 @@ export class DashboardService {
         catchError(this.errorHandler.bind(this))
       )
   }
-  getOne(boardId:string): Observable<IBoard[]> {
+  getOne(boardId: string): Observable<IBoard[]> {
     return this.http.get<IBoard[]>(`${this.url}/${boardId}`)
       .pipe(
         tap(board => {
@@ -33,7 +33,7 @@ export class DashboardService {
         catchError(this.errorHandler.bind(this))
       )
   }
-  update(boardId:string, color:string, colorValue:string):Observable<IBoard> {
+  update(boardId: string, color: string, colorValue: string): Observable<IBoard> {
     return this.http.put<IBoard>(`${this.url}/${boardId}`, {
       color,
       colorValue

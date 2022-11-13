@@ -7,18 +7,18 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./color-piker.component.css']
 })
 export class ColorPikerComponent {
-  @Input() id!:string;
+  @Input() id!: string;
   color!: string;
-  @Output() chooseColor = new EventEmitter<{ color: string, element:string}>()
+  @Output() chooseColor = new EventEmitter<{ color: string, element: string }>()
 
   constructor(public dashboardService: DashboardService,
     private route: ActivatedRoute,) { }
 
-  setColor( event: Event) {    
-    //@ts-ignore
-    const element = event.target.id
-    this.chooseColor.emit({color: this.color, element: element})
+  setColor(event: Event) {
+
+    const element = (event.target as HTMLInputElement).id
+    this.chooseColor.emit({ color: this.color, element: element })
     const boardId: string = this.route.snapshot.params.id;
     this.dashboardService.update(boardId, element, this.color).subscribe();
-   }
+  }
 }

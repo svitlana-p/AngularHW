@@ -34,7 +34,7 @@ export class AddEditTodoComponent implements OnDestroy {
   ) {
   }
   boardId: string = this.route.snapshot.params.id;
-  
+
   submit() {
     this.spinnerService.open()
     this.form.disable()

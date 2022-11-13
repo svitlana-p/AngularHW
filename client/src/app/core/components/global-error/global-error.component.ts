@@ -10,8 +10,8 @@ import { ErrorService } from 'src/app/services/error.service';
 export class GlobalErrorComponent {
 
   constructor(public errorService: ErrorService) { }
-  
-  clear(){
+
+  clear() {
     this.errorService.clear()
   }
 }

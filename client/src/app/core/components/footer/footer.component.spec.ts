@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import {RouterTestingModule} from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from 'src/app/services/auth.service';
-import { AuthServiceMock } from 'src/app/services/auth.service-mock';
+import { AuthServiceMock } from 'src/app/services/auth.service.mock';
 
 import { FooterComponent } from './footer.component';
 

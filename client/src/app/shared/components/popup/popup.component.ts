@@ -8,7 +8,7 @@ import { PopupService } from 'src/app/services/popup.service';
   styleUrls: ['./popup.component.css']
 })
 export class PopupComponent {
-@Input() title!: string;
- constructor(public popupService: PopupService){}
+  @Input() title!: string;
+  constructor(public popupService: PopupService) { }
 
 }

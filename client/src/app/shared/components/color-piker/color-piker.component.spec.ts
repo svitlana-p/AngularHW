@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgModel } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DashboardService } from 'src/app/services/dashboard.service';
-import { DashboardServiceMock } from 'src/app/services/dashboard.service-mock';
+import { DashboardServiceMock } from 'src/app/services/dashboard.service.mock';
 
 import { ColorPikerComponent } from './color-piker.component';
 
@@ -13,17 +14,19 @@ describe('ColorPikerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ColorPikerComponent],
+      declarations: [ColorPikerComponent],
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        FormsModule
       ],
       providers: [{
         provide: DashboardService, useClass: DashboardServiceMock
       }]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ColorPikerComponent);
+    dashboardService = TestBed.inject(DashboardService);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -31,4 +34,21 @@ describe('ColorPikerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set input value', () => {
+    component.id = 'test';
+    const input = fixture.debugElement.query(By.css('input'));
+    fixture.detectChanges();
+    expect((input.nativeElement as HTMLElement).id).toBe('test')
+  });
+
+  it('should called setColor method', () => {
+
+    spyOn(component, 'setColor').and.callThrough();
+    fixture.debugElement.query(By.css('input'))
+      .triggerEventHandler('change', null);
+
+    expect(component.setColor).toHaveBeenCalled();
+  })
+ 
 });

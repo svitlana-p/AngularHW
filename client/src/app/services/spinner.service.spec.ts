@@ -16,7 +16,7 @@ describe('SpinnerService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return true', ()=> {
+  it('should return true', () => {
     service.open()
     service.isVisible$.subscribe({
       next: value => {
@@ -25,7 +25,7 @@ describe('SpinnerService', () => {
     })
   });
 
-  it('should return false', ()=> {
+  it('should return false', () => {
     service.close()
     service.isVisible$.subscribe({
       next: value => {

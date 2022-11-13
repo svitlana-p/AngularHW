@@ -1,13 +1,15 @@
 .popup-area {
     position: absolute;
 }
+
 .popup-body {
     min-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px 10px; 
+    padding: 30px 10px;
 }
+
 .popup-content {
     background-color: white;
     border-radius: 8px;
@@ -15,13 +17,15 @@
     padding: 30px;
     position: relative;
 }
-.popup-close {   
+
+.popup-close {
     position: absolute;
     right: 20px;
     top: 10px;
     font-size: 15px;
     cursor: pointer;
- }
+}
+
 .popup-title {
     text-align: center;
     font-weight: 600;

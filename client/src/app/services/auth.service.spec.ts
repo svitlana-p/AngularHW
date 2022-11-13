@@ -70,4 +70,12 @@ describe('AuthService', () => {
         })
     })
 
+    describe('logout', () => {
+
+        it('should logout and set token empty string', () => {
+            spyOn(service, 'setToken').and.callThrough()
+            service.logout()
+            expect(service.setToken).toHaveBeenCalled()
+        })
+    })
 });

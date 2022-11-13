@@ -65,7 +65,6 @@ export class CardComponent implements OnInit, OnDestroy {
       }
       this.authSubscription = this.auth.register(user).subscribe(
         () => {
-          alert('You are successfully registered! Please, login!')
           this.router.navigate(['/login'], {
             queryParams: {
               registered: true

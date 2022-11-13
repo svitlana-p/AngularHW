@@ -48,7 +48,7 @@ import { BoardComponent } from './components/board/board.component';
     PopupComponent,
     CommentModalComponent,
     ColorPikerComponent,
-    TodosContainerComponent, 
+    TodosContainerComponent,
     BoardComponent,
     SpinnerComponent
   ]

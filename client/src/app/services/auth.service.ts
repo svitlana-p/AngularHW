@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap, throwError, catchError } from 'rxjs';
+import { Answer } from '../models/answer';
 import { User } from '../models/user';
 import { ErrorService } from './error.service';
 
@@ -20,11 +21,11 @@ export class AuthService {
 
   }
 
-  login(user: User): Observable<any> {
-    return this.http.post('https://polar-thicket-64635.herokuapp.com/api/auth/login', user)
-      .pipe(        
-        tap(         
-          (info: any) => {           
+  login(user: User): Observable<Answer> {
+    return this.http.post<Answer>('https://polar-thicket-64635.herokuapp.com/api/auth/login', user)
+      .pipe(
+        tap(
+          (info: Answer) => {
             localStorage.setItem('auth-token', info.token)
             this.setToken(info.token)
             localStorage.setItem('username', info.username)

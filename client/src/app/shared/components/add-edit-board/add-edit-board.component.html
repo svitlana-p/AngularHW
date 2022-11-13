@@ -1,25 +1,14 @@
 <form class="popup-form" [formGroup]="form" (ngSubmit)=" isAdd ?  submit() : edit(board)">
-    <input 
-    [ngClass]= "name.invalid && name.touched ? 'popup-form-input red' : 'popup-form-input green'"
-    type="text" 
-    placeholder="Board Name"
-    formControlName="name"
-    appFocus>
-    <p class="error-message"
-    *ngIf="name.touched && name.errors?.required">Please, enter board name</p>
-    <input 
-    *ngIf="isAdd"
-    [ngClass]= "description.invalid && description.touched ? 'popup-form-input red' : 'popup-form-input green'"
-    type="text"  
-    placeholder="Board description"
-    formControlName="description"
-    required maxlength="60">
-    <p class="error-message"
-    *ngIf="description.touched && description.errors?.maxlength">Please, enter board description. Max length is 60</p>
-    <button class="popup-btn" type="submit" [disabled]="form.invalid">Save</button>
+  <input [ngClass]="name.invalid && name.touched ? 'popup-form-input red' : 'popup-form-input green'" type="text"
+    placeholder="Board Name" formControlName="name" appFocus>
+  <p class="error-message" *ngIf="name.touched && name.errors?.required">Please, enter board name</p>
+  <input *ngIf="isAdd"
+    [ngClass]="description.invalid && description.touched ? 'popup-form-input red' : 'popup-form-input green'"
+    type="text" placeholder="Board description" formControlName="description" required maxlength="60">
+  <p class="error-message" *ngIf="description.touched && description.errors?.maxlength">Please, enter board description.
+    Max length is 60</p>
+  <button class="popup-btn" type="submit" [disabled]="form.invalid">Save</button>
 </form>
 <div *ngIf="spinnerService.isVisible$ |async">
-    <app-spinner></app-spinner>
+  <app-spinner></app-spinner>
 </div>
-
- 

@@ -89,6 +89,9 @@
               "src/favicon.ico",
               "src/assets"
             ],
+            "codeCoverageExclude": [
+              "/**/*mock*.ts"
+          ],
             "styles": [
               "src/styles.css"
             ],

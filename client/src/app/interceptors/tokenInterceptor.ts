@@ -6,10 +6,10 @@ import { AuthService } from "../services/auth.service";
 
 @Injectable()
 export class TokenInterceptop implements HttpInterceptor {
-    constructor(private auth: AuthService){}
+    constructor(private auth: AuthService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if(this.auth.isAuthenticated()){
+        if (this.auth.isAuthenticated()) {
             req = req.clone({
                 setHeaders: {
                     authorization: `BearerToken ${this.auth.getToken()}`

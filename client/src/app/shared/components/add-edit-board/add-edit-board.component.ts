@@ -12,7 +12,7 @@ import { SpinnerService } from '../../../services/spinner.service';
   styleUrls: ['./add-edit-board.component.css']
 })
 export class AddEditBoardComponent implements OnDestroy {
-  @Input() isAdd?: boolean; 
+  @Input() isAdd?: boolean;
   @Input() board!: IBoard;
 
   bordSubscritpion!: Subscription;
@@ -54,11 +54,11 @@ export class AddEditBoardComponent implements OnDestroy {
       this.spinnerService.close()
       this.popupService.close()
     })
-    
+
   }
 
   edit(board: IBoard) {
-   if(!this.isAdd) this.spinnerService.open()
+    if (!this.isAdd) this.spinnerService.open()
     this.editSubscritpion = this.dashboardService.edit({
       name: this.form.value.name as string,
       description: board.description,
@@ -74,7 +74,7 @@ export class AddEditBoardComponent implements OnDestroy {
       this.popupService.close()
       this.spinnerService.close()
     })
-   
+
   }
 
 

@@ -8,12 +8,12 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         LoginComponent,
         CardStubComponent
-    ]
+      ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;

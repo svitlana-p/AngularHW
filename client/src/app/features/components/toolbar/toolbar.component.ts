@@ -37,12 +37,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
   onDelete() {
     const boardId: string = this.route.snapshot.params.id;
-    if(confirm('Are you sure you want to delete the board?')) {
+    if (confirm('Are you sure you want to delete the board?')) {
       this.dashboardSubscrition = this.dashboardService.delete(boardId).subscribe(() => {
-      this.router.navigate(['dashboard']);
-    })
+        this.router.navigate(['dashboard']);
+      })
     }
-    
+
   }
 
   ngOnInit(): void {

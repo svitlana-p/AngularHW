@@ -22,10 +22,10 @@ export class TodosContainerComponent implements OnDestroy {
   archiveSubscription!: Subscription;
   delListSubscription!: Subscription;
 
+  boardId: string = this.route.snapshot.params.id;
 
   constructor(public todoService: TodoService,
     private route: ActivatedRoute,
-    public dashboardService: DashboardService,
     public popupService: PopupService
   ) { }
 
@@ -42,13 +42,11 @@ export class TodosContainerComponent implements OnDestroy {
   }
 
   delete(todo: ITodo) {
-    const boardId: string = this.route.snapshot.params.id;
-    this.delListSubscription = this.todoService.delete(boardId, todo).subscribe()
+    this.delListSubscription = this.todoService.delete(this.boardId, todo).subscribe()
   }
 
   archive(todo: ITodo) {
-    const boardId: string = this.route.snapshot.params.id;
-    this.archiveSubscription = this.todoService.changeStatus(boardId, todo, 'archive').subscribe()
+    this.archiveSubscription = this.todoService.changeStatus(this.boardId, todo, 'archive').subscribe()
   }
   ngOnDestroy(): void {
     if (this.archiveSubscription) this.archiveSubscription.unsubscribe();

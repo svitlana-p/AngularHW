@@ -9,20 +9,20 @@ describe('AuthLayoutComponent', () => {
     let component: AuthLayoutComponent;
     let fixture: ComponentFixture<AuthLayoutComponent>;
     let router: Router;
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
-                declarations: [AuthLayoutComponent],
-                imports: [RouterTestingModule]
-            })
-                .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [AuthLayoutComponent],
+            imports: [RouterTestingModule]
+        })
+            .compileComponents();
 
-            fixture = TestBed.createComponent(AuthLayoutComponent);
-            router = TestBed.inject(Router);
-            spyOn(router, 'navigate');
+        fixture = TestBed.createComponent(AuthLayoutComponent);
+        router = TestBed.inject(Router);
+        spyOn(router, 'navigate');
 
-            component = fixture.componentInstance;
-            fixture.detectChanges();
-        });
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
     it('should create', () => {
         expect(component).toBeTruthy();

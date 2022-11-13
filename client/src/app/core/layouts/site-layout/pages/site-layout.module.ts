@@ -12,8 +12,6 @@ import { FeaturesModule } from 'src/app/features/features.module';
 import { CoreModule } from 'src/app/core/components/core.module';
 
 
-
-
 @NgModule({
   declarations: [
     SiteLayoutComponent,

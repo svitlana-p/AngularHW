@@ -6,7 +6,7 @@ import { IBoard } from "../models/board";
     selector: 'app-todo-container',
     template: '<div><span></span><span></span></div>'
 })
-export class TodoStubComponent{
+export class TodoStubComponent {
     @Input() board: IBoard[] = [];
 }
 
@@ -14,7 +14,7 @@ export class TodoStubComponent{
     selector: 'app-toolbar',
     template: '<div></div>'
 })
-export class ToolbarStubComponent{
+export class ToolbarStubComponent {
     @Input() title: string = '';
     @Input() dellBtn: boolean = false;
 }
@@ -23,26 +23,26 @@ export class ToolbarStubComponent{
     selector: 'app-spinner',
     template: '<div></div>'
 })
-export class SpinnerStubComponent{
+export class SpinnerStubComponent {
 
 }
 @Component({
     selector: 'app-color-piker',
     template: '<form></form>'
 })
-export class ColorPikerStubComponent{
-    @Input() id:string = 'test'
+export class ColorPikerStubComponent {
+    @Input() id: string = 'test'
 }
 
-@Pipe({name: 'filterTodo'})
+@Pipe({ name: 'filterTodo' })
 export class TodoFilterStubPipe implements PipeTransform {
     transform() {
-        return[]
+        return []
     }
 }
-@Pipe({name: 'sort'})
+@Pipe({ name: 'sort' })
 export class SortStubPipe implements PipeTransform {
     transform() {
-        return[]
+        return []
     }
 }

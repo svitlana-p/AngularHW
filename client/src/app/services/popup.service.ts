@@ -6,12 +6,12 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class PopupService {
   isVisible$ = new BehaviorSubject<boolean>(false)
-  
-  open(){
+
+  open() {
     this.isVisible$.next(true)
   }
 
-  close(){
+  close() {
     this.isVisible$.next(false)
   }
 }

@@ -7,9 +7,6 @@ import { RegisterComponent } from 'src/app/core/layouts/auth-layout/pages/compon
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthLayoutComponent } from './components/auth-layout-component/auth-layout.component';
 
-
-
-
 @NgModule({
   declarations: [
     LoginComponent,

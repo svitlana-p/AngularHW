@@ -11,12 +11,12 @@ import { AuthService } from 'src/app/services/auth.service';
 export class FooterComponent implements OnInit {
 
   constructor(private authService: AuthService,
-              private router: Router    
+    private router: Router
   ) { }
 
   ngOnInit(): void {
   }
-  logout(){
+  logout() {
     this.authService.logout();
     this.router.navigate(['/login'])
   }

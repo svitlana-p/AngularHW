@@ -1,10 +1,10 @@
 <div class="container">
-    <span class="delete btn" (click)="delete(board)"><img class="btn-img" src="https://i.ibb.co/TKGX6Qc/1214428.png"
-    alt="delete"></span>
-<span class="text board-name" [routerLink]="['/board', board._id]">{{board.name}}<span class="details">Board
-    details</span></span>
-<span class="text board-desc">{{board.description}}</span>
-<span class="text board-date">Creation date: {{board.createdAt | date: 'medium': 'GMT+3'}}</span>
-<span (click)="popupService.open()" (click)="choosePopupEdit(board)" class="edit btn"><img class="btn-img"
-    src="https://i.ibb.co/HCcrqjT/1159633.png" alt="edit"></span>
+  <span class="delete btn" (click)="delete(board)"><img class="btn-img" src="https://i.ibb.co/TKGX6Qc/1214428.png"
+      alt="delete"></span>
+  <span class="text board-name" [routerLink]="['/board', board._id]">{{board.name}}<span class="details">Board
+      details</span></span>
+  <span class="text board-desc">{{board.description}}</span>
+  <span class="text board-date">Creation date: {{board.createdAt | date: 'medium': 'GMT+3'}}</span>
+  <span (click)="popupService.open()" (click)="choosePopupEdit(board)" class="edit btn"><img class="btn-img"
+      src="https://i.ibb.co/HCcrqjT/1159633.png" alt="edit"></span>
 </div>

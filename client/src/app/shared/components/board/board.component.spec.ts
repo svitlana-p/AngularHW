@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { boardMock } from 'src/app/mocks/board-mock';
 import { DashboardService } from 'src/app/services/dashboard.service';
-import { DashboardServiceMock } from 'src/app/services/dashboard.service-mock';
+import { DashboardServiceMock } from 'src/app/services/dashboard.service.mock';
 import { PopupService } from 'src/app/services/popup.service';
 
 import { BoardComponent } from './board.component';
@@ -17,9 +17,9 @@ describe('BoardComponent', () => {
   let popupService: PopupService;
 
   beforeEach(async () => {
-    
+
     await TestBed.configureTestingModule({
-      declarations: [ BoardComponent ],
+      declarations: [BoardComponent],
       imports: [RouterTestingModule],
       providers: [
         {
@@ -28,7 +28,7 @@ describe('BoardComponent', () => {
         PopupService
       ]
     })
-    .compileComponents();
+      .compileComponents();
     router = TestBed.inject(Router);
     spyOn(router, 'navigate');
 
@@ -40,27 +40,27 @@ describe('BoardComponent', () => {
     fixture.detectChanges();
   });
 
- 
-  it('should create', ()=> {
+
+  it('should create', () => {
     expect(component).toBeTruthy()
   });
 
-  it('shoud called delete service method',()=> {
+  it('shoud called delete service method', () => {
     const spy = spyOn(dashboardService, 'delete').and.callThrough();
 
     fixture.debugElement.query(By.css('.delete'))
       .triggerEventHandler('click', null);
 
-      expect(spy).toHaveBeenCalledOnceWith(boardMock[0]._id)
+    expect(spy).toHaveBeenCalledOnceWith(boardMock[0]._id)
   })
 
-  it('should called open service method', ()=> {
+  it('should called open service method', () => {
     const spy = spyOn(popupService, 'open').and.callThrough();
 
     fixture.debugElement.query(By.css('.edit'))
       .triggerEventHandler('click', null);
 
-      expect(spy).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalled()
   })
 
 }); 

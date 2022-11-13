@@ -43,7 +43,7 @@
         <div *ngIf="spinnerService.isVisible$ |async ">
           <app-spinner></app-spinner>
         </div>
-        </div>
+      </div>
       <app-color-piker [id]="'secondColor'" (chooseColor)="onColorSelect($event)"></app-color-piker>
     </div>
   </div>

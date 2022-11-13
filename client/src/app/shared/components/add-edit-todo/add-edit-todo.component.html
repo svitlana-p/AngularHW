@@ -1,14 +1,9 @@
-<form  class="popup-form" [formGroup]="form" (ngSubmit)= "isAdd ?  submit() : edit(todo)" >
-    <input 
-    [ngClass]= "name.invalid && name.touched ? 'popup-form-input red' : 'popup-form-input green'"
-    type="text" 
-    placeholder="Todo Name"
-    formControlName="name"
-    appFocus>
-    <p class="error-message"
-    *ngIf="name.touched && name.errors?.required">Please, enter todo name</p>
-    <button class="popup-btn" type="submit" [disabled]="form.invalid">Save</button>
-</form> 
+<form class="popup-form" [formGroup]="form" (ngSubmit)="isAdd ?  submit() : edit(todo)">
+  <input [ngClass]="name.invalid && name.touched ? 'popup-form-input red' : 'popup-form-input green'" type="text"
+    placeholder="Todo Name" formControlName="name" appFocus>
+  <p class="error-message" *ngIf="name.touched && name.errors?.required">Please, enter todo name</p>
+  <button class="popup-btn" type="submit" [disabled]="form.invalid">Save</button>
+</form>
 <div *ngIf="spinnerService.isVisible$ |async">
-    <app-spinner></app-spinner>
+  <app-spinner></app-spinner>
 </div>

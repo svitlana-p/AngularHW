@@ -21,7 +21,7 @@ import { FooterComponent } from './footer/footer.component';
   exports: [
     GlobalErrorComponent,
     NotFoundComponent,
-    HeaderComponent, 
+    HeaderComponent,
     FooterComponent
   ]
 })

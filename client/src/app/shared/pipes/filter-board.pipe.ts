@@ -6,8 +6,8 @@ import { IBoard } from 'src/app/models/board';
 })
 export class FilterBoardPipe implements PipeTransform {
 
-  transform(boardList: IBoard[], search:string): IBoard[]{
-    if(search.length === 0) return boardList
+  transform(boardList: IBoard[], search: string): IBoard[] {
+    if (search.length === 0) return boardList
     return boardList.filter(el => el.name.toLowerCase().includes(search.toLowerCase()))
   }
 

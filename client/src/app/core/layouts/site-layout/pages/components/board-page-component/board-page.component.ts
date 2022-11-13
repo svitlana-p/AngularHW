@@ -34,9 +34,9 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public popupService: PopupService,
     public spinnerService: SpinnerService
-    ) { }
+  ) { }
 
-  
+
   choosePopupAdd(): void {
     this.popupButton = 'add';
   }
@@ -47,11 +47,11 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.sortValue = eventData.sortValue
     this.sortDesc = eventData.sortDirection
   }
-  onEdit(eventData: {popupButton:string, selectedTodo:ITodo}){
+  onEdit(eventData: { popupButton: string, selectedTodo: ITodo }) {
     this.popupButton = eventData.popupButton
     this.editTodo = eventData.selectedTodo
   }
-  onComments(eventData: {popupButton:string, selectedTodo:ITodo}){
+  onComments(eventData: { popupButton: string, selectedTodo: ITodo }) {
     this.popupButton = eventData.popupButton
     this.todo = eventData.selectedTodo
   }
@@ -60,13 +60,13 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     if (eventData.element === 'secondColor') this.secondColor = eventData.color;
     if (eventData.element === 'thirdColor') this.thirdColor = eventData.color;
   }
- 
+
   drop(event: CdkDragDrop<ITodo[]>) {
     const todo: ITodo = event.previousContainer.data[event.previousIndex]
     const boardId: string = this.route.snapshot.params.id;
     this.todoService.drop(event, boardId, todo)
-  } 
- 
+  }
+
   ngOnInit(): void {
     const boardId: string = this.route.snapshot.params.id;
     this.spinnerService.open()

@@ -6,7 +6,7 @@ import { IBoard } from "../models/board";
     selector: 'app-board',
     template: '<div><span></span><span></span></div>'
 })
-export class BoardStubComponent{
+export class BoardStubComponent {
     @Input() board: IBoard[] = [];
 }
 
@@ -14,20 +14,20 @@ export class BoardStubComponent{
     selector: 'app-toolbar',
     template: '<div></div>'
 })
-export class ToolbarStubComponent{
+export class ToolbarStubComponent {
     @Input() title: string = '';
     @Input() dellBtn: boolean = false;
 }
 
-@Pipe({name: 'filterBoard'})
+@Pipe({ name: 'filterBoard' })
 export class DashbooardFilterStubPipe implements PipeTransform {
     transform() {
-        return[]
+        return []
     }
 }
-@Pipe({name: 'sort'})
+@Pipe({ name: 'sort' })
 export class SortStubPipe implements PipeTransform {
     transform() {
-        return[]
+        return []
     }
 }

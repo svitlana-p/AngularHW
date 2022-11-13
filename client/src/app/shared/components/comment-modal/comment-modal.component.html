@@ -1,16 +1,16 @@
-<div class="comment-count">Comments in the task: <span class="comment-color">{{todoService.commentList.length}} </span> </div>
+<div class="comment-count">Comments in the task: <span class="comment-color">{{todoService.commentList.length}} </span>
+</div>
 <div *ngIf="spinnerService.isVisible$ |async">
   <app-spinner></app-spinner>
 </div>
-<div class="comments" *ngFor="let comment of todoService.commentList">  
+<div class="comments" *ngFor="let comment of todoService.commentList">
   <span class="commment-text">{{comment.title}}</span>
   <div>
     <span class="comment-date">{{comment.createdAt | date}}</span>
     <span class="comment-button" (click)="deleteComment(comment)">❌</span>
-  </div>  
+  </div>
 </div>
-<form class="popup-form" #form="ngForm" (ngSubmit)="submit()" >
+<form class="popup-form" #form="ngForm" (ngSubmit)="submit()">
   <input class="popup-form-input" type="text" placeholder="Add a comment" name="title" ngModel appFocus>
   <button class="popup-btn" type="submit" [disabled]="form.invalid">Save</button>
 </form>
-

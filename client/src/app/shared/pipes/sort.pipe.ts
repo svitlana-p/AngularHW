@@ -7,10 +7,10 @@ export class SortPipe implements PipeTransform {
 
   transform<T>(value: T[], args: string[]): T[] {
     let sorted: T[];
-    if(value === undefined) {
+    if (value === undefined) {
       return value
     }
-   
+
     const sortField = args[0];
     const sordDirection = args[1];
     let multiplier = 1;

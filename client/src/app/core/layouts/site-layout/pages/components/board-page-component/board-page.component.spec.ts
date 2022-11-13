@@ -4,7 +4,7 @@ import { PopupService } from 'src/app/services/popup.service';
 import { TodoService } from 'src/app/services/todo.service';
 import { ColorPikerStubComponent, SortStubPipe, SpinnerStubComponent, TodoFilterStubPipe, TodoStubComponent, ToolbarStubComponent } from 'src/app/utils/todo.stub';
 import { BoardPageComponent } from './board-page.component';
-import { TodoserviceMock } from 'src/app/services/todo.service-mock';
+import { TodoserviceMock } from 'src/app/services/todo.service.mock';
 import { HttpClientModule } from '@angular/common/http';
 import { CdkDropList } from '@angular/cdk/drag-drop';
 import { By } from '@angular/platform-browser';
@@ -17,29 +17,29 @@ describe('BoardPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BoardPageComponent,
+      declarations: [BoardPageComponent,
         TodoStubComponent,
         ToolbarStubComponent,
         SpinnerStubComponent,
         ColorPikerStubComponent,
         TodoFilterStubPipe,
         SortStubPipe,
-        CdkDropList      
-    ],
-    imports: [
+        CdkDropList
+      ],
+      imports: [
         RouterTestingModule,
         HttpClientModule,
-        
-    ],
-    providers: [
-      {
-        provide: TodoService, useClass: TodoserviceMock
-      },
-      PopupService
-    ]
+
+      ],
+      providers: [
+        {
+          provide: TodoService, useClass: TodoserviceMock
+        },
+        PopupService
+      ]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(BoardPageComponent);
     popupService = TestBed.inject(PopupService);
     todoService = TestBed.inject(TodoService)
@@ -58,10 +58,10 @@ describe('BoardPageComponent', () => {
 
     expect(spy).toHaveBeenCalled()
   });
-  it('should set value', ()=>{
+  it('should set value', () => {
     component.choosePopupAdd();
     fixture.detectChanges();
     expect(component.popupButton).toEqual('add')
   })
-  
+
 }); 

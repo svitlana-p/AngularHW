@@ -9,7 +9,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   user!: string | null;
-  
+
   ngOnInit(): void {
     this.user = localStorage.getItem('username')
   }

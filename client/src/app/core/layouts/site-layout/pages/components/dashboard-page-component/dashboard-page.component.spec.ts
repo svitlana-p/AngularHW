@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { boardMock } from 'src/app/mocks/board-mock';
 import { DashboardService } from 'src/app/services/dashboard.service';
-import { DashboardServiceMock } from 'src/app/services/dashboard.service-mock';
+import { DashboardServiceMock } from 'src/app/services/dashboard.service.mock';
 import { PopupService } from 'src/app/services/popup.service';
 import { BoardStubComponent, DashbooardFilterStubPipe, SortStubPipe, ToolbarStubComponent } from 'src/app/utils/dashboard.stub';
 
@@ -52,12 +52,12 @@ describe('DashboardPageComponent', () => {
 
     expect(spy).toHaveBeenCalled()
   })
-  it('should set value of one variable', ()=>{
+  it('should set value of one variable', () => {
     component.choosePopupAdd();
     fixture.detectChanges();
     expect(component.popupButton).toEqual('add');
   })
-  it('should set value of two variables', ()=>{
+  it('should set value of two variables', () => {
     component.choosePopupEdit(boardMock[0]);
     fixture.detectChanges();
     expect(component.popupButton).toEqual('edit')

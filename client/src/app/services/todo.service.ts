@@ -70,7 +70,13 @@ export class TodoService {
     return this.http.delete<ITodo>(`${this.url}/${boardId}/todo/${todo._id}`)
       .pipe(
         tap((todo: ITodo) => {
-          this.todoList = this.todoList.filter(el => el._id !== todo._id)
+          if (todo.created) {
+            this.todoList = this.todoList.filter(el => el._id !== todo._id);            
+          } else if (todo.inProgress) {
+            this.inProgressList = this.inProgressList.filter(el => el._id !== todo._id);          
+          } else if (todo.completed) {
+            this.doneList = this.doneList.filter(el => el._id !== todo._id);        
+          }
         }),
         catchError(this.errorHandler.bind(this))
       )
@@ -136,7 +142,6 @@ export class TodoService {
     }
 
   }
-
 
   private errorHandler(error: HttpErrorResponse) {
     this.errorService.handle(error.message)

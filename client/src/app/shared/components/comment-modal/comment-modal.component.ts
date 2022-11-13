@@ -28,31 +28,31 @@ export class CommentModalComponent implements OnInit, OnDestroy {
     public todoService: TodoService,
     public route: ActivatedRoute,
     public spinnerService: SpinnerService
-    ) { }
+  ) { }
 
   @ViewChild('form') form!: NgForm;
 
   ngOnInit(): void {
     this.spinnerService.open()
-    this.getCommentSub = this.todoService.getComments(this.boardId, this.todo._id).subscribe(()=> {
+    this.getCommentSub = this.todoService.getComments(this.boardId, this.todo._id).subscribe(() => {
       this.spinnerService.close()
     });
   }
   submit() {
-    if(!this.form.value.title) return
+    if (!this.form.value.title) return
     this.spinnerService.open()
-    this.postCommentSub = this.todoService.postComments(this.boardId, this.todo._id, this.form.value.title).subscribe(()=>{
-      this.form.reset() 
+    this.postCommentSub = this.todoService.postComments(this.boardId, this.todo._id, this.form.value.title).subscribe(() => {
+      this.form.reset()
       this.spinnerService.close()
     });
   }
   deleteComment(comment: IComment) {
     this.spinnerService.open()
-    this.delCommentSub = this.todoService.deleteComments(this.boardId, this.todo._id, comment).subscribe(()=> {
+    this.delCommentSub = this.todoService.deleteComments(this.boardId, this.todo._id, comment).subscribe(() => {
       this.spinnerService.close()
     });
   }
- 
+
   ngOnDestroy(): void {
     this.todoService.commentList = [];
     if (this.getCommentSub) this.getCommentSub.unsubscribe();

@@ -1,9 +1,11 @@
-<span (click)="archive(todo)" class="todo-text">{{todo.name}}
+<span (click)="archive(todo)" class="todo-text archive">{{todo.name}}
   <span class="details">Click
     to archive the task</span> </span>
 <span *ngIf="todo.archive" class="archived">Archived</span>
 <span hidden>{{todo.createdAt}}</span>
-<span class="todo-button edit-button" (click)="choosePopupEdit(todo) " (click)="popupService.open()"><img class="btn-img" src="https://i.ibb.co/HCcrqjT/1159633.png" alt="edit"></span>
-<span class="todo-button del-button" (click)="delete(todo)"><img class="btn-img" src="https://i.ibb.co/TKGX6Qc/1214428.png" alt="delete"></span>
-<span class="todo-button todo-popup" (click)="openComments(todo)" (click)="popupService.open()"><img class="btn-img" src="https://i.ibb.co/4fjF9Zw/13673.png" alt="comments"></span>
-
+<span class="todo-button edit-button" (click)="choosePopupEdit(todo) " (click)="popupService.open()"><img
+    class="btn-img" src="https://i.ibb.co/HCcrqjT/1159633.png" alt="edit"></span>
+<span class="todo-button del-button" (click)="delete(todo)"><img class="btn-img"
+    src="https://i.ibb.co/TKGX6Qc/1214428.png" alt="delete"></span>
+<span class="todo-button todo-popup" (click)="openComments(todo)" (click)="popupService.open()"><img class="btn-img"
+    src="https://i.ibb.co/4fjF9Zw/13673.png" alt="comments"></span>

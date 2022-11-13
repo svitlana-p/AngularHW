@@ -14,27 +14,27 @@ describe('Error service', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-  
-  it('should return error message', (done: DoneFn)=> {
+
+  it('should return error message', (done: DoneFn) => {
     const message = 'error message';
     service.handle(message);
     service.error$.subscribe({
-        next: value => {
-            expect(value).toEqual(message);
-            done();
-        },
-        error: done.fail
+      next: value => {
+        expect(value).toEqual(message);
+        done();
+      },
+      error: done.fail
     })
   });
 
-  it('should clear error message', (done: DoneFn)=> {
+  it('should clear error message', (done: DoneFn) => {
     service.clear();
     service.error$.subscribe({
-        next: value => {
-            expect(value).toEqual('');
-            done();
-        },
-        error: done.fail
+      next: value => {
+        expect(value).toEqual('');
+        done();
+      },
+      error: done.fail
     })
   });
 
