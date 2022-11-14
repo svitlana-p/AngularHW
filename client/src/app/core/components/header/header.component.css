@@ -12,14 +12,17 @@
     margin-left: 30px;
     min-height: 50px;
     min-width: 3vw;
+    text-shadow: 3px 1px 5px black;
 }
 
 .user-name {
     margin: 0 10px;
-    color: rgb(137, 5, 5);
+    color: #00523F;
+    text-shadow: 3px 1px 5px black;
+    
 }
 
 .logo-name:hover {
-    color: rgb(137, 5, 5);
+    color: #00523F;
     cursor: pointer;
 }

@@ -10,7 +10,8 @@
 }
 
 .todo-header {
-    text-align: center;
+    text-align: center;    
+    color: rgba(206, 205, 205, 0.563);
 }
 
 .todo-body {

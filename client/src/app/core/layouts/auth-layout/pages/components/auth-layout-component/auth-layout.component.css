@@ -28,10 +28,17 @@
 
 .text {
     text-decoration: none;
-    color: black;
+    color: #FFC42A;
 }
 
 .text:hover {
-    color: rgb(137, 5, 5);
+    color: #00523F;
     cursor: pointer;
+}
+.container {
+    background-image: url('https://i.ibb.co/SPR4PFC/Group-1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
 }
