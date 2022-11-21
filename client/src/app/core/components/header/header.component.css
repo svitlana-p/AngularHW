@@ -4,7 +4,8 @@
     align-items: center;
     height: 80px;
     margin-bottom: 20px;
-    background-color: rgb(206, 205, 205);
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
 }
 
 .logo-name {
@@ -12,17 +13,18 @@
     margin-left: 30px;
     min-height: 50px;
     min-width: 3vw;
+    color: white;
     text-shadow: 3px 1px 5px black;
 }
 
 .user-name {
     margin: 0 10px;
-    color: #00523F;
+    color: white;
     text-shadow: 3px 1px 5px black;
-    
+
 }
 
 .logo-name:hover {
-    color: #00523F;
+    color: rgba(0, 212, 255, 1);
     cursor: pointer;
 }

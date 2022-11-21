@@ -25,11 +25,11 @@
       {{buttonName}}
     </button>
     <div *ngIf="buttonName === 'Log In'">
-      <span class="card-text">Don't have an account?</span>
+      <p class="card-text">Don't have an account?</p>
       <a class="card-link" routerLink="/register">Sign Up</a>
     </div>
     <div *ngIf="buttonName === 'Sign Up'">
-      <span class="card-text">Already have an account?</span>
+      <p class="card-text">Already have an account?</p>
       <a class="card-link" routerLink="/login">Log In</a>
     </div>
   </div>

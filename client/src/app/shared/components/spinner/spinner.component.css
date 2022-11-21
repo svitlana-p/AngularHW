@@ -3,7 +3,7 @@
     width: 50px;
     height: 50px;
     border: 2px solid rgb(255, 255, 255);
-    border-top: 3px solid #FFC42A;
+    border-top: 3px solid rgba(9, 9, 121, 1);
     border-radius: 100%;
     position: absolute;
     top: 0;

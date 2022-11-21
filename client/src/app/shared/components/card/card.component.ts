@@ -50,7 +50,6 @@ export class CardComponent implements OnInit, OnDestroy {
     if (this.buttonName === 'Log In') {
       const user = {
         username: this.form.value.username as string,
-        email: '',
         password: this.form.value.password as string
       }
       this.authSubscription = this.auth.login(user).subscribe(

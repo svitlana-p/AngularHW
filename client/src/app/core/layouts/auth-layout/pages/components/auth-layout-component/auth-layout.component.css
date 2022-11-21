@@ -1,5 +1,6 @@
 .nav-wrapper {
-    background-color: gray;
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -28,18 +29,10 @@
 
 .text {
     text-decoration: none;
-    color: #FFC42A;
+    color: white;
 }
 
 .text:hover {
-    color: #00523F;
+    color: rgba(9, 9, 121, 1);
     cursor: pointer;
-}
-.container {
-    background-image: url('https://i.ibb.co/SPR4PFC/Group-1.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 100vw;
-    min-height: 100vh;
-    max-height:max-content;
 }
