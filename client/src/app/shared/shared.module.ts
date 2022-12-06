@@ -15,22 +15,34 @@ import { TodosContainerComponent } from './components/todos-container/todos-cont
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { FilterTodoPipe } from './pipes/filter-todo.pipe';
 import { BoardComponent } from './components/board/board.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { GlobalErrorComponent } from './components/global-error/global-error.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { HeaderComponent } from './components/header/header.component';
+import { CardComponent } from './components/card/card.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+
+const components = [ AddEditBoardComponent,
+  AddEditTodoComponent,
+  FocusDirective,
+  FilterBoardPipe,
+  SortPipe,
+  PopupComponent,
+  CommentModalComponent,
+  ColorPikerComponent,
+  TodosContainerComponent,
+  SpinnerComponent,
+  FilterTodoPipe,
+  BoardComponent,
+  FooterComponent,
+  GlobalErrorComponent,
+  NotFoundComponent,
+  HeaderComponent,
+  CardComponent, 
+  ToolbarComponent]
 
 @NgModule({
-  declarations: [
-    AddEditBoardComponent,
-    AddEditTodoComponent,
-    FocusDirective,
-    FilterBoardPipe,
-    SortPipe,
-    PopupComponent,
-    CommentModalComponent,
-    ColorPikerComponent,
-    TodosContainerComponent,
-    SpinnerComponent,
-    FilterTodoPipe,
-    BoardComponent,
-  ],
+  declarations: [...components ],
   imports: [
     CommonModule,
     FormsModule,
@@ -38,19 +50,6 @@ import { BoardComponent } from './components/board/board.component';
     HttpClientModule,
     RouterModule
   ],
-  exports: [
-    AddEditBoardComponent,
-    AddEditTodoComponent,
-    FocusDirective,
-    FilterBoardPipe,
-    FilterTodoPipe,
-    SortPipe,
-    PopupComponent,
-    CommentModalComponent,
-    ColorPikerComponent,
-    TodosContainerComponent,
-    BoardComponent,
-    SpinnerComponent
-  ]
+  exports: [...components]
 })
 export class SharedModule { }

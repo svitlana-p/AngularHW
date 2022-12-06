@@ -3,9 +3,9 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { boardMock } from 'src/app/mocks/board-mock';
-import { DashboardService } from 'src/app/services/dashboard.service';
-import { DashboardServiceMock } from 'src/app/services/dashboard.service.mock';
-import { PopupService } from 'src/app/services/popup.service';
+import { DashboardService } from 'src/app/core/dashboard.service';
+import { DashboardServiceMock } from 'src/app/core/dashboard.service.mock';
+import { PopupService } from 'src/app/core/popup.service';
 
 import { BoardComponent } from './board.component';
 

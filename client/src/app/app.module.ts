@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptop } from './interceptors/tokenInterceptor';
-import { CoreModule } from './core/components/core.module';
+import { SharedModule } from './shared/shared.module';
 
 
 
@@ -16,7 +16,7 @@ import { CoreModule } from './core/components/core.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    CoreModule
+    SharedModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

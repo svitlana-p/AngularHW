@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DashboardService } from 'src/app/services/dashboard.service';
-import { DashboardServiceMock } from 'src/app/services/dashboard.service.mock';
+import { DashboardService } from 'src/app/core/dashboard.service';
+import { DashboardServiceMock } from 'src/app/core/dashboard.service.mock';
 
 import { ColorPikerComponent } from './color-piker.component';
 

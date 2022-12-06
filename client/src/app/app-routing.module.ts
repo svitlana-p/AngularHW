@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from './core/components/not-found/not-found.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 const routes: Routes = [
-  {
-    path: '', loadChildren: () => import('./core/layouts/auth-layout/pages/auth-layout.module')
-      .then(m => m.AuthLayoutModule)
-  },
-  {
-    path: '', loadChildren: () => import('./core/layouts/site-layout/pages/site-layout.module')
-      .then(m => m.SiteLayoutModule)
-  },
+  { path: '', loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule) },
+  { path: 'login', loadChildren: () => import('./features/login/login.module').then(m => m.LoginModule) },
+  { path: 'register', loadChildren: () => import('./features/register/register.module').then(m => m.RegisterModule) },
+  { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule) },
+  { path: 'board/:id', loadChildren: () => import('./features/board/board.module').then(m => m.BoardModule) },
   { path: '**', component: NotFoundComponent }
 ];
 

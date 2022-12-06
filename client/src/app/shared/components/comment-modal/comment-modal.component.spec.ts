@@ -4,9 +4,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { boardMock } from 'src/app/mocks/board-mock';
 import { CommentMock } from 'src/app/mocks/comment-mock';
 import { todoMock } from 'src/app/mocks/todo-mock';
-import { SpinnerService } from 'src/app/services/spinner.service';
-import { TodoService } from 'src/app/services/todo.service';
-import { TodoserviceMock } from 'src/app/services/todo.service.mock';
+import { SpinnerService } from 'src/app/core/spinner.service';
+import { TodoService } from 'src/app/core/todo.service';
+import { TodoserviceMock } from 'src/app/core/todo.service.mock';
 
 import { CommentModalComponent } from './comment-modal.component';
 

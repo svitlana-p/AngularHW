@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './core/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +9,12 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit {
   constructor(private auth: AuthService) {
   }
-  title = ''
+  title = '';
+  potentialToken!: string | null
   ngOnInit(): void {
-    const potentialToken = localStorage.getItem('auth-token');
-    if (potentialToken !== null) {
-      this.auth.setToken(potentialToken)
+    this.potentialToken = localStorage.getItem('auth-token');
+    if (this.potentialToken !== null) {
+      this.auth.setToken(this.potentialToken)
     }
   }
 }

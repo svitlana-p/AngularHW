@@ -3,10 +3,10 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { boardMock } from 'src/app/mocks/board-mock';
-import { DashboardService } from 'src/app/services/dashboard.service';
-import { DashboardServiceMock } from 'src/app/services/dashboard.service.mock';
-import { PopupService } from 'src/app/services/popup.service';
-import { SpinnerService } from 'src/app/services/spinner.service';
+import { DashboardService } from 'src/app/core/dashboard.service';
+import { DashboardServiceMock } from 'src/app/core/dashboard.service.mock';
+import { PopupService } from 'src/app/core/popup.service';
+import { SpinnerService } from 'src/app/core/spinner.service';
 
 import { AddEditBoardComponent } from './add-edit-board.component';
 

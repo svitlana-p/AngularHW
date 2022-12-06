@@ -6,7 +6,7 @@ import {
 } from '@angular/router';
 import { catchError, EMPTY, Observable } from 'rxjs';
 import { ITodo } from '../models/todo';
-import { TodoService } from '../services/todo.service';
+import { TodoService } from '../core/todo.service';
 
 @Injectable({
   providedIn: 'root'

@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { todoMock } from 'src/app/mocks/todo-mock';
-import { PopupService } from 'src/app/services/popup.service';
-import { SpinnerService } from 'src/app/services/spinner.service';
-import { TodoService } from 'src/app/services/todo.service';
-import { TodoserviceMock } from 'src/app/services/todo.service.mock';
+import { PopupService } from 'src/app/core/popup.service';
+import { SpinnerService } from 'src/app/core/spinner.service';
+import { TodoService } from 'src/app/core/todo.service';
+import { TodoserviceMock } from 'src/app/core/todo.service.mock';
 import { AddEditTodoComponent } from './add-todo.component';
 
 
@@ -18,7 +18,7 @@ describe('AddTodoComponent', () => {
     let todoService: TodoService;
     const todo = todoMock[0];
 
-    beforeEach(async () => {
+    beforeEach(async () => { 
         await TestBed.configureTestingModule({
             declarations: [AddEditTodoComponent],
             imports: [

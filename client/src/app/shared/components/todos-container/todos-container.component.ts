@@ -2,9 +2,9 @@ import { Component, Input, Output, EventEmitter, OnDestroy } from '@angular/core
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ITodo } from '../../../models/todo';
-import { DashboardService } from '../../../services/dashboard.service';
-import { PopupService } from '../../../services/popup.service';
-import { TodoService } from '../../../services/todo.service';
+import { DashboardService } from '../../../core/dashboard.service';
+import { PopupService } from '../../../core/popup.service';
+import { TodoService } from '../../../core/todo.service';
 
 @Component({
   selector: 'app-todos-container',

@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { PopupService } from 'src/app/services/popup.service';
+import { PopupService } from 'src/app/core/popup.service';
 
 @Component({
   selector: 'app-popup',

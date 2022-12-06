@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DashboardService } from 'src/app/services/dashboard.service';
+import { DashboardService } from 'src/app/core/dashboard.service';
 import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-color-piker',

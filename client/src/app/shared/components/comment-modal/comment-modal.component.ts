@@ -5,9 +5,9 @@ import { Subscription } from 'rxjs';
 import { IComment } from 'src/app/models/comment';
 
 import { ITodo } from 'src/app/models/todo';
-import { PopupService } from 'src/app/services/popup.service';
-import { SpinnerService } from 'src/app/services/spinner.service';
-import { TodoService } from 'src/app/services/todo.service';
+import { PopupService } from 'src/app/core/popup.service';
+import { SpinnerService } from 'src/app/core/spinner.service';
+import { TodoService } from 'src/app/core/todo.service';
 
 @Component({
   selector: 'app-comment-modal',

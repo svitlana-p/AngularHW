@@ -1,10 +1,10 @@
 import { Component, OnDestroy, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { DashboardService } from 'src/app/services/dashboard.service';
-import { PopupService } from 'src/app/services/popup.service';
+import { DashboardService } from 'src/app/core/dashboard.service';
+import { PopupService } from 'src/app/core/popup.service';
 import { IBoard } from '../../../models/board';
-import { SpinnerService } from '../../../services/spinner.service';
+import { SpinnerService } from '../../../core/spinner.service';
 @Component({
   selector: 'app-add-edit-board',
   templateUrl: './add-edit-board.component.html',

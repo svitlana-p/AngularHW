@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TodoService } from '../services/todo.service';
-import { TodoserviceMock } from '../services/todo.service.mock';
+import { TodoService } from '../core/todo.service';
+import { TodoserviceMock } from '../core/todo.service.mock';
 
 import { BoardResolver } from './board.resolver';
 

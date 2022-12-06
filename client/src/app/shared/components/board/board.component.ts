@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { IBoard } from 'src/app/models/board';
 import { Subscription } from 'rxjs';
-import { DashboardService } from 'src/app/services/dashboard.service';
-import { PopupService } from 'src/app/services/popup.service';
+import { DashboardService } from 'src/app/core/dashboard.service';
+import { PopupService } from 'src/app/core/popup.service';
 
 @Component({
   selector: 'app-board',

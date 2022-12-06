@@ -3,9 +3,9 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { boardMock } from 'src/app/mocks/board-mock';
 import { todoMock } from 'src/app/mocks/todo-mock';
-import { PopupService } from 'src/app/services/popup.service';
-import { TodoService } from 'src/app/services/todo.service';
-import { TodoserviceMock } from 'src/app/services/todo.service.mock';
+import { PopupService } from 'src/app/core/popup.service';
+import { TodoService } from 'src/app/core/todo.service';
+import { TodoserviceMock } from 'src/app/core/todo.service.mock';
 
 import { TodosContainerComponent } from './todos-container.component';
 
