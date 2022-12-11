@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { DashboardService } from 'src/app/core/dashboard.service';
+import { DashboardService } from 'src/app/core/services/dashboard.service';
 
 
 @Component({
@@ -25,6 +25,13 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router
   ) { }
+  ngOnInit(): void {
+    this.user = localStorage.getItem('username')
+  }
+
+  ngOnDestroy(): void {
+    if (this.dashboardSubscrition) this.dashboardSubscrition.unsubscribe()
+  }
 
   onFilter() {
     this.filterBoards.emit({ filterTerm: this.filterTerm })
@@ -45,11 +52,4 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnInit(): void {
-    this.user = localStorage.getItem('username')
-  }
-
-  ngOnDestroy(): void {
-    if (this.dashboardSubscrition) this.dashboardSubscrition.unsubscribe()
-  }
 }

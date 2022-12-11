@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core/auth.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-footer',
@@ -8,14 +8,11 @@ import { AuthService } from 'src/app/core/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./footer.component.css']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
 
   constructor(private authService: AuthService,
     private router: Router
   ) { }
-
-  ngOnInit(): void {
-  }
   logout() {
     this.authService.logout();
     this.router.navigate(['/login'])

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ErrorService } from 'src/app/core/error.service';
+import { ErrorService } from 'src/app/core/services/error.service';
 
 @Component({
   selector: 'app-global-error',

@@ -1,4 +1,4 @@
-import { todoMock } from 'src/app/mocks/todo-mock';
+import { todoMock } from 'src/app/testing/mocks/todo-mock';
 import { FilterTodoPipe } from './filter-todo.pipe';
 
 describe('FilterTodoPipe', () => {

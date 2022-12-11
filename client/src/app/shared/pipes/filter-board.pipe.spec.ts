@@ -1,5 +1,5 @@
-import { boardMock } from 'src/app/mocks/board-mock';
-import { todoMock } from 'src/app/mocks/todo-mock';
+import { boardMock } from 'src/app/testing/mocks/board-mock';
+import { todoMock } from 'src/app/testing/mocks/todo-mock';
 import { FilterBoardPipe } from './filter-board.pipe';
 
 describe('FilterBoardPipe', () => {

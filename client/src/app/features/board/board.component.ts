@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ITodo } from 'src/app/models/todo';
-import { DashboardService } from 'src/app/core/dashboard.service';
-import { PopupService } from 'src/app/core/popup.service';
-import { SpinnerService } from 'src/app/core/spinner.service';
-import { TodoService } from 'src/app/core/todo.service';
+import { DashboardService } from 'src/app/core/services/dashboard.service';
+import { PopupService } from 'src/app/core/services/popup.service';
+import { SpinnerService } from 'src/app/core/services/spinner.service';
+import { TodoService } from 'src/app/core/services/todo.service';
 
 @Component({
   selector: 'app-board',
@@ -35,6 +35,25 @@ export class BoardComponent implements OnInit {
     public spinnerService: SpinnerService
   ) { }
 
+  ngOnInit(): void {
+    const boardId: string = this.route.snapshot.params.id;
+    this.spinnerService.open()
+    this.boardSubscription = this.dashboardService.getOne(boardId).subscribe((board) => {
+      this.firstColor = board[0].firstColor
+      this.secondColor = board[0].secondColor
+      this.thirdColor = board[0].thirdColor
+      this.spinnerService.close()
+    });
+
+  }
+
+  ngOnDestroy(): void {
+    this.dashboardService.clear();
+    this.todoService.clear();
+    if (this.boardSubscription) this.boardSubscription.unsubscribe();
+    if (this.archiveSubscription) this.archiveSubscription.unsubscribe();
+    if (this.delListSubscription) this.delListSubscription.unsubscribe();
+  }
 
   choosePopupAdd(): void {
     this.popupButton = 'add';
@@ -64,28 +83,6 @@ export class BoardComponent implements OnInit {
     const todo: ITodo = event.previousContainer.data[event.previousIndex]
     const boardId: string = this.route.snapshot.params.id;
     this.todoService.drop(event, boardId, todo)
-  }
-
-  ngOnInit(): void {
-    const boardId: string = this.route.snapshot.params.id;
-    this.spinnerService.open()
-    this.boardSubscription = this.dashboardService.getOne(boardId).subscribe((board) => {
-      this.firstColor = board[0].firstColor
-      this.secondColor = board[0].secondColor
-      this.thirdColor = board[0].thirdColor
-      this.spinnerService.close()
-    });
-
-  }
-
-  ngOnDestroy(): void {
-    this.dashboardService.bordName = '';
-    this.todoService.todoList = [];
-    this.todoService.inProgressList = [];
-    this.todoService.doneList = [];
-    if (this.boardSubscription) this.boardSubscription.unsubscribe();
-    if (this.archiveSubscription) this.archiveSubscription.unsubscribe();
-    if (this.delListSubscription) this.delListSubscription.unsubscribe();
-  }
+  } 
 
 }

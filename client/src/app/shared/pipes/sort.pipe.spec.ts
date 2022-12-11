@@ -1,4 +1,4 @@
-import { boardMock } from 'src/app/mocks/board-mock-for-sort';
+import { boardMock } from 'src/app/testing/mocks/board-mock-for-sort';
 import { SortPipe } from './sort.pipe';
 
 describe('SortPipe', () => {

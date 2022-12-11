@@ -1,6 +1,6 @@
 <app-toolbar (filterBoards)="onFilter($event)" (sortBoards)="onSort($event)"></app-toolbar>
 <div class="page-container">
-  <div (click)="popupService.open()" (click)="choosePopupAdd()" class="popup-container">
+  <div (click)="popupService.open()" (click)="choosePopup()" class="popup-container">
     <p class="item-title"> + </p>
     <p>Add new</p>
   </div>
@@ -8,7 +8,7 @@
     <li *ngFor="let board of dashboardServise.boardList | sort:[sortValue, sortDesc] | filterBoard: term "
       class="board-item">
 
-      <app-board [board]="board" (popupButtonSelected)="onEdit($event)"></app-board>
+      <app-dashboard-item [board]="board" (popupButtonSelected)="onEdit($event)"></app-dashboard-item>
 
     </li>
   </ul>

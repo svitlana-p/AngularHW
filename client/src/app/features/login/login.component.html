@@ -1,1 +1,28 @@
-<app-card [header]="'Log in to your account'" [buttonName]="'Log In'" [emailRequired]="false"></app-card>
+<form class="card" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="card-content">
+      <span class="card-title">Log in to your account</span>
+      <div class="input-field">
+        <input formControlName="username"
+          [ngClass]="username.invalid && username.touched ? 'form-input red' : 'form-input green'" id="username"
+          type="text" placeholder="Username">
+        <p class="error-message" *ngIf="username.invalid && username.touched">Please, enter user name</p>
+      </div>
+      <div class="input-field">
+        <input formControlName="password"
+          [ngClass]="password.invalid && password.touched ? 'form-input red' : 'form-input green'" id="password"
+          type="password" placeholder="Password" required minlength="6">
+        <p class="error-message" *ngIf="password.errors?.['minlength']">Please, enter user password. Min length is 6. Now
+          is {{password.value.length}}</p>
+      </div>
+    </div>
+    <div class="card-action">
+      <button type="submit" class="btn" [disabled]="form.invalid">
+        Log In
+      </button>
+      <div >
+        <p class="card-text">Don't have an account?</p>
+        <a class="card-link" routerLink="/register">Sign Up</a>
+      </div>
+    </div>
+  </form>
+  

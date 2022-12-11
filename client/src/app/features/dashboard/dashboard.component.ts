@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IBoard } from 'src/app/models/board';
-import { DashboardService } from 'src/app/core/dashboard.service';
-import { PopupService } from 'src/app/core/popup.service';
-import { SpinnerService } from 'src/app/core/spinner.service';
+import { IBoard } from 'src/app/models/i-board';
+import { DashboardService } from 'src/app/core/services/dashboard.service';
+import { PopupService } from 'src/app/core/services/popup.service';
+import { SpinnerService } from 'src/app/core/services/spinner.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,11 +21,19 @@ export class DashboardComponent implements OnInit {
     public popupService: PopupService,
     public spinnerService: SpinnerService
   ) { }
-  choosePopupEdit(board: IBoard): void {
-    this.popupButton = 'edit';
-    this.editboard = board;
+  ngOnInit(): void {
+    this.spinnerService.open()
+    this.dashboardSubscription = this.dashboardServise.getAll().subscribe(() => {
+      this.spinnerService.close()
+    })
   }
-  choosePopupAdd(): void {
+
+  ngOnDestroy(): void {
+    this.dashboardServise.clear();
+    if (this.dashboardSubscription) this.dashboardSubscription.unsubscribe();
+  }
+
+  choosePopup(): void {
     this.popupButton = 'add';
   }
 
@@ -40,16 +48,4 @@ export class DashboardComponent implements OnInit {
     this.sortValue = eventData.sortValue
     this.sortDesc = eventData.sortDirection
   }
-  ngOnInit(): void {
-    this.spinnerService.open()
-    this.dashboardSubscription = this.dashboardServise.getAll().subscribe(() => {
-      this.spinnerService.close()
-    })
-  }
-
-  ngOnDestroy(): void {
-    this.dashboardServise.boardList = [];
-    if (this.dashboardSubscription) this.dashboardSubscription.unsubscribe();
-  }
-
 }
