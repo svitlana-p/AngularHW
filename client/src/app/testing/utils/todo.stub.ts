@@ -1,5 +1,5 @@
 import { Component, Input, Pipe, PipeTransform } from "@angular/core";
-import { IBoard } from "../../models/i-board";
+import { IBoard } from "../../models/board.interface";
 
 
 @Component({

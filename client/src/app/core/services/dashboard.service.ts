@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { IBoard } from 'src/app/models/i-board';
+import { IBoard } from 'src/app/models/board.interface';
 import { ErrorService } from './error.service';
 import { catchError, Observable, throwError, tap } from 'rxjs';
 

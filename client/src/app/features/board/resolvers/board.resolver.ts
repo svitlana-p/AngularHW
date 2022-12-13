@@ -5,7 +5,7 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { catchError, EMPTY, Observable } from 'rxjs';
-import { ITodo } from '../../../models/todo';
+import { ITodo } from '../../../models/todo.interface';
 import { TodoService } from '../../../core/services/todo.service';
 
 @Injectable({

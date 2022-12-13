@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ITodo } from 'src/app/models/todo';
+import { ITodo } from 'src/app/models/todo.interface';
 
 @Pipe({
   name: 'filterTodo'

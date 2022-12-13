@@ -1,4 +1,4 @@
-import { ITodo } from "../../models/todo";
+import { ITodo } from "../../models/todo.interface";
 
 export const todoMock: ITodo[] = [
     {

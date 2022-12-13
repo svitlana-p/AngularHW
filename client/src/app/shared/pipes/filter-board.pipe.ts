@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { IBoard } from 'src/app/models/i-board';
+import { IBoard } from 'src/app/models/board.interface';
 
 @Pipe({
   name: 'filterBoard'

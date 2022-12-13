@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
-
 import { boardMock } from '../../testing/mocks/board-mock';
-
 import { DashboardService } from './dashboard.service';
 import { ErrorService } from './error.service';
 

@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap, throwError, catchError } from 'rxjs';
-import { Answer } from '../../models/answer';
-import { User } from '../../models/user';
+import { IAnswer } from '../../models/answer.interface';
+import { IUser } from '../../models/user';
 import { ErrorService } from './error.service';
 
 @Injectable({
@@ -16,17 +16,17 @@ export class AuthService {
   constructor(private http: HttpClient,
     private errorService: ErrorService) { }
 
-  register(user: User): Observable<User> {
-    return this.http.post<User>(`${this.url}/register`, user)
+  register(user: IUser): Observable<IUser> {
+    return this.http.post<IUser>(`${this.url}/register`, user)
       .pipe(catchError(this.errorHandler.bind(this)))
 
   }
 
-  login(user: User): Observable<Answer> {
-    return this.http.post<Answer>(`${this.url}/login`, user)
+  login(user: IUser): Observable<IAnswer> {
+    return this.http.post<IAnswer>(`${this.url}/login`, user)
       .pipe(
         tap(
-          (info: Answer) => {
+          (info: IAnswer) => {
             localStorage.setItem('auth-token', info.token)
             this.setToken(info.token)
             localStorage.setItem('username', info.username)

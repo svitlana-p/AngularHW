@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { IBoard } from 'src/app/models/i-board';
+import { IBoard } from 'src/app/models/board.interface';
 import { Subscription } from 'rxjs';
 import { DashboardService } from 'src/app/core/services/dashboard.service';
 import { PopupService } from 'src/app/core/services/popup.service';

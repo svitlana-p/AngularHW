@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { UserMock } from '../../testing/mocks/user-mock';
-import { User } from '../../models/user';
+import { IUser } from '../../models/user';
 
 
 @Injectable()
 export class AuthServiceMock {
 
-  register(user: User): Observable<User> {
+  register(user: IUser): Observable<IUser> {
     return of(UserMock)
   }
-  login(user: User): Observable<any> {
+  login(user: IUser): Observable<any> {
     return of({ token: 'dfghjklsdfghjkjsdfghgxcvg', username: 'user' })
   }
   getToken(): string {

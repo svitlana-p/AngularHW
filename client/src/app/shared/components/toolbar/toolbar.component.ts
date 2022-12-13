@@ -1,7 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { DashboardService } from 'src/app/core/services/dashboard.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 
 @Component({
@@ -9,28 +6,21 @@ import { DashboardService } from 'src/app/core/services/dashboard.service';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.css']
 })
-export class ToolbarComponent implements OnInit, OnDestroy {
+export class ToolbarComponent implements OnInit {
   filterTerm: string = '';
   sortValue: string = '';
   sortDirection: string = '';
   user!: string | null;
-  dashboardSubscrition!: Subscription;
 
   @Input() title!: string;
   @Input() dellBtn!: boolean;
   @Output() filterBoards = new EventEmitter<{ filterTerm: string }>()
   @Output() sortBoards = new EventEmitter<{ sortValue: string, sortDirection: string }>()
+  @Output() deleteBoard = new EventEmitter<{}>()
 
-  constructor(public dashboardService: DashboardService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) { }
+
   ngOnInit(): void {
     this.user = localStorage.getItem('username')
-  }
-
-  ngOnDestroy(): void {
-    if (this.dashboardSubscrition) this.dashboardSubscrition.unsubscribe()
   }
 
   onFilter() {
@@ -43,13 +33,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.sortBoards.emit({ sortValue: this.sortValue, sortDirection: this.sortDirection })
   }
   onDelete() {
-    const boardId: string = this.route.snapshot.params.id;
-    if (confirm('Are you sure you want to delete the board?')) {
-      this.dashboardSubscrition = this.dashboardService.delete(boardId).subscribe(() => {
-        this.router.navigate(['dashboard']);
-      })
-    }
-
+    this.deleteBoard.emit({})
   }
 
 }

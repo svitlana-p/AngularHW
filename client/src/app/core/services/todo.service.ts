@@ -2,8 +2,8 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, Observable, tap, throwError } from 'rxjs';
-import { IComment } from '../../models/comment';
-import { ITodo } from '../../models/todo';
+import { IComment } from '../../models/comment.interface';
+import { ITodo } from '../../models/todo.interface';
 import { ErrorService } from './error.service';
 
 @Injectable({

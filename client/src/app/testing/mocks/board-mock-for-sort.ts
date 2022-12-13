@@ -1,4 +1,4 @@
-import { IBoard } from "../../models/i-board";
+import { IBoard } from "../../models/board.interface";
 
 export const boardMock: IBoard[] = [
     {

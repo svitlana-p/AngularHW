@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { boardMock } from "../../testing/mocks/board-mock";
-import { IBoard } from "../../models/i-board";
+import { IBoard } from "../../models/board.interface";
 import { Observable, of } from 'rxjs';
 
 @Injectable()

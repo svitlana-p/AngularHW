@@ -1,8 +1,8 @@
-import { ITodo } from "../../models/todo";
+import { ITodo } from "../../models/todo.interface";
 
 import { Observable, of } from 'rxjs';
 import { todoMock } from "../../testing/mocks/todo-mock";
-import { IComment } from "../../models/comment";
+import { IComment } from "../../models/comment.interface";
 import { CommentMock } from "../../testing/mocks/comment-mock";
 
 export class TodoserviceMock {

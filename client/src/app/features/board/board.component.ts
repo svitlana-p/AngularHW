@@ -1,8 +1,8 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ITodo } from 'src/app/models/todo';
+import { ITodo } from 'src/app/models/todo.interface';
 import { DashboardService } from 'src/app/core/services/dashboard.service';
 import { PopupService } from 'src/app/core/services/popup.service';
 import { SpinnerService } from 'src/app/core/services/spinner.service';
@@ -14,7 +14,7 @@ import { TodoService } from 'src/app/core/services/todo.service';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
-
+  dashboardSubscrition!:Subscription;
   boardSubscription!: Subscription;
   archiveSubscription!: Subscription;
   delListSubscription!: Subscription;
@@ -32,7 +32,8 @@ export class BoardComponent implements OnInit {
     public dashboardService: DashboardService,
     private route: ActivatedRoute,
     public popupService: PopupService,
-    public spinnerService: SpinnerService
+    public spinnerService: SpinnerService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -53,6 +54,7 @@ export class BoardComponent implements OnInit {
     if (this.boardSubscription) this.boardSubscription.unsubscribe();
     if (this.archiveSubscription) this.archiveSubscription.unsubscribe();
     if (this.delListSubscription) this.delListSubscription.unsubscribe();
+    if (this.dashboardSubscrition) this.dashboardSubscrition.unsubscribe();
   }
 
   choosePopupAdd(): void {
@@ -77,6 +79,14 @@ export class BoardComponent implements OnInit {
     if (eventData.element === 'firstColor') this.firstColor = eventData.color;
     if (eventData.element === 'secondColor') this.secondColor = eventData.color;
     if (eventData.element === 'thirdColor') this.thirdColor = eventData.color;
+  }
+  onDelete(eventData: {}){
+    const boardId: string = this.route.snapshot.params.id;
+     if (confirm('Are you sure you want to delete the board?')) {
+      this.dashboardSubscrition = this.dashboardService.delete(boardId).subscribe(() => {
+        this.router.navigate(['dashboard']);
+      })
+    }
   }
 
   drop(event: CdkDragDrop<ITodo[]>) {

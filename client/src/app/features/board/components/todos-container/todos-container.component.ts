@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PopupService } from 'src/app/core/services/popup.service';
 import { TodoService } from 'src/app/core/services/todo.service';
-import { ITodo } from 'src/app/models/todo';
+import { ITodo } from 'src/app/models/todo.interface';
 
 @Component({
   selector: 'app-todos-container',

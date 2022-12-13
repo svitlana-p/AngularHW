@@ -10,5 +10,4 @@ import { PopupService } from 'src/app/core/services/popup.service';
 export class PopupComponent {
   @Input() title!: string;
   constructor(public popupService: PopupService) { }
-
 }

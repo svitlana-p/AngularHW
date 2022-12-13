@@ -1,5 +1,5 @@
 <app-toolbar [title]="dashboardService.bordName" (filterBoards)="onFilter($event)" (sortBoards)="onSort($event)"
-  [dellBtn]="true"></app-toolbar>
+  [dellBtn]="true" (deleteBoard)="onDelete($event)" ></app-toolbar>
 <div class="container">
   <div class="todos-container">
     <h2 class="todo-header">Todo</h2>

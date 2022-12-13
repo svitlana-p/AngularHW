@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { ITodo } from 'src/app/models/todo';
+import { ITodo } from 'src/app/models/todo.interface';
 import { PopupService } from 'src/app/core/services/popup.service';
 import { SpinnerService } from 'src/app/core/services/spinner.service';
 import { TodoService } from 'src/app/core/services/todo.service';

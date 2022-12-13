@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { DashboardService } from 'src/app/core/services/dashboard.service';
 import { PopupService } from 'src/app/core/services/popup.service';
 import { SpinnerService } from 'src/app/core/services/spinner.service';
-import { IBoard } from 'src/app/models/i-board';
+import { IBoard } from 'src/app/models/board.interface';
 @Component({
   selector: 'app-add-edit-board',
   templateUrl: './add-edit-board.component.html',

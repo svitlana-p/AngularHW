@@ -5,7 +5,7 @@ import { ErrorService } from './error.service';
 import { todoMock } from '../../testing/mocks/todo-mock';
 import { boardMock } from '../../testing/mocks/board-mock';
 import { CommentMock } from '../../testing/mocks/comment-mock';
-import { ITodo } from '../../models/todo';
+import { ITodo } from '../../models/todo.interface';
 
 
 describe('TodoService', () => {
