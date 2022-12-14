@@ -11,7 +11,6 @@ import { SpinnerService } from 'src/app/core/services/spinner.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  term = '';
   editboard!: IBoard;
   popupButton!: string;
   dashboardSubscription!: Subscription;
@@ -42,7 +41,7 @@ export class DashboardComponent implements OnInit {
     this.editboard = eventData.selectedBoard
   }
   onFilter(eventData: { filterTerm: string }) {
-    this.term = eventData.filterTerm
+    this.dashboardServise.filter(eventData.filterTerm)
   }
   onSort(eventData: { sortValue: string, sortDirection: string }) {
     this.sortValue = eventData.sortValue

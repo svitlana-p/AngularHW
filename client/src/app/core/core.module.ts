@@ -4,13 +4,15 @@ import { FooterComponent } from './components/footer/footer.component';
 import { GlobalErrorComponent } from './components/global-error/global-error.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { RouterModule } from '@angular/router';
 
 
 const components = [HeaderComponent, FooterComponent, GlobalErrorComponent, NotFoundComponent];
 @NgModule({
   declarations: [...components],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [...components]
 })

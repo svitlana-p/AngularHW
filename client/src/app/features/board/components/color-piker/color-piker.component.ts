@@ -15,9 +15,13 @@ export class ColorPikerComponent {
     private route: ActivatedRoute,) { }
 
   setColor(event: Event) {
-    const element = (event.target as HTMLInputElement).id
+    const element = (event.target as HTMLInputElement).id;
+    let columnColor = ''
+    if(element === 'Todo') columnColor = 'firstColor';
+    if(element === 'In Progress') columnColor = 'secondColor';
+    if(element === 'Done') columnColor = 'thirdColor';
     this.chooseColor.emit({ color: this.color, element: element })
     const boardId: string = this.route.snapshot.params.id;
-    this.dashboardService.update(boardId, element, this.color).subscribe();
+    this.dashboardService.update(boardId, columnColor, this.color).subscribe();
   }
 }

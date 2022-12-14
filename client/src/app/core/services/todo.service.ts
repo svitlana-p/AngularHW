@@ -14,9 +14,8 @@ export class TodoService {
   constructor(private http: HttpClient,
     private errorService: ErrorService) { }
 
-  todoList: ITodo[] = [];
-  inProgressList: ITodo[] = [];
-  doneList: ITodo[] = [];
+  list!: ITodo[];
+  listFiltered!: ITodo[];
   commentList: IComment[] = [];
 
   url: string = 'https://dashboard-0y2w.onrender.com/api/board';
@@ -25,15 +24,8 @@ export class TodoService {
     return this.http.get<ITodo[]>(`${this.url}/${boardId}`)
       .pipe(
         tap((todoList: ITodo[]) => {
-          todoList.forEach((item) => {
-            if (item.created === true) {
-              this.todoList.push(item)
-            } else if (item.inProgress === true) {
-              this.inProgressList.push(item)
-            } else if (item.completed === true) {
-              this.doneList.push(item)
-            }
-          })
+          this.list = todoList;
+          this.listFiltered = todoList;
         }),
         catchError(this.errorHandler.bind(this))
       )
@@ -43,7 +35,8 @@ export class TodoService {
     return this.http.post<ITodo>(`${this.url}/${boardId}`, todo)
       .pipe(
         tap(todo => {
-          this.todoList.push(todo)
+          this.list.push(todo);
+          this.listFiltered.push(todo);
         }),
         catchError(this.errorHandler.bind(this))
       )
@@ -52,16 +45,10 @@ export class TodoService {
     return this.http.patch<ITodo>(`${this.url}/${boardId}/todo/${todo._id}`, todo)
       .pipe(
         tap(todo => {
-          if (todo.created) {
-            this.todoList = this.todoList.filter(el => el._id !== todo._id);
-            this.todoList.push(todo)
-          } else if (todo.inProgress) {
-            this.inProgressList = this.inProgressList.filter(el => el._id !== todo._id);
-            this.inProgressList.push(todo)
-          } else if (todo.completed) {
-            this.doneList = this.doneList.filter(el => el._id !== todo._id);
-            this.doneList.push(todo)
-          }
+          this.list = this.list.filter(el => el._id !== todo._id);
+          this.list = [...this.list, todo];
+          this.listFiltered = this.listFiltered.filter(el => el._id !== todo._id);
+          this.listFiltered = [...this.listFiltered, todo]
         }),
         catchError(this.errorHandler.bind(this))
       )
@@ -70,13 +57,8 @@ export class TodoService {
     return this.http.delete<ITodo>(`${this.url}/${boardId}/todo/${todo._id}`)
       .pipe(
         tap((todo: ITodo) => {
-          if (todo.created) {
-            this.todoList = this.todoList.filter(el => el._id !== todo._id);            
-          } else if (todo.inProgress) {
-            this.inProgressList = this.inProgressList.filter(el => el._id !== todo._id);          
-          } else if (todo.completed) {
-            this.doneList = this.doneList.filter(el => el._id !== todo._id);        
-          }
+          this.list = this.list.filter(el => el._id !== todo._id);
+          this.listFiltered = this.listFiltered.filter(el => el._id !== todo._id);
         }),
         catchError(this.errorHandler.bind(this))
       )
@@ -86,13 +68,8 @@ export class TodoService {
     return this.http.put<ITodo>(`${this.url}/${boardId}/todo/${todo._id}`, { action })
       .pipe(
         tap((todo: ITodo) => {
-          if (todo.created) {
-            this.todoList = this.todoList.map(el => el._id !== todo._id ? el : todo);
-          } else if (todo.inProgress) {
-            this.inProgressList = this.inProgressList.map(el => el._id !== todo._id ? el : todo);
-          } else if (todo.completed) {
-            this.doneList = this.doneList.map(el => el._id !== todo._id ? el : todo);
-          }
+          this.list = this.list.map(el => el._id !== todo._id ? el : todo);
+          this.listFiltered = this.listFiltered.map(el => el._id !== todo._id ? el : todo);
         }),
         catchError(this.errorHandler.bind(this))
       )
@@ -130,23 +107,27 @@ export class TodoService {
     const className = event.container.element.nativeElement.className;
     if (event.previousContainer !== event.container) {
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex)
-      if (className.includes('firstList')) {
+      if (className.includes('Todo')) {
         this.changeStatus(boardId, todo, 'todo').subscribe()
-      } else if (className.includes('secondList')) {
+      } else if (className.includes('In Progress')) {
         this.changeStatus(boardId, todo, 'inProgress').subscribe()
-      } else if (className.includes('thirdList')) {
+      } else if (className.includes('Done')) {
         this.changeStatus(boardId, todo, 'completed').subscribe()
       }
     } else {
-      moveItemInArray(this.todoList, event.previousIndex, event.currentIndex)
+      moveItemInArray(this.list, event.previousIndex, event.currentIndex)
     }
 
   }
- clear() {
-  this.todoList = [];
-  this.inProgressList = [];
-  this.doneList = [];
- }
+  clear() {
+    this.list = [];
+  }
+
+  filter(search: string) {
+    if (search.length === 0) this.listFiltered = this.list;
+    this.listFiltered = this.list.filter(el => el.name.toLowerCase().includes(search.toLowerCase()));
+  }
+
   private errorHandler(error: HttpErrorResponse) {
     this.errorService.handle(error.message)
     return throwError(() => error.message)

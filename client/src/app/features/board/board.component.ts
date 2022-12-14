@@ -14,20 +14,17 @@ import { TodoService } from 'src/app/core/services/todo.service';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
-  dashboardSubscrition!:Subscription;
+  dashboardSubscrition!: Subscription;
   boardSubscription!: Subscription;
   archiveSubscription!: Subscription;
   delListSubscription!: Subscription;
   editTodo!: ITodo;
   popupButton!: string;
-  term = '';
   name!: string;
   sortValue = '';
   sortDesc = '';
-  firstColor!: string;
-  secondColor!: string;
-  thirdColor!: string;
   todo!: ITodo;
+  colors: string[] = []
   constructor(public todoService: TodoService,
     public dashboardService: DashboardService,
     private route: ActivatedRoute,
@@ -40,9 +37,7 @@ export class BoardComponent implements OnInit {
     const boardId: string = this.route.snapshot.params.id;
     this.spinnerService.open()
     this.boardSubscription = this.dashboardService.getOne(boardId).subscribe((board) => {
-      this.firstColor = board[0].firstColor
-      this.secondColor = board[0].secondColor
-      this.thirdColor = board[0].thirdColor
+      this.colors = [...this.colors, board[0].firstColor, board[0].secondColor, board[0].thirdColor];
       this.spinnerService.close()
     });
 
@@ -61,7 +56,7 @@ export class BoardComponent implements OnInit {
     this.popupButton = 'add';
   }
   onFilter(eventData: { filterTerm: string }) {
-    this.term = eventData.filterTerm
+    this.todoService.filter(eventData.filterTerm)
   }
   onSort(eventData: { sortValue: string, sortDirection: string }) {
     this.sortValue = eventData.sortValue
@@ -76,13 +71,13 @@ export class BoardComponent implements OnInit {
     this.todo = eventData.selectedTodo
   }
   onColorSelect(eventData: { color: string, element: string }) {
-    if (eventData.element === 'firstColor') this.firstColor = eventData.color;
-    if (eventData.element === 'secondColor') this.secondColor = eventData.color;
-    if (eventData.element === 'thirdColor') this.thirdColor = eventData.color;
+    if (eventData.element === 'Todo') this.colors[0] = eventData.color;
+    if (eventData.element === 'In Progress') this.colors[1] = eventData.color;
+    if (eventData.element === 'Done') this.colors[2] = eventData.color;
   }
-  onDelete(eventData: {}){
+  onDelete(eventData: {}) {
     const boardId: string = this.route.snapshot.params.id;
-     if (confirm('Are you sure you want to delete the board?')) {
+    if (confirm('Are you sure you want to delete the board?')) {
       this.dashboardSubscrition = this.dashboardService.delete(boardId).subscribe(() => {
         this.router.navigate(['dashboard']);
       })
@@ -93,6 +88,17 @@ export class BoardComponent implements OnInit {
     const todo: ITodo = event.previousContainer.data[event.previousIndex]
     const boardId: string = this.route.snapshot.params.id;
     this.todoService.drop(event, boardId, todo)
-  } 
+  }
 
+  setColumns() {
+    return ['Todo', 'In Progress', 'Done']
+  }
+
+
+  getTodos(index: number, list: ITodo[]): ITodo[] {
+    if (index === 0) return list.filter(el => el.created)
+    if (index === 1) return list.filter(el => el.inProgress)
+    if (index === 2) return list.filter(el => el.completed)
+    return list;
+  }
 }

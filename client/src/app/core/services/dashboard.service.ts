@@ -14,13 +14,17 @@ export class DashboardService {
     private errorService: ErrorService) { }
 
   boardList: IBoard[] = [];
+  boardListFiltered: IBoard[] = [];
   bordName!: string;
   url: string = 'https://dashboard-0y2w.onrender.com/api/dashboard';
 
   getAll(): Observable<IBoard[]> {
     return this.http.get<IBoard[]>(this.url)
       .pipe(
-        tap((boardList: IBoard[]) => this.boardList = boardList),
+        tap((boardList: IBoard[]) => {
+          this.boardList = boardList;
+          this.boardListFiltered = boardList;
+        }),
         catchError(this.errorHandler.bind(this))
       )
   }
@@ -34,6 +38,7 @@ export class DashboardService {
       )
   }
   update(boardId: string, color: string, colorValue: string): Observable<IBoard> {
+    console.log(color)
     return this.http.put<IBoard>(`${this.url}/${boardId}`, {
       color,
       colorValue
@@ -46,6 +51,7 @@ export class DashboardService {
       .pipe(
         tap(board => {
           this.boardList = [...this.boardList, board];
+          this.boardListFiltered = [...this.boardListFiltered, board];
         }),
         catchError(this.errorHandler.bind(this))
       )
@@ -57,6 +63,8 @@ export class DashboardService {
         tap(board => {
           this.boardList = this.boardList.filter(el => el._id !== board._id);
           this.boardList = [...this.boardList, board];
+          this.boardListFiltered = this.boardListFiltered.filter(el => el._id !== board._id);
+          this.boardListFiltered = [...this.boardListFiltered, board];
         }),
         catchError(this.errorHandler.bind(this))
       )
@@ -76,6 +84,11 @@ export class DashboardService {
   }
   clear() {
     this.bordName = ''
+  }
+
+  filter(search: string) {
+    if(search === '') this.boardListFiltered = this.boardList;
+    this.boardListFiltered = this.boardList.filter(el => el.name.toLowerCase().includes(search.toLowerCase()));
   }
 
   private errorHandler(error: HttpErrorResponse) {

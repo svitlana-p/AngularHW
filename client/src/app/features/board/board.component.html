@@ -1,73 +1,27 @@
 <app-toolbar [title]="dashboardService.bordName" (filterBoards)="onFilter($event)" (sortBoards)="onSort($event)"
-  [dellBtn]="true" (deleteBoard)="onDelete($event)" ></app-toolbar>
-<div class="container">
-  <div class="todos-container">
-    <h2 class="todo-header">Todo</h2>
-    <div class="todo-body firstList" [ngStyle]="{'background-color':firstColor}" cdkDropList
-      [cdkDropListData]="todoService.todoList" (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="[secondList, thirdList]" #firstList="cdkDropList">
-      <div class="todo todo-add-button" (click)="popupService.open()" (click)="choosePopupAdd()">
-        <span>+</span>
-      </div>
-      <ul class="todo-items">
-        <li cdkDrag class="todo todo-item"
-          *ngFor="let todo of todoService.todoList | filterTodo:term | sort:[sortValue, sortDesc]">
-          <app-todos-container [todo]="todo" (popupButtonSelected)="onEdit($event)"
-            (commentsSelected)="onComments($event)"></app-todos-container>
-        </li>
-      </ul>
-      <div *ngIf="!popupButton">
-        <div *ngIf="spinnerService.isVisible$ |async ">
-          <app-spinner></app-spinner>
-        </div>
-      </div>
-      <app-color-piker [id]="'firstColor'" (chooseColor)="onColorSelect($event)"></app-color-piker>
-    </div>
-  </div>
-  <div class="todos-container">
-    <h2 class="todo-header">In progress</h2>
-    <div class="todo-body secondList" [ngStyle]="{'background-color':secondColor}" cdkDropList
-      [cdkDropListData]="todoService.inProgressList" (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="[firstList, thirdList]" #secondList="cdkDropList">
+  [dellBtn]="true" (deleteBoard)="onDelete($event)"></app-toolbar>
+<div class="container" >
+  <div *ngFor="let column of setColumns(); let i=index" class="todos-container">
+    <h2 class="todo-header">{{column}}</h2>
+    <div class="todo-body" [ngClass]="column" [ngStyle]="{'background-color': colors[i]}" >
       <div class="todo todo-add-button">
-        <span> ↓ </span>
+        <span *ngIf="i===0" (click)="popupService.open()" (click)="choosePopupAdd()"> + </span>
+        <span *ngIf="i!==0"> ↓ </span>
       </div>
-      <ul class="todo-items">
-        <li cdkDrag class="todo todo-item"
-          *ngFor="let todo of todoService.inProgressList | filterTodo:term | sort:[sortValue, sortDesc]">
-          <app-todos-container [todo]="todo" (popupButtonSelected)="onEdit($event)"
-            (commentsSelected)="onComments($event)"></app-todos-container>
-        </li>
-      </ul>
+      <div class="todo todo-items">
+        <div *ngFor="let todo of getTodos(i, this.todoService.listFiltered)" class="todo todo-item">
+          <div >
+            <app-todos-container [todo]="todo" (popupButtonSelected)="onEdit($event)"
+              (commentsSelected)="onComments($event)"></app-todos-container>
+          </div>
+        </div>
+      </div>
       <div *ngIf="!popupButton">
         <div *ngIf="spinnerService.isVisible$ |async ">
           <app-spinner></app-spinner>
         </div>
       </div>
-      <app-color-piker [id]="'secondColor'" (chooseColor)="onColorSelect($event)"></app-color-piker>
-    </div>
-  </div>
-  <div class="todos-container">
-    <h2 class="todo-header">Done</h2>
-    <div class="todo-body thirdList" [ngStyle]="{'background-color': thirdColor}" cdkDropList
-      [cdkDropListData]="todoService.doneList" (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="[firstList, secondList]" #thirdList="cdkDropList">
-      <div class="todo todo-add-button">
-        <span> ↓ </span>
-      </div>
-      <ul class="todo-items">
-        <li cdkDrag class="todo todo-item"
-          *ngFor="let todo of todoService.doneList | filterTodo:term | sort:[sortValue, sortDesc]">
-          <app-todos-container [todo]="todo" (popupButtonSelected)="onEdit($event)"
-            (commentsSelected)="onComments($event)"></app-todos-container>
-        </li>
-      </ul>
-      <div *ngIf="!popupButton">
-        <div *ngIf="spinnerService.isVisible$ |async ">
-          <app-spinner></app-spinner>
-        </div>
-      </div>
-      <app-color-piker [id]="'thirdColor'" (chooseColor)="onColorSelect($event)"></app-color-piker>
+      <app-color-piker [id]="column" (chooseColor)="onColorSelect($event)"></app-color-piker>
     </div>
   </div>
 </div>
