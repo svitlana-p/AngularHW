@@ -1,4 +1,4 @@
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -22,7 +22,8 @@ export class BoardComponent implements OnInit {
   popupButton!: string;
   name!: string;
   todo!: ITodo;
-  colors: string[] = []
+  colors: string[] = [];
+
   constructor(public todoService: TodoService,
     public dashboardService: DashboardService,
     private route: ActivatedRoute,
@@ -38,7 +39,6 @@ export class BoardComponent implements OnInit {
       this.colors = [...this.colors, board[0].firstColor, board[0].secondColor, board[0].thirdColor];
       this.spinnerService.close()
     });
-
   }
 
   ngOnDestroy(): void {
@@ -56,23 +56,23 @@ export class BoardComponent implements OnInit {
   onFilter(eventData: { filterTerm: string }) {
     this.todoService.filter(eventData.filterTerm)
   }
-  onSort(eventData: { sortValue: string, sortDirection: string }) {
+  onSort(eventData: { sortValue: string, sortDirection: string }):void {
     this.todoService.sort(eventData.sortValue, eventData.sortDirection)
   }
-  onEdit(eventData: { popupButton: string, selectedTodo: ITodo }) {
+  onEdit(eventData: { popupButton: string, selectedTodo: ITodo }):void {
     this.popupButton = eventData.popupButton
     this.editTodo = eventData.selectedTodo
   }
-  onComments(eventData: { popupButton: string, selectedTodo: ITodo }) {
+  onComments(eventData: { popupButton: string, selectedTodo: ITodo }):void {
     this.popupButton = eventData.popupButton
     this.todo = eventData.selectedTodo
   }
-  onColorSelect(eventData: { color: string, element: string }) {
+  onColorSelect(eventData: { color: string, element: string }):void {
     if (eventData.element === 'Todo') this.colors[0] = eventData.color;
     if (eventData.element === 'In Progress') this.colors[1] = eventData.color;
     if (eventData.element === 'Done') this.colors[2] = eventData.color;
   }
-  onDelete(eventData: {}) {
+  onDelete(eventData: {}):void {
     const boardId: string = this.route.snapshot.params.id;
     if (confirm('Are you sure you want to delete the board?')) {
       this.dashboardSubscrition = this.dashboardService.delete(boardId).subscribe(() => {
@@ -80,14 +80,17 @@ export class BoardComponent implements OnInit {
       })
     }
   }
-
-  drop(event: CdkDragDrop<ITodo[]>) {
-    const todo: ITodo = event.previousContainer.data[event.previousIndex]
-    const boardId: string = this.route.snapshot.params.id;
-    this.todoService.drop(event, boardId, todo)
+  
+  drop(event: CdkDragDrop<ITodo[]>):void {
+    if (event.previousContainer !== event.container) {
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex)
+    } 
+    // const todo: ITodo = event.previousContainer.data[event.previousIndex]
+    // const boardId: string = this.route.snapshot.params.id;
+    // this.todoService.drop(event, boardId, todo)
   }
-
-  setColumns() {
+  
+  setColumns():string[] {
     return ['Todo', 'In Progress', 'Done']
   }
 

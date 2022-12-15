@@ -103,23 +103,23 @@ export class TodoService {
       )
   }
 
-  drop(event: CdkDragDrop<ITodo[]>, boardId: string, todo: ITodo) {
-    const className = event.container.element.nativeElement.className;
+  drop(event: CdkDragDrop<ITodo[]>, boardId: string, todo: ITodo): void {
+    const id = event.container.element.nativeElement.id;
     if (event.previousContainer !== event.container) {
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex)
-      if (className.includes('Todo')) {
+      if (id === '0') {
         this.changeStatus(boardId, todo, 'todo').subscribe()
-      } else if (className.includes('In Progress')) {
+      } else if (id === '1') {
         this.changeStatus(boardId, todo, 'inProgress').subscribe()
-      } else if (className.includes('Done')) {
+      } else if (id === '2') {
         this.changeStatus(boardId, todo, 'completed').subscribe()
       }
     } else {
-      moveItemInArray(this.list, event.previousIndex, event.currentIndex)
+      moveItemInArray(this.listFiltered, event.previousIndex, event.currentIndex)
     }
 
   }
-  clear() {
+  clear(): void {
     this.list = [];
   }
 
@@ -128,7 +128,7 @@ export class TodoService {
     this.listFiltered = this.list.filter(el => el.name.toLowerCase().includes(search.toLowerCase()));
   }
 
-  sort(sortField:string, sordDirection:string): void {
+  sort(sortField: string, sordDirection: string): void {
     let sorted: ITodo[];
     let multiplier = 1;
 
@@ -147,9 +147,9 @@ export class TodoService {
     })
 
     this.listFiltered = sorted;
-}
+  }
 
-private errorHandler(error: HttpErrorResponse) {
+  private errorHandler(error: HttpErrorResponse) {
     this.errorService.handle(error.message)
     return throwError(() => error.message)
   }
