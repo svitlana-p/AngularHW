@@ -123,12 +123,33 @@ export class TodoService {
     this.list = [];
   }
 
-  filter(search: string) {
+  filter(search: string): void {
     if (search.length === 0) this.listFiltered = this.list;
     this.listFiltered = this.list.filter(el => el.name.toLowerCase().includes(search.toLowerCase()));
   }
 
-  private errorHandler(error: HttpErrorResponse) {
+  sort(sortField:string, sordDirection:string): void {
+    let sorted: ITodo[];
+    let multiplier = 1;
+
+    if (sordDirection === 'desc') {
+      multiplier = -1;
+    }
+
+    sorted = this.listFiltered.sort((a: any, b: any) => {
+      if (a[sortField] < b[sortField]) {
+        return -1 * multiplier
+      } else if (a[sortField] > b[sortField]) {
+        return 1 * multiplier
+      } else {
+        return 0;
+      }
+    })
+
+    this.listFiltered = sorted;
+}
+
+private errorHandler(error: HttpErrorResponse) {
     this.errorService.handle(error.message)
     return throwError(() => error.message)
   }

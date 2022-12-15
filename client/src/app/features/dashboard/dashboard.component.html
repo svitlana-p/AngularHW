@@ -5,7 +5,7 @@
     <p>Add new</p>
   </div>
   <ul class="boards-container">
-    <li *ngFor="let board of dashboardServise.boardListFiltered | sort:[sortValue, sortDesc]"
+    <li *ngFor="let board of dashboardServise.boardListFiltered"
       class="board-item">
 
       <app-dashboard-item [board]="board" (popupButtonSelected)="onEdit($event)"></app-dashboard-item>

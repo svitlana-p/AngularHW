@@ -14,12 +14,12 @@ export class DashboardComponent implements OnInit {
   editboard!: IBoard;
   popupButton!: string;
   dashboardSubscription!: Subscription;
-  sortValue = '';
-  sortDesc = '';
+
   constructor(public dashboardServise: DashboardService,
     public popupService: PopupService,
     public spinnerService: SpinnerService
   ) { }
+
   ngOnInit(): void {
     this.spinnerService.open()
     this.dashboardSubscription = this.dashboardServise.getAll().subscribe(() => {
@@ -44,7 +44,6 @@ export class DashboardComponent implements OnInit {
     this.dashboardServise.filter(eventData.filterTerm)
   }
   onSort(eventData: { sortValue: string, sortDirection: string }) {
-    this.sortValue = eventData.sortValue
-    this.sortDesc = eventData.sortDirection
+    this.dashboardServise.sort(eventData.sortValue, eventData.sortDirection)
   }
 }

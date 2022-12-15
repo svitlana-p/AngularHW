@@ -90,6 +90,26 @@ export class DashboardService {
     if(search === '') this.boardListFiltered = this.boardList;
     this.boardListFiltered = this.boardList.filter(el => el.name.toLowerCase().includes(search.toLowerCase()));
   }
+  sort(sortField:string, sordDirection:string): void {
+    let sorted: IBoard[];
+    let multiplier = 1;
+
+    if (sordDirection === 'desc') {
+      multiplier = -1;
+    }
+
+    sorted = this.boardListFiltered.sort((a: any, b: any) => {
+      if (a[sortField] < b[sortField]) {
+        return -1 * multiplier
+      } else if (a[sortField] > b[sortField]) {
+        return 1 * multiplier
+      } else {
+        return 0;
+      }
+    })
+
+    this.boardListFiltered = sorted;
+}
 
   private errorHandler(error: HttpErrorResponse) {
     this.errorService.handle(error.message)

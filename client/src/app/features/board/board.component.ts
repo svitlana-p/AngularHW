@@ -21,8 +21,6 @@ export class BoardComponent implements OnInit {
   editTodo!: ITodo;
   popupButton!: string;
   name!: string;
-  sortValue = '';
-  sortDesc = '';
   todo!: ITodo;
   colors: string[] = []
   constructor(public todoService: TodoService,
@@ -59,8 +57,7 @@ export class BoardComponent implements OnInit {
     this.todoService.filter(eventData.filterTerm)
   }
   onSort(eventData: { sortValue: string, sortDirection: string }) {
-    this.sortValue = eventData.sortValue
-    this.sortDesc = eventData.sortDirection
+    this.todoService.sort(eventData.sortValue, eventData.sortDirection)
   }
   onEdit(eventData: { popupButton: string, selectedTodo: ITodo }) {
     this.popupButton = eventData.popupButton
