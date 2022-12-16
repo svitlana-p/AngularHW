@@ -75,7 +75,11 @@ input {
     text-decoration: none;
     font-size: 12px;
 }
-
+.password__toggle {
+    position: absolute;
+    right: 25px;
+    cursor: pointer;
+}
 .btn:hover {
     cursor: pointer;
     color: black;

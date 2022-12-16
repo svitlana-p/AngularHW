@@ -6,14 +6,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ShowPasswordDirective } from './directives/show-password.directive';
 
 const components = [
   PopupComponent,
   SpinnerComponent,
-  ToolbarComponent]
+  ToolbarComponent,
+  ShowPasswordDirective ]
 
 @NgModule({
-  declarations: [...components ],
+  declarations: [...components],
   imports: [
     CommonModule,
     FormsModule,

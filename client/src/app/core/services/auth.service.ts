@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap, throwError, catchError } from 'rxjs';
+import { Observable, tap, throwError, catchError, BehaviorSubject } from 'rxjs';
 import { IAnswer } from '../../models/answer.interface';
 import { IUser } from '../../models/user';
 import { ErrorService } from './error.service';
@@ -9,20 +9,20 @@ import { ErrorService } from './error.service';
   providedIn: 'root'
 })
 export class AuthService {
-
+  auth$ = new BehaviorSubject<boolean>(false);
   private token!: string;
   url: string = 'https://dashboard-0y2w.onrender.com/api/auth';
-  
+
   constructor(private http: HttpClient,
     private errorService: ErrorService) { }
 
   register(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(`${this.url}/register`, user)
       .pipe(catchError(this.errorHandler.bind(this)))
-
   }
 
   login(user: IUser): Observable<IAnswer> {
+
     return this.http.post<IAnswer>(`${this.url}/login`, user)
       .pipe(
         tap(
@@ -38,6 +38,7 @@ export class AuthService {
 
   setToken(token: string): void {
     this.token = token
+    this.auth$.next(true)
   }
 
   getToken(): string {
@@ -47,8 +48,10 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!this.token
   }
+
   logout() {
     this.setToken('')
+    this.auth$.next(false)
     localStorage.clear()
   }
 

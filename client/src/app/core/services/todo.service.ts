@@ -35,8 +35,8 @@ export class TodoService {
     return this.http.post<ITodo>(`${this.url}/${boardId}`, todo)
       .pipe(
         tap(todo => {
-          this.list.push(todo);
-          this.listFiltered.push(todo);
+          this.list = [...this.list, todo];
+          this.listFiltered = [...this.listFiltered, todo];
         }),
         catchError(this.errorHandler.bind(this))
       )
@@ -79,7 +79,7 @@ export class TodoService {
     return this.http.post<IComment>(`${this.url}/${boardId}/todo/${todoId}/comments`, { title, todoId })
       .pipe(
         tap((comment: IComment) => {
-          this.commentList.push(comment)
+          this.commentList = [...this.commentList, comment]
         }),
         catchError(this.errorHandler.bind(this))
       )

@@ -17,14 +17,31 @@
     text-shadow: 3px 1px 5px black;
 }
 
-.user-name {
-    margin: 0 10px;
-    color: white;
-    text-shadow: 3px 1px 5px black;
-
+.logo-name:hover {
+    color: rgba(0, 212, 255, 1);
+    cursor: pointer;
 }
 
-.logo-name:hover {
+.nav-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-list {
+    display: inline-block;
+    margin: 0 20px;
+    padding: 3px 5px;
+    list-style: none;
+}
+
+.text {
+    margin: 0 10px;
+    text-decoration: none;
+    color: white;
+    text-shadow: 3px 1px 5px black;
+}
+
+.nav-link:hover {
     color: rgba(0, 212, 255, 1);
     cursor: pointer;
 }

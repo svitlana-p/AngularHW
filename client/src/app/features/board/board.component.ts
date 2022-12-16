@@ -1,4 +1,4 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop,  transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -23,6 +23,7 @@ export class BoardComponent implements OnInit {
   name!: string;
   todo!: ITodo;
   colors: string[] = [];
+  title!: string;
 
   constructor(public todoService: TodoService,
     public dashboardService: DashboardService,
@@ -37,12 +38,12 @@ export class BoardComponent implements OnInit {
     this.spinnerService.open()
     this.boardSubscription = this.dashboardService.getOne(boardId).subscribe((board) => {
       this.colors = [...this.colors, board[0].firstColor, board[0].secondColor, board[0].thirdColor];
+      this.title = board[0].name;
       this.spinnerService.close()
     });
   }
 
   ngOnDestroy(): void {
-    this.dashboardService.clear();
     this.todoService.clear();
     if (this.boardSubscription) this.boardSubscription.unsubscribe();
     if (this.archiveSubscription) this.archiveSubscription.unsubscribe();
@@ -82,6 +83,7 @@ export class BoardComponent implements OnInit {
   }
   
   drop(event: CdkDragDrop<ITodo[]>):void {
+    console.log(event.previousContainer, event.container)
     if (event.previousContainer !== event.container) {
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex)
     } 

@@ -8,9 +8,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./footer.component.css']
 })
-export class FooterComponent {
-
-  constructor(private authService: AuthService,
+export class FooterComponent  {
+  constructor(public authService: AuthService,
     private router: Router
   ) { }
   logout() {

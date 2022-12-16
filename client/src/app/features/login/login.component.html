@@ -9,8 +9,11 @@
       </div>
       <div class="input-field">
         <input formControlName="password"
+        #appShowPassword="appShowPassword"
+        appShowPassword
           [ngClass]="password.invalid && password.touched ? 'form-input red' : 'form-input green'" id="password"
           type="password" placeholder="Password" required minlength="6">
+          <span class="password__toggle" (click)="appShowPassword.toggleVisibility()">👀</span>
         <p class="error-message" *ngIf="password.errors?.['minlength']">Please, enter user password. Min length is 6. Now
           is {{password.value.length}}</p>
       </div>

@@ -1,13 +1,16 @@
-<app-toolbar [title]="dashboardService.bordName" (filterBoards)="onFilter($event)" (sortBoards)="onSort($event)"
+<app-toolbar [title]="title" (filterBoards)="onFilter($event)" (sortBoards)="onSort($event)"
   [dellBtn]="true" (deleteBoard)="onDelete($event)"></app-toolbar>
+  
 <div class="container" cdkDropListGroup>
   <div *ngFor="let column of setColumns(); let i=index" class="todos-container">
     <h2 class="todo-header">{{column}}</h2>
     <div class="todo-body" [id]="i.toString()" [ngStyle]="{'background-color': colors[i]}" cdkDropList
       [cdkDropListData]="getTodos(i, this.todoService.listFiltered)" (cdkDropListDropped)="drop($event)">
-      <div class="todo todo-add-button">
-        <span *ngIf="i===0" (click)="popupService.open()" (click)="choosePopupAdd()"> + </span>
-        <span *ngIf="i!==0"> ↓ </span>
+      <div class="todo todo-add-button"*ngIf="i===0" (click)="popupService.open()" (click)="choosePopupAdd()">
+        <span > + </span>
+      </div>
+      <div class="todo todo-add-button"*ngIf="i!==0">
+        <span > ↓ </span>
       </div>
       <div class="todo todo-items">
         <div cdkDrag *ngFor="let todo of getTodos(i, this.todoService.listFiltered)" class="todo todo-item">

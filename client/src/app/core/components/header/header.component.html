@@ -2,7 +2,24 @@
   <div class="logo-name" routerLink="/dashboard">
     Dashboard
   </div>
-  <div *ngIf="user">
-    Hello, <span class="user-name"> {{user | uppercase}} </span>
+  <div *ngIf="this.authService.auth$ |async  else elseBlock">
+    Hello, <span class="text"> {{user | uppercase}} </span>
   </div>
+  <ng-template #elseBlock>
+    <ul class="nav-container">
+      <li class="nav-list"><a 
+          class="nav-link text"
+          routerLink="/login"
+          >
+          Sign In
+      </a></li>
+      <li class="nav-list"><a 
+          class="nav-link text"
+          routerLink="/register"
+          >
+          Sign Up
+      </a></li>            
+  </ul>
+  </ng-template>   
+  
 </header>

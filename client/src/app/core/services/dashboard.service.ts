@@ -15,7 +15,6 @@ export class DashboardService {
 
   boardList: IBoard[] = [];
   boardListFiltered: IBoard[] = [];
-  bordName!: string;
   url: string = 'https://dashboard-0y2w.onrender.com/api/dashboard';
 
   getAll(): Observable<IBoard[]> {
@@ -31,9 +30,6 @@ export class DashboardService {
   getOne(boardId: string): Observable<IBoard[]> {
     return this.http.get<IBoard[]>(`${this.url}/${boardId}`)
       .pipe(
-        tap(board => {
-          this.bordName = board[0].name;
-        }),
         catchError(this.errorHandler.bind(this))
       )
   }
@@ -81,9 +77,6 @@ export class DashboardService {
         catchError(this.errorHandler.bind(this))
       )
 
-  }
-  clear() {
-    this.bordName = ''
   }
 
   filter(search: string) {

@@ -1,4 +1,4 @@
-<footer>
+<footer *ngIf="this.authService.auth$ |async">
   <button class="logout" (click)="logout()">
     Log Out
   </button>
