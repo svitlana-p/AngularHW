@@ -92,20 +92,17 @@ export class BoardComponent implements OnInit {
   
   drop(event: CdkDragDrop<ITodo[]>, i:number):void {
     const id = event.container.element.nativeElement.id;
-    const todo: ITodo = event.previousContainer.data[event.previousIndex]
+    const todo: ITodo = event.previousContainer.data[event.previousIndex];
+    let action:string = '';
     if (event.previousContainer !== event.container) {
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
-      if (id === '0') {
-       this.dropSubscription = this.todoService.changeStatus(this.boardId, todo, 'todo').subscribe()
-      } else if (id === '1') {
-        this.dropSubscription = this.todoService.changeStatus(this.boardId, todo, 'inProgress').subscribe()
-      } else if (id === '2') {
-        this.dropSubscription = this.todoService.changeStatus(this.boardId, todo, 'completed').subscribe()
-      }
+      if(id === '0') action = 'todo';
+      if(id === '1') action = 'inProgress';
+      if(id === '2') action = 'completed';
+      this.dropSubscription = this.todoService.changeStatus(this.boardId, todo, action).subscribe();
     } else {
       moveItemInArray(this.todoList[i], event.previousIndex, event.currentIndex)
     }
-
   }
   
   getColumns():string[] {
