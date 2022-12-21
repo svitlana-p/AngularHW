@@ -4,6 +4,4 @@
   <p class="error-message" *ngIf="name.touched && name.errors?.required">Please, enter todo name</p>
   <button class="popup-btn" type="submit" [disabled]="form.invalid">Save</button>
 </form>
-<div *ngIf="spinnerService.isVisible$ |async">
-  <app-spinner></app-spinner>
-</div>
+

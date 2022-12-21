@@ -1,34 +1,26 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-
 import { ITodo } from 'src/app/models/todo.interface';
 import { PopupService } from 'src/app/core/services/popup.service';
-import { SpinnerService } from 'src/app/core/services/spinner.service';
-import { TodoService } from 'src/app/core/services/todo.service';
 
 @Component({
   selector: 'app-add-edit-todo',
   templateUrl: './add-edit-todo.component.html',
   styleUrls: ['./add-edit-todo.component.css']
 })
-export class AddEditTodoComponent implements OnDestroy {
+export class AddEditTodoComponent {
   @Input() isAdd?: boolean;
   @Input() todo!: ITodo;
-  todoSubscription!: Subscription;
-  editSubscription!: Subscription;
+
+  @Output() addTask = new EventEmitter<{todo: ITodo}>()
+  @Output() editTask = new EventEmitter<{todo: ITodo}>()
+
   
   constructor(public popupService: PopupService,
-    public todoService: TodoService,
-    public route: ActivatedRoute,
-    public spinnerService: SpinnerService
+    public route: ActivatedRoute
   ) { }
 
-  ngOnDestroy(): void {
-    if (this.todoSubscription) this.todoSubscription.unsubscribe();
-    if (this.editSubscription) this.editSubscription.unsubscribe();
-  }
   boardId: string = this.route.snapshot.params.id;
   form = new FormGroup({
     name: new FormControl<string>('', [
@@ -40,9 +32,8 @@ export class AddEditTodoComponent implements OnDestroy {
     return this.form.controls.name as FormControl
   }
   submit() {
-    this.spinnerService.open()
     this.form.disable()
-    this.todoService.create(this.boardId, {
+    const task:ITodo = {
       name: this.form.value.name as string,
       userId: '',
       boardId: '',
@@ -54,15 +45,13 @@ export class AddEditTodoComponent implements OnDestroy {
       createdAt: '',
       updatedAt: '',
       __v: NaN
-    }).subscribe(() => {
-      this.spinnerService.close()
-      this.popupService.close()
-    })
+    }
+    this.addTask.emit({todo:task}) 
+    this.popupService.close()
   }
   edit(todo: ITodo) {
-    this.spinnerService.open()
     this.form.disable()
-    this.todoService.edit(this.boardId, {
+    const task:ITodo = {
       name: this.form.value.name as string,
       userId: todo.userId,
       boardId: todo.boardId,
@@ -74,12 +63,9 @@ export class AddEditTodoComponent implements OnDestroy {
       createdAt: todo.createdAt,
       updatedAt: todo.updatedAt,
       __v: todo.__v
-
-    }).subscribe(() => {
-      this.spinnerService.close()
-      this.popupService.close()
-    })
-  }
-  
+    }
+    this.editTask.emit({todo:task})
+    this.popupService.close()
+  }  
 
 }

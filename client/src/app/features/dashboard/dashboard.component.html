@@ -5,10 +5,10 @@
     <p>Add new</p>
   </div>
   <ul class="boards-container">
-    <li *ngFor="let board of dashboardServise.boardListFiltered"
+    <li *ngFor="let board of boardListFiltered"
       class="board-item">
 
-      <app-dashboard-item [board]="board" (popupButtonSelected)="onEdit($event)"></app-dashboard-item>
+      <app-dashboard-item [board]="board" (popupButtonSelected)="onEdit($event)" (deleteBoard)="onBoardDelete($event)"></app-dashboard-item>
 
     </li>
   </ul>
@@ -16,10 +16,10 @@
 
 <div *ngIf="popupService.isVisible$ | async" class="popup popup-all">
   <app-popup *ngIf="popupButton === 'edit'" title="Edit board">
-    <app-add-edit-board [board]="editboard"></app-add-edit-board>
+    <app-add-edit-board [board]="editboard" (editBoard)="onBoardEdit($event)"></app-add-edit-board>
   </app-popup>
   <app-popup *ngIf="popupButton === 'add'" title="Add board">
-    <app-add-edit-board [isAdd]="true"></app-add-edit-board>
+    <app-add-edit-board [isAdd]="true" (addBoard)="onBoardAdd($event)"></app-add-edit-board>
   </app-popup>
 </div>
 <div *ngIf="!popupButton || popupButton === 'delete'">

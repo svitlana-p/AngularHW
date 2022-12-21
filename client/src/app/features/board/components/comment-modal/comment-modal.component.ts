@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, ViewChild, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -16,6 +16,8 @@ import { TodoService } from 'src/app/core/services/todo.service';
 export class CommentModalComponent implements OnInit, OnDestroy {
 
   @Input() todo!: ITodo;
+
+  comments:IComment[] = [];
   getCommentSub!: Subscription;
   postCommentSub!: Subscription;
   delCommentSub!: Subscription;
@@ -31,12 +33,12 @@ export class CommentModalComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.spinnerService.open()
-    this.getCommentSub = this.todoService.getComments(this.boardId, this.todo._id).subscribe(() => {
+    this.getCommentSub = this.todoService.getComments(this.boardId, this.todo._id).subscribe((comments) => {
+      this.comments = comments;
       this.spinnerService.close()
     });
   }
   ngOnDestroy(): void {
-    this.todoService.commentList = [];
     if (this.getCommentSub) this.getCommentSub.unsubscribe();
     if (this.postCommentSub) this.postCommentSub.unsubscribe();
     if (this.delCommentSub) this.delCommentSub.unsubscribe();
@@ -45,14 +47,16 @@ export class CommentModalComponent implements OnInit, OnDestroy {
   submit() {
     if (!this.form.value.title) return
     this.spinnerService.open()
-    this.postCommentSub = this.todoService.postComments(this.boardId, this.todo._id, this.form.value.title).subscribe(() => {
+    this.postCommentSub = this.todoService.postComments(this.boardId, this.todo._id, this.form.value.title).subscribe((comment) => {
+      this.comments = [...this.comments, comment]
       this.form.reset()
       this.spinnerService.close()
     });
   }
   deleteComment(comment: IComment) {
     this.spinnerService.open()
-    this.delCommentSub = this.todoService.deleteComments(this.boardId, this.todo._id, comment).subscribe(() => {
+    this.delCommentSub = this.todoService.deleteComments(this.boardId, this.todo._id, comment).subscribe((comment) => {
+      this.comments = this.comments.filter(el => el._id !== comment._id)
       this.spinnerService.close()
     });
   }

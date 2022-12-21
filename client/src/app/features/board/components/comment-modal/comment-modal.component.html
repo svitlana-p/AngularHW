@@ -1,9 +1,9 @@
-<div class="comment-count">Comments in the task: <span class="comment-color">{{todoService.commentList.length}} </span>
+<div class="comment-count">Comments in the task: <span class="comment-color">{{comments.length}} </span>
 </div>
 <div *ngIf="spinnerService.isVisible$ |async">
   <app-spinner></app-spinner>
 </div>
-<div class="comments" *ngFor="let comment of todoService.commentList">
+<div class="comments" *ngFor="let comment of comments">
   <span class="commment-text">{{comment.title}}</span>
   <div>
     <span class="comment-date">{{comment.createdAt | date}}</span>

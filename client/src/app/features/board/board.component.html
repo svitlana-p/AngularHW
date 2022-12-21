@@ -1,11 +1,11 @@
 <app-toolbar [title]="title" (filterBoards)="onFilter($event)" (sortBoards)="onSort($event)"
-  [dellBtn]="true" (deleteBoard)="onDelete($event)"></app-toolbar>
+  [dellBtn]="true" (deleteBoard)="onDeleteBoard($event)"></app-toolbar>
   
 <div class="container" cdkDropListGroup>
   <div *ngFor="let column of getColumns(); let i=index" class="todos-container">
     <h2 class="todo-header">{{column}}</h2>
     <div class="todo-body" [id]="i.toString()" [ngStyle]="{'background-color': colors[i]}" cdkDropList
-      [cdkDropListData]="getTodos(i, todoService.listFiltered)" (cdkDropListDropped)="drop($event)">
+      [cdkDropListData]="getTodos(i, listFiltered)" (cdkDropListDropped)="drop($event, i)">
       <div class="todo todo-add-button"*ngIf="i===0" (click)="popupService.open()" (click)="choosePopupAdd()">
         <span > + </span>
       </div>
@@ -13,9 +13,9 @@
         <span > ↓ </span>
       </div>
       <div class="todo todo-items">
-        <div cdkDrag *ngFor="let todo of getTodos(i, todoService.listFiltered)" class="todo todo-item">
+        <div cdkDrag *ngFor="let todo of getTodos(i, listFiltered)" class="todo todo-item">
           <app-todos-container [todo]="todo" (popupButtonSelected)="onEdit($event)"
-            (commentsSelected)="onComments($event)"></app-todos-container>
+            (commentsSelected)="onComments($event)" (deleteTask)="onTaskDelete($event)" (archiveTask)="onTaskArchive($event)"></app-todos-container>
         </div>
       </div>
       <div *ngIf="!popupButton">
@@ -36,12 +36,12 @@
   </app-popup>
 
   <app-popup *ngIf="popupButton === 'edit'" title="Edit todo">
-    <app-add-edit-todo [isAdd]="false" [todo]="editTodo">
+    <app-add-edit-todo [isAdd]="false" [todo]="editTodo" (editTask)="onTaskEdit($event)">
     </app-add-edit-todo>
   </app-popup>
 
   <app-popup *ngIf="popupButton === 'add' " title="Add todo">
-    <app-add-edit-todo [isAdd]="true"></app-add-edit-todo>
+    <app-add-edit-todo [isAdd]="true" (addTask)="onTaskAdd($event)"></app-add-edit-todo>
   </app-popup>
 
 </div>

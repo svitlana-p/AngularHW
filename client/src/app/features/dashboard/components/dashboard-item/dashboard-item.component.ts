@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IBoard } from 'src/app/models/board.interface';
-import { Subscription } from 'rxjs';
 import { DashboardService } from 'src/app/core/services/dashboard.service';
 import { PopupService } from 'src/app/core/services/popup.service';
 
@@ -9,22 +8,17 @@ import { PopupService } from 'src/app/core/services/popup.service';
   templateUrl: './dashboard-item.component.html',
   styleUrls: ['./dashboard-item.component.css']
 })
-export class DashboardItemComponent implements OnDestroy {
+export class DashboardItemComponent {
   @Input() board!: IBoard;
   @Output() popupButtonSelected = new EventEmitter<{ popupButton: string, selectedBoard: IBoard }>()
+  @Output() deleteBoard = new EventEmitter<{boardId:string}>()
 
   popupButton!: string;
   selectedBoard!: IBoard;
 
-  delSubscription!: Subscription;
-
   constructor(public dashboardService: DashboardService,
     public popupService: PopupService
   ) { }
-  
-  ngOnDestroy(): void {
-    if (this.delSubscription) this.delSubscription.unsubscribe()
-  }
 
   choosePopupEdit(board: IBoard): void {
     this.popupButton = 'edit';
@@ -33,7 +27,6 @@ export class DashboardItemComponent implements OnDestroy {
   }
   delete(board: IBoard): void {
     this.popupButton = 'delete'
-    this.delSubscription = this.dashboardService.delete(board._id).subscribe()
-
+    this.deleteBoard.emit({boardId:board._id})
   }
 }

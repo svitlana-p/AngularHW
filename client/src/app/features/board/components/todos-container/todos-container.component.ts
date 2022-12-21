@@ -1,6 +1,5 @@
-import { Component, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { PopupService } from 'src/app/core/services/popup.service';
 import { TodoService } from 'src/app/core/services/todo.service';
 import { ITodo } from 'src/app/models/todo.interface';
@@ -10,15 +9,15 @@ import { ITodo } from 'src/app/models/todo.interface';
   templateUrl: './todos-container.component.html',
   styleUrls: ['./todos-container.component.css']
 })
-export class TodosContainerComponent implements OnDestroy {
+export class TodosContainerComponent {
   @Input() todo!: ITodo;
   @Output() popupButtonSelected = new EventEmitter<{ popupButton: string, selectedTodo: ITodo }>()
   @Output() commentsSelected = new EventEmitter<{ popupButton: string, selectedTodo: ITodo }>()
+  @Output() deleteTask = new EventEmitter<{todo: ITodo}>()
+  @Output() archiveTask = new EventEmitter<{todo: ITodo}>()
 
   selectedTodo!: ITodo;
   popupButton!: string;
-  archiveSubscription!: Subscription;
-  delListSubscription!: Subscription;
 
   boardId: string = this.route.snapshot.params.id;
 
@@ -26,10 +25,6 @@ export class TodosContainerComponent implements OnDestroy {
     private route: ActivatedRoute,
     public popupService: PopupService
   ) { }
-  ngOnDestroy(): void {
-    if (this.archiveSubscription) this.archiveSubscription.unsubscribe();
-    if (this.delListSubscription) this.delListSubscription.unsubscribe();
-  }
 
   choosePopupEdit(todo: ITodo): void {
     this.popupButton = 'edit';
@@ -43,11 +38,11 @@ export class TodosContainerComponent implements OnDestroy {
   }
 
   delete(todo: ITodo) {
-    this.delListSubscription = this.todoService.delete(this.boardId, todo).subscribe()
+    this.deleteTask.emit({todo:todo})
   }
 
   archive(todo: ITodo) {
-    this.archiveSubscription = this.todoService.changeStatus(this.boardId, todo, 'archive').subscribe()
+    this.archiveTask.emit({todo:todo})
   }
   
 }

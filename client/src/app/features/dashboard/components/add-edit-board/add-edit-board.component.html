@@ -9,6 +9,4 @@
     Max length is 60</p>
   <button class="popup-btn" type="submit" [disabled]="form.invalid">Save</button>
 </form>
-<div *ngIf="spinnerService.isVisible$ |async">
-  <app-spinner></app-spinner>
-</div>
+

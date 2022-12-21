@@ -1,9 +1,7 @@
-import { Component, OnDestroy, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { DashboardService } from 'src/app/core/services/dashboard.service';
 import { PopupService } from 'src/app/core/services/popup.service';
-import { SpinnerService } from 'src/app/core/services/spinner.service';
 import { IBoard } from 'src/app/models/board.interface';
 @Component({
   selector: 'app-add-edit-board',
@@ -11,22 +9,16 @@ import { IBoard } from 'src/app/models/board.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./add-edit-board.component.css']
 })
-export class AddEditBoardComponent implements OnDestroy {
+export class AddEditBoardComponent {
   @Input() isAdd?: boolean;
   @Input() board!: IBoard;
+  @Output() addBoard = new EventEmitter<{board:IBoard}>()
+  @Output() editBoard = new EventEmitter<{board:IBoard}>()
 
-  bordSubscritpion!: Subscription;
-  editSubscritpion!: Subscription;
   
   constructor(public popupService: PopupService,
-    public dashboardService: DashboardService,
-    public spinnerService: SpinnerService
+    public dashboardService: DashboardService
   ) { }
-
-  ngOnDestroy(): void {
-    if (this.bordSubscritpion) this.bordSubscritpion.unsubscribe()
-    if (this.editSubscritpion) this.editSubscritpion.unsubscribe()
-  }
 
   form = new FormGroup({
     name: new FormControl<string>('', [
@@ -45,8 +37,7 @@ export class AddEditBoardComponent implements OnDestroy {
   }
   submit() {
     this.form.disable()
-    this.spinnerService.open()
-    this.bordSubscritpion = this.dashboardService.create({
+    const board = {
       name: this.form.value.name as string,
       description: this.form.value.description as string,
       userId: '',
@@ -57,16 +48,13 @@ export class AddEditBoardComponent implements OnDestroy {
       secondColor: '',
       thirdColor: '',
       __v: 0
-    }).subscribe(() => {
-      this.spinnerService.close()
-      this.popupService.close()
-    })
-
+    }
+    this.addBoard.emit({board:board})
+    this.popupService.close()
   }
 
   edit(board: IBoard) {
-    if (!this.isAdd) this.spinnerService.open()
-    this.editSubscritpion = this.dashboardService.edit({
+    const newBoard = {
       name: this.form.value.name as string,
       description: board.description,
       _id: board._id,
@@ -77,10 +65,8 @@ export class AddEditBoardComponent implements OnDestroy {
       firstColor: '',
       secondColor: '',
       thirdColor: ''
-    }).subscribe(() => {
-      this.popupService.close()
-      this.spinnerService.close()
-    })
-
+    }
+    this.editBoard.emit({board: newBoard})
+    this.popupService.close()
   }
 }
