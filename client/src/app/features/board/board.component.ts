@@ -1,4 +1,4 @@
-import { CdkDragDrop,  transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop,  moveItemInArray,  transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -18,12 +18,15 @@ export class BoardComponent implements OnInit {
   boardSubscription!: Subscription;
   archiveSubscription!: Subscription;
   delListSubscription!: Subscription;
+  dropSubscription!: Subscription;
+  boardId!: string;
   editTodo!: ITodo;
   popupButton!: string;
   name!: string;
   todo!: ITodo;
   colors: string[] = [];
   title!: string;
+  todoList: Array<ITodo[]>= [];
 
   constructor(public todoService: TodoService,
     public dashboardService: DashboardService,
@@ -34,9 +37,13 @@ export class BoardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const boardId: string = this.route.snapshot.params.id;
-    this.spinnerService.open()
-    this.boardSubscription = this.dashboardService.getOne(boardId).subscribe((board) => {
+    this.boardId= this.route.snapshot.params.id;
+    this.spinnerService.open();
+    const listCreated = this.todoService.listFiltered.filter(el => el.created);
+    const listProgress = this.todoService.listFiltered.filter(el => el.inProgress);
+    const listDone = this.todoService.listFiltered.filter(el => el.completed);
+    this.todoList = [...this.todoList, listCreated, listProgress, listDone];
+    this.boardSubscription = this.dashboardService.getOne(this.boardId).subscribe((board) => {
       this.colors = [...this.colors, board[0].firstColor, board[0].secondColor, board[0].thirdColor];
       this.title = board[0].name;
       this.spinnerService.close()
@@ -49,6 +56,7 @@ export class BoardComponent implements OnInit {
     if (this.archiveSubscription) this.archiveSubscription.unsubscribe();
     if (this.delListSubscription) this.delListSubscription.unsubscribe();
     if (this.dashboardSubscrition) this.dashboardSubscrition.unsubscribe();
+    if (this.dropSubscription) this.dropSubscription.unsubscribe();
   }
 
   choosePopupAdd(): void {
@@ -82,25 +90,26 @@ export class BoardComponent implements OnInit {
     }
   }
   
-  drop(event: CdkDragDrop<ITodo[]>):void {
-    console.log(event.previousContainer, event.container)
+  drop(event: CdkDragDrop<ITodo[]>, i:number):void {
+    const id = event.container.element.nativeElement.id;
+    const todo: ITodo = event.previousContainer.data[event.previousIndex]
     if (event.previousContainer !== event.container) {
-      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex)
-    } 
-    // const todo: ITodo = event.previousContainer.data[event.previousIndex]
-    // const boardId: string = this.route.snapshot.params.id;
-    // this.todoService.drop(event, boardId, todo)
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+      if (id === '0') {
+       this.dropSubscription = this.todoService.changeStatus(this.boardId, todo, 'todo').subscribe()
+      } else if (id === '1') {
+        this.dropSubscription = this.todoService.changeStatus(this.boardId, todo, 'inProgress').subscribe()
+      } else if (id === '2') {
+        this.dropSubscription = this.todoService.changeStatus(this.boardId, todo, 'completed').subscribe()
+      }
+    } else {
+      moveItemInArray(this.todoList[i], event.previousIndex, event.currentIndex)
+    }
+
   }
   
-  setColumns():string[] {
+  getColumns():string[] {
     return ['Todo', 'In Progress', 'Done']
   }
 
-
-  getTodos(index: number, list: ITodo[]): ITodo[] {
-    if (index === 0) return list.filter(el => el.created)
-    if (index === 1) return list.filter(el => el.inProgress)
-    if (index === 2) return list.filter(el => el.completed)
-    return list;
-  }
 }

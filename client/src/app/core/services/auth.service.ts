@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap, throwError, catchError, BehaviorSubject } from 'rxjs';
 import { IAnswer } from '../../models/answer.interface';
-import { IUser } from '../../models/user';
+import { IUser } from '../../models/user.interface';
 import { ErrorService } from './error.service';
 
 @Injectable({

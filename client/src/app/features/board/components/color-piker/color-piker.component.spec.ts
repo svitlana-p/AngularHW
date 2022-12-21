@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DashboardService } from 'src/app/core/services/dashboard.service';
-import { DashboardServiceMock } from 'src/app/core/services/dashboard.service.mock';
+import { DashboardServiceMock } from 'src/app/testing/core/services/dashboard.service.mock';
 
 import { ColorPikerComponent } from './color-piker.component';
 

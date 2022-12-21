@@ -1,4 +1,3 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, Observable, tap, throwError } from 'rxjs';
@@ -103,22 +102,6 @@ export class TodoService {
       )
   }
 
-  drop(event: CdkDragDrop<ITodo[]>, boardId: string, todo: ITodo): void {
-    const id = event.container.element.nativeElement.id;
-    if (event.previousContainer !== event.container) {
-      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex)
-      if (id === '0') {
-        this.changeStatus(boardId, todo, 'todo').subscribe()
-      } else if (id === '1') {
-        this.changeStatus(boardId, todo, 'inProgress').subscribe()
-      } else if (id === '2') {
-        this.changeStatus(boardId, todo, 'completed').subscribe()
-      }
-    } else {
-      moveItemInArray(this.listFiltered, event.previousIndex, event.currentIndex)
-    }
-
-  }
   clear(): void {
     this.list = [];
   }

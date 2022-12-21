@@ -5,7 +5,7 @@ import { boardMock } from 'src/app/testing/mocks/board-mock';
 import { todoMock } from 'src/app/testing/mocks/todo-mock';
 import { PopupService } from 'src/app/core/services/popup.service';
 import { TodoService } from 'src/app/core/services/todo.service';
-import { TodoserviceMock } from 'src/app/core/services/todo.service.mock';
+import { TodoserviceMock } from 'src/app/testing/core/services/todo.service.mock';
 
 import { TodosContainerComponent } from './todos-container.component';
 

@@ -1,4 +1,4 @@
-import { IUser } from "../../models/user";
+import { IUser } from "../../models/user.interface";
 
 export const UserMock: IUser =
 {

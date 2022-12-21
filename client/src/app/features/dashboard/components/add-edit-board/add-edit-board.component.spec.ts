@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { boardMock } from 'src/app/testing/mocks/board-mock';
 import { DashboardService } from 'src/app/core/services/dashboard.service';
-import { DashboardServiceMock } from 'src/app/core/services/dashboard.service.mock';
+import { DashboardServiceMock } from 'src/app/testing/core/services/dashboard.service.mock';
 import { PopupService } from 'src/app/core/services/popup.service';
 import { SpinnerService } from 'src/app/core/services/spinner.service';
 
