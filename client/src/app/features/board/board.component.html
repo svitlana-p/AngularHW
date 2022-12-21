@@ -5,7 +5,7 @@
   <div *ngFor="let column of getColumns(); let i=index" class="todos-container">
     <h2 class="todo-header">{{column}}</h2>
     <div class="todo-body" [id]="i.toString()" [ngStyle]="{'background-color': colors[i]}" cdkDropList
-      [cdkDropListData]="todoList[i]" (cdkDropListDropped)="drop($event, i)">
+      [cdkDropListData]="getTodos(i, todoService.listFiltered)" (cdkDropListDropped)="drop($event)">
       <div class="todo todo-add-button"*ngIf="i===0" (click)="popupService.open()" (click)="choosePopupAdd()">
         <span > + </span>
       </div>
@@ -13,7 +13,7 @@
         <span > ↓ </span>
       </div>
       <div class="todo todo-items">
-        <div cdkDrag *ngFor="let todo of todoList[i]" class="todo todo-item">
+        <div cdkDrag *ngFor="let todo of getTodos(i, todoService.listFiltered)" class="todo todo-item">
           <app-todos-container [todo]="todo" (popupButtonSelected)="onEdit($event)"
             (commentsSelected)="onComments($event)"></app-todos-container>
         </div>

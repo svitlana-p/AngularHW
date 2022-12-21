@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { UserMock } from '../../testing/mocks/user-mock';
-import { IUser } from '../../models/user';
+import { IUser } from 'src/app/models/user.interface';
+import { UserMock } from '../../mocks/user-mock';
 
 
 @Injectable()

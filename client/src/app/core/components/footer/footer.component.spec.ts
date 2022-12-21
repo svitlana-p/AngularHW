@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { AuthServiceMock } from 'src/app/core/services/auth.service.mock';
+import { AuthServiceMock } from 'src/app/testing/core/services/auth.service.mock';
 
 import { FooterComponent } from './footer.component';
 

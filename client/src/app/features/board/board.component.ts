@@ -26,7 +26,6 @@ export class BoardComponent implements OnInit {
   todo!: ITodo;
   colors: string[] = [];
   title!: string;
-  todoList: Array<ITodo[]>= [];
 
   constructor(public todoService: TodoService,
     public dashboardService: DashboardService,
@@ -39,10 +38,6 @@ export class BoardComponent implements OnInit {
   ngOnInit(): void {
     this.boardId= this.route.snapshot.params.id;
     this.spinnerService.open();
-    const listCreated = this.todoService.listFiltered.filter(el => el.created);
-    const listProgress = this.todoService.listFiltered.filter(el => el.inProgress);
-    const listDone = this.todoService.listFiltered.filter(el => el.completed);
-    this.todoList = [...this.todoList, listCreated, listProgress, listDone];
     this.boardSubscription = this.dashboardService.getOne(this.boardId).subscribe((board) => {
       this.colors = [...this.colors, board[0].firstColor, board[0].secondColor, board[0].thirdColor];
       this.title = board[0].name;
@@ -90,23 +85,24 @@ export class BoardComponent implements OnInit {
     }
   }
   
-  drop(event: CdkDragDrop<ITodo[]>, i:number):void {
+  drop(event: CdkDragDrop<ITodo[]>):void {
+    this.spinnerService.open()
     const id = event.container.element.nativeElement.id;
     const todo: ITodo = event.previousContainer.data[event.previousIndex];
     let action:string = '';
-    if (event.previousContainer !== event.container) {
-      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
       if(id === '0') action = 'todo';
       if(id === '1') action = 'inProgress';
       if(id === '2') action = 'completed';
-      this.dropSubscription = this.todoService.changeStatus(this.boardId, todo, action).subscribe();
-    } else {
-      moveItemInArray(this.todoList[i], event.previousIndex, event.currentIndex)
-    }
+      this.dropSubscription = this.todoService.changeStatus(this.boardId, todo, action).subscribe(()=>this.spinnerService.close());
   }
   
   getColumns():string[] {
     return ['Todo', 'In Progress', 'Done']
   }
-
+  getTodos(index: number, list: ITodo[]): ITodo[] {
+    if (index === 0) return list.filter(el => el.created)
+    if (index === 1) return list.filter(el => el.inProgress)
+    if (index === 2) return list.filter(el => el.completed)
+    return list;
+  }
 }
