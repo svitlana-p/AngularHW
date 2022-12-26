@@ -49,6 +49,6 @@ describe('ColorPikerComponent', () => {
       .triggerEventHandler('change', null);
 
     expect(component.setColor).toHaveBeenCalled();
-  })
- 
+  });
+
 });

@@ -1,14 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { boardMock } from 'src/app/testing/mocks/board-mock';
 import { CommentMock } from 'src/app/testing/mocks/comment-mock';
 import { todoMock } from 'src/app/testing/mocks/todo-mock';
 import { SpinnerService } from 'src/app/core/services/spinner.service';
 import { TodoService } from 'src/app/core/services/todo.service';
 import { TodoserviceMock } from 'src/app/testing/core/services/todo.service.mock';
-
 import { CommentModalComponent } from './comment-modal.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('CommentModalComponent', () => {
     let component: CommentModalComponent;
@@ -21,7 +20,8 @@ describe('CommentModalComponent', () => {
             declarations: [CommentModalComponent],
             imports: [
                 RouterTestingModule,
-                FormsModule
+                FormsModule,
+                SharedModule
             ],
             providers: [{
                 provide: TodoService, useClass: TodoserviceMock

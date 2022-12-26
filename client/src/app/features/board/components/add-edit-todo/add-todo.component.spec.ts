@@ -47,41 +47,19 @@ describe('AddTodoComponent', () => {
         expect(component).toBeTruthy();
     });
     describe('Submit', () => {
-        it('should called open and close service methods', () => {
-            const spy = spyOn(spinnerService, 'open');
-            const secondSpy = spyOn(spinnerService, 'close');
-            const thirdSpy = spyOn(popupService, 'close');
+        it('should called close service method', () => {
+            const spy = spyOn(popupService, 'close');
             component.submit()
             fixture.detectChanges();
             expect(spy).toHaveBeenCalled();
-            expect(secondSpy).toHaveBeenCalled();
-            expect(thirdSpy).toHaveBeenCalled();
         });
-        it('should called create service method', () => {
-            const spy = spyOn(todoService, 'create').and.callThrough();
-
-            component.submit();
-
-            expect(spy).toHaveBeenCalled()
-        })
     })
     describe('Edit', () => {
-        it('should called open am=nd close methods', () => {
-            const spy = spyOn(spinnerService, 'open');
-            const secondSpy = spyOn(spinnerService, 'close');
-            const thirdSpy = spyOn(popupService, 'close');
+        it('should called close method', () => {
+            const spy = spyOn(popupService, 'close');
             component.edit(todo)
             fixture.detectChanges();
             expect(spy).toHaveBeenCalled();
-            expect(secondSpy).toHaveBeenCalled();
-            expect(thirdSpy).toHaveBeenCalled();
         });
-        it('should called edit service method', () => {
-            const spy = spyOn(todoService, 'edit').and.callThrough();
-
-            component.edit(todo);
-
-            expect(spy).toHaveBeenCalled()
-        })
     })
 });

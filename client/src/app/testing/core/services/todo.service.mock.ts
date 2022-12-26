@@ -30,8 +30,8 @@ export class TodoserviceMock {
         return of(CommentMock[0])
     }
 
-    getComments(boardId: string, todo: ITodo): Observable<IComment> {
-        return of(CommentMock[0])
+    getComments(boardId: string, todo: ITodo): Observable<IComment[]> {
+        return of(CommentMock)
     }
 
     deleteComments(boardId: string, todo: ITodo, comment: IComment): Observable<IComment> {

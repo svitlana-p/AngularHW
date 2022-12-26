@@ -40,25 +40,7 @@ describe('TodosContainerComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
-    });
-
-    it('shoud called delete service method', () => {
-        const spy = spyOn(todoService, 'delete').and.callThrough();
-        component.boardId = boardId;
-        fixture.debugElement.query(By.css('.del-button'))
-            .triggerEventHandler('click', null);
-
-        expect(spy).toHaveBeenCalledOnceWith(boardId, todoMock[0])
-    });
-
-    it('shoud called changeStatus service method', () => {
-        const spy = spyOn(todoService, 'changeStatus').and.callThrough();
-        component.boardId = boardId;
-        fixture.debugElement.query(By.css('.archive'))
-            .triggerEventHandler('click', null);
-
-        expect(spy).toHaveBeenCalledOnceWith(boardId, todoMock[0], 'archive')
-    });
+    });    
 
     it('shoud called open service method', () => {
         const spy = spyOn(popupService, 'open')

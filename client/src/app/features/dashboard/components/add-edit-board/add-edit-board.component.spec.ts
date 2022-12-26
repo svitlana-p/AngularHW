@@ -52,41 +52,21 @@ describe('AddBoardComponent', () => {
 
     describe('Submit', () => {
         it('should called open and close service methods', () => {
-            const spy = spyOn(spinnerService, 'open');
-            const secondSpy = spyOn(spinnerService, 'close');
-            const thirdSpy = spyOn(popupService, 'close');
+            const spy = spyOn(popupService, 'close');
             component.submit()
             fixture.detectChanges();
             expect(spy).toHaveBeenCalled();
-            expect(secondSpy).toHaveBeenCalled();
-            expect(thirdSpy).toHaveBeenCalled();
         });
-        it('should called create service method', () => {
-            const spy = spyOn(dashboardService, 'create').and.callThrough();
 
-            component.submit();
-
-            expect(spy).toHaveBeenCalled()
-        })
     })
     describe('Edit', () => {
         it('should called open am=nd close methods', () => {
-            const spy = spyOn(spinnerService, 'open');
-            const secondSpy = spyOn(spinnerService, 'close');
-            const thirdSpy = spyOn(popupService, 'close');
+            const spy = spyOn(popupService, 'close');
             component.edit(board)
             fixture.detectChanges();
             expect(spy).toHaveBeenCalled();
-            expect(secondSpy).toHaveBeenCalled();
-            expect(thirdSpy).toHaveBeenCalled();
         });
-        it('should called edit service method', () => {
-            const spy = spyOn(dashboardService, 'edit').and.callThrough();
-
-            component.edit(board);
-
-            expect(spy).toHaveBeenCalled()
-        })
+        
     })
 
 });

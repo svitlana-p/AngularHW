@@ -165,6 +165,7 @@ export class BoardComponent implements OnInit {
 
 
   drop(event: CdkDragDrop<ITodo[]>, i: number): void {
+    this.spinnerService.open()
     const id = event.container.element.nativeElement.id;
     const todo: ITodo = event.previousContainer.data[event.previousIndex];
     let action: string = '';
@@ -176,6 +177,7 @@ export class BoardComponent implements OnInit {
       this.dropSubscription = this.todoService.changeStatus(this.boardId, todo, action).subscribe((todo: ITodo) => {
         this.list = this.list.map(el => el._id !== todo._id ? el : todo);
         this.listFiltered = this.listFiltered.map(el => el._id !== todo._id ? el : todo);
+        this.spinnerService.close()
       });
     } else {
       moveItemInArray(this.getTodos(i, this.listFiltered), event.previousIndex, event.currentIndex)

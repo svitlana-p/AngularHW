@@ -45,15 +45,6 @@ describe('DashboardItemComponent', () => {
     expect(component).toBeTruthy()
   });
 
-  it('shoud called delete service method', () => {
-    const spy = spyOn(dashboardService, 'delete').and.callThrough();
-
-    fixture.debugElement.query(By.css('.delete'))
-      .triggerEventHandler('click', null);
-
-    expect(spy).toHaveBeenCalledOnceWith(boardMock[0]._id)
-  })
-
   it('should called open service method', () => {
     const spy = spyOn(popupService, 'open').and.callThrough();
 
