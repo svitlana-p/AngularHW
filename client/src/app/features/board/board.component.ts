@@ -104,7 +104,7 @@ export class BoardComponent implements OnInit {
     this.listFiltered = sorted;
   }
   getColumns(): string[] {
-    return ['Todo', 'In Progress', 'Done']
+    return ['Todo', 'In Progress', 'Done'];
   }
   getTodos(index: number, list: ITodo[]): ITodo[] {
     if (index === 0) {
@@ -165,22 +165,34 @@ export class BoardComponent implements OnInit {
 
 
   drop(event: CdkDragDrop<ITodo[]>, i: number): void {
-    this.spinnerService.open()
     const id = event.container.element.nativeElement.id;
     const todo: ITodo = event.previousContainer.data[event.previousIndex];
     let action: string = '';
     if (event.previousContainer !== event.container) {
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
-      if (id === '0') action = 'todo';
-      if (id === '1') action = 'inProgress';
-      if (id === '2') action = 'completed';
+      if (id === '0') {
+        action = 'todo';
+        todo.created = true;
+        todo.inProgress = false;
+        todo.completed = false;
+      }
+      if (id === '1') {
+        action = 'inProgress';
+        todo.created = false;
+        todo.inProgress = true;
+        todo.completed = false;
+
+      }
+      if (id === '2') {
+        action = 'completed';
+        todo.created = false;
+        todo.inProgress = false;
+        todo.completed = true;
+      }
       this.dropSubscription = this.todoService.changeStatus(this.boardId, todo, action).subscribe((todo: ITodo) => {
         this.list = this.list.map(el => el._id !== todo._id ? el : todo);
         this.listFiltered = this.listFiltered.map(el => el._id !== todo._id ? el : todo);
-        this.spinnerService.close()
       });
-    } else {
-      moveItemInArray(this.getTodos(i, this.listFiltered), event.previousIndex, event.currentIndex)
     }
   }
 
