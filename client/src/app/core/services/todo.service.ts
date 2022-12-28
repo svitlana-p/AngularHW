@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, EMPTY, Observable, tap, throwError } from 'rxjs';
+import { catchError, EMPTY, Observable, throwError } from 'rxjs';
 import { IComment } from '../../models/comment.interface';
 import { ITodo } from '../../models/todo.interface';
 import { ErrorService } from './error.service';
@@ -66,6 +66,31 @@ export class TodoService {
         catchError(this.errorHandler.bind(this))
       )
   }
+  filter(filterTerm:string, list:ITodo[]):ITodo[]{
+    if (filterTerm.length === 0)return list;
+    return list.filter(el => el.name.toLowerCase().includes(filterTerm.toLowerCase()));
+  }
+  sort(sortValue: string, sortDirection: string, list:ITodo[]):ITodo[]{
+    let sorted: ITodo[];
+    let multiplier = 1;
+
+    if (sortDirection === 'desc') {
+      multiplier = -1;
+    }
+
+    sorted = list.sort((a: any, b: any) => {
+      if (a[sortValue] < b[sortValue]) {
+        return -1 * multiplier
+      } else if (a[sortValue] > b[sortValue]) {
+        return 1 * multiplier
+      } else {
+        return 0;
+      }
+    })
+
+    return sorted;
+  }
+
   private errorHandler(error: HttpErrorResponse) {
     this.errorService.handle(error.message)
     return throwError(() => error.message)

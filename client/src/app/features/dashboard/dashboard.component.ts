@@ -66,27 +66,9 @@ export class DashboardComponent implements OnInit {
     this.editboard = eventData.selectedBoard
   }
   onFilter(eventData: { filterTerm: string }) {
-    if (eventData.filterTerm === '') this.boardListFiltered = this.boardList;
-    this.boardListFiltered = this.boardList.filter(el => el.name.toLowerCase().includes(eventData.filterTerm.toLowerCase()));
+    this.boardListFiltered = this.dashboardServise.filter(eventData.filterTerm, this.boardList);
   }
   onSort(eventData: { sortValue: string, sortDirection: string }) {
-    let sorted: IBoard[];
-    let multiplier = 1;
-
-    if (eventData.sortDirection === 'desc') {
-      multiplier = -1;
-    }
-
-    sorted = this.boardListFiltered.sort((a: any, b: any) => {
-      if (a[eventData.sortValue] < b[eventData.sortValue]) {
-        return -1 * multiplier
-      } else if (a[eventData.sortValue] > b[eventData.sortValue]) {
-        return 1 * multiplier
-      } else {
-        return 0;
-      }
-    })
-
-    this.boardListFiltered = sorted;
+    this.boardListFiltered = this.dashboardServise.sort(eventData.sortValue, eventData.sortDirection, this.boardListFiltered);
   }
 }

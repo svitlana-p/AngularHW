@@ -64,6 +64,30 @@ export class DashboardService {
       )
 
   }
+  filter(filterTerm:string, list:IBoard[]):IBoard[]{
+    if (filterTerm.length === 0)return list;
+    return list.filter(el => el.name.toLowerCase().includes(filterTerm.toLowerCase()));
+  }
+  sort(sortValue: string, sortDirection: string, list:IBoard[]):IBoard[]{
+    let sorted: IBoard[];
+    let multiplier = 1;
+
+    if (sortDirection === 'desc') {
+      multiplier = -1;
+    }
+
+    sorted = list.sort((a: any, b: any) => {
+      if (a[sortValue] < b[sortValue]) {
+        return -1 * multiplier
+      } else if (a[sortValue] > b[sortValue]) {
+        return 1 * multiplier
+      } else {
+        return 0;
+      }
+    })
+
+    return sorted;
+  }
 
   private errorHandler(error: HttpErrorResponse) {
     this.errorService.handle(error.message)

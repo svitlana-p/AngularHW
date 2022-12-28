@@ -79,29 +79,11 @@ export class BoardComponent implements OnInit {
 
 
   onFilter(eventData: { filterTerm: string }) {
-    if (eventData.filterTerm.length === 0) this.listFiltered = this.list;
-    this.listFiltered = this.list.filter(el => el.name.toLowerCase().includes(eventData.filterTerm.toLowerCase()));
+    this.listFiltered = this.todoService.filter(eventData.filterTerm, this.list);
   }
 
   onSort(eventData: { sortValue: string, sortDirection: string }): void {
-    let sorted: ITodo[];
-    let multiplier = 1;
-
-    if (eventData.sortDirection === 'desc') {
-      multiplier = -1;
-    }
-
-    sorted = this.listFiltered.sort((a: any, b: any) => {
-      if (a[eventData.sortValue] < b[eventData.sortValue]) {
-        return -1 * multiplier
-      } else if (a[eventData.sortValue] > b[eventData.sortValue]) {
-        return 1 * multiplier
-      } else {
-        return 0;
-      }
-    })
-
-    this.listFiltered = sorted;
+    this.listFiltered = this.todoService.sort(eventData.sortValue, eventData.sortDirection, this.listFiltered);
   }
   getColumns(): string[] {
     return ['Todo', 'In Progress', 'Done'];
