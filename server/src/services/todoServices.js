@@ -40,13 +40,18 @@ const getTodos = async (req, res, next) => {
 const updateTodo = async (req, res, next) => {
   try {
     const { name } = req.body;
-    const todo = await Todo.findByIdAndUpdate(
-      { _id: req.params.id },
+    const { boardId, todoId } = req.params;
+    const userId = req.user.userId;
+    const todo = await Todo.findOneAndUpdate(
+      { _id: todoId, userId, boardId },
       { $set: { name } }
     );
+    if (!todo) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
     await todo.save();
     return await Todo.findById({
-      _id: req.params.id,
+      _id: todoId,
     }).then((todo) => res.json(todo));
   } catch (error) {
     next(error);
