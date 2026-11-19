@@ -28,3 +28,13 @@ RULES FOR CODE CHANGES:
 - server/.env is tracked in git — treat all values as exposed
 
 If you need to modify anything, request explicit user permission first.
+
+## Repository-specific code review context
+
+These facts apply to this repository only and are not universal code-review instructions:
+- The client is Angular 14 with TypeScript.
+- Client tests use Karma and Jasmine.
+- The server uses Express and JavaScript.
+- No server test suite is currently configured.
+- The client and server have different test capabilities; do not assume that a client test command validates server behavior.
+- Check the actual package scripts before choosing a verification command.
