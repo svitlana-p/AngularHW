@@ -15,7 +15,7 @@ router.post("/:id", createTodo);
 
 router.get("/:id", getTodos);
 
-router.patch("/:id/todo/:id", updateTodo);
+router.patch("/:boardId/todo/:todoId", updateTodo);
 
 router.put("/:id/todo/:id", checkTodo)
 
